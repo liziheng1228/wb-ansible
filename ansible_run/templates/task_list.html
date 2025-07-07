@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="layui-hide" id="ID-table-demo-data"></table>
+{#        <h1>任务列表</h1>#}
+        <table  class="layui-table">
+            <thead>
+                <tr>
+                    <th>任务ID</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.task_id }}</td>
+                    <td>{{ task.created_at }}</td>
+                    <td>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-primary"
+                          onclick="window.location.href='{% url 'go_result_page' task_id=task.task_id %}'"
+                        >
+                          查看结果
+                        </button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">暂无任务数据</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+<script src="//unpkg.com/layui@2.11.4/dist/layui.js"></script>
+<script>
+
+
+
+
+//JS
+layui.use(['element', 'layer', 'util'], function(){
+  var element = layui.element;
+  var layer = layui.layer;
+  var util = layui.util;
+  var $ = layui.$;
+
+  //头部事件
+  util.event('lay-header-event', {
+    menuLeft: function(othis){ // 左侧菜单事件
+      layer.msg('展开左侧菜单的操作', {icon: 0});
+    },
+    menuRight: function(){  // 右侧菜单事件
+      layer.open({
+        type: 1,
+        title: '更多',
+        content: '<div style="padding: 15px;">处理右侧面板的操作</div>',
+        area: ['260px', '100%'],
+        offset: 'rt', // 右上角
+        anim: 'slideLeft', // 从右侧抽屉滑出
+        shadeClose: true,
+        scrollbar: false
+      });
+    }
+  });
+});
+
+let data = [
+
+];
+
+{% for task in tasks %}
+
+    data.push({
+        "task_id": "{{ task.task_id }}",
+        "created_at": "{{ task.created_at }}",
+    });
+{% endfor %}
+
+layui.use('table', function(){
+  var table = layui.table;
+
+  // 已知数据渲染
+  var inst = table.render({
+    elem: '#ID-table-demo-data',
+    cols: [[ //标题栏
+      {field: 'task_id', title: 'ID', minWidth: 140, sort: true},
+      {field: 'created_at', title: '用户', minWidth: 120},
+      {#{field: 'button', title: '签名', minWidth: 160},#}
+    ]],
+    data,
+    //skin: 'line', // 表格风格
+    //even: true,
+    page: true, // 是否显示分页
+    limits: [5, 10, 15],
+    limit: 5 // 每页默认显示的数量
+  });
+});
+</script>
+{% endblock %}

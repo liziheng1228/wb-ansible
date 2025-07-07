@@ -1,0 +1,9 @@
+---
+- hosts: test
+  remote_user: root
+  gather_facts: no
+  tasks:
+    - name: test_ansible_runner
+      shell: useradd test-1
+    - name: yum装
+      shell: yum list |head -n 10
