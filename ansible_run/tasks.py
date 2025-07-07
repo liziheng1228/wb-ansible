@@ -9,7 +9,8 @@ def run_ansible_playbook(directory, playbook):
         runner = ansible_runner.run(
             private_data_dir=directory,
             playbook=playbook,
-            verbosity=0
+            quiet=True,
+            rotate_artifacts=1
         )
         # 等待任务完成并捕获输出（需根据需求调整）
         stdout = runner.stdout.read()

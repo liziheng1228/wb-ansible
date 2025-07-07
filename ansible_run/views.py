@@ -1,4 +1,7 @@
+import json
+
 from celery.result import AsyncResult
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import render, redirect
@@ -16,7 +19,7 @@ def ansible_run_index(request):
     # print(celery_tasks)
     # celery_tasks=CeleryTask
 
-    directory = '/root/project/ansible_runner'
+    directory = './ansible_runner'
     ply = "test.yaml"
     task_id = run_ansible_playbook.delay(directory, ply)
     test1 = CeleryTask(task_id=task_id)
@@ -26,9 +29,43 @@ def ansible_run_index(request):
 
 
 def get_task_id(request):
-    tasks = CeleryTask.objects.all().order_by('-created_at')  # 获取所有任务并按创建时间排序
     # print(tasks)
-    return render(request, 'task_list.html', {'tasks': tasks})
+    return render(request, 'task_list.html')
+
+
+def get_task_list_api(request):
+    page = request.GET.get('page', 1)
+    limit = request.GET.get('limit', 5)
+
+    tasks = CeleryTask.objects.values().order_by('-created_at')  # 获取所有任务并按创建时间排序
+    paginator = Paginator(tasks, limit)
+    try:
+        page_tasks = paginator.page(page)
+    except PageNotAnInteger:
+        page_tasks = paginator.page(1)
+    except EmptyPage:
+        page_tasks = paginator.page(paginator.num_pages)
+    # 初始化空列表
+    data = []
+
+    # 遍历 tasks 中的每个元素
+    for item in page_tasks :
+        # 构造字典并添加到列表
+        data.append({
+            'task_id': item['task_id'],
+            'created_at': item['created_at'],
+            'is_used': item['is_used']
+        })
+
+
+    json_data = {
+        'code':0,
+        'count': paginator.count,
+        'data': data
+    }
+
+    return JsonResponse(json_data)
+
 
 
 # 暂时没用

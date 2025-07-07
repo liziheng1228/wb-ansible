@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ku(03#x$8(t9$8luzicr%j=w=o=39=f02i*w!yi%#p3qc3sudg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.56.142"]
+ALLOWED_HOSTS = ["192.168.56.142",'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -72,7 +72,8 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+CORS_ORIGIN_ALLOW_ALL = True
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
