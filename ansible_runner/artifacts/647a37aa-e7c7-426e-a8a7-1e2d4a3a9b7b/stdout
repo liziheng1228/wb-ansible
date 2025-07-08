@@ -5,7 +5,7 @@ PLAY [test] ********************************************************************
 
 TASK [test_ansible_runner] *****************************************************
 [1;35mcore/2.18/reference_appendices/interpreter_discovery.html for more information.[0m
-[0;31mfatal: [192.168.56.142]: FAILED! => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python3"}, "changed": true, "cmd": "useradd test-1", "delta": "0:00:00.004045", "end": "2025-07-08 13:49:39.337066", "msg": "non-zero return code", "rc": 9, "start": "2025-07-08 13:49:39.333021", "stderr": "useradd: user 'test-1' already exists", "stderr_lines": ["useradd: user 'test-1' already exists"], "stdout": "", "stdout_lines": []}[0m
+[0;31mfatal: [192.168.56.142]: FAILED! => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python3"}, "changed": true, "cmd": "useradd test-1", "delta": "0:00:00.004584", "end": "2025-07-08 15:32:41.282102", "msg": "non-zero return code", "rc": 9, "start": "2025-07-08 15:32:41.277518", "stderr": "useradd: user 'test-1' already exists", "stderr_lines": ["useradd: user 'test-1' already exists"], "stdout": "", "stdout_lines": []}[0m
 [1;31mfatal: [192.168.56.131]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.131 port 22: No route to host", "unreachable": true}[0m
 
 PLAY RECAP *********************************************************************

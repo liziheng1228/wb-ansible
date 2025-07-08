@@ -6,19 +6,9 @@ from channels.layers import get_channel_layer
 
 from mycelery.main import app
 
-
-@app.task
-def background_task():
-    result = "Hello from Celery task!"
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)("task_group", {
-        "type": "task.result",
-        "text": result,
-    })
-
-
-
 ANSI_ESCAPE = re.compile(r'\x1b\[[0-9;]*[mGKH]')
+
+
 @app.task
 def run_ansible_playbook(directory, playbook):
     channel_layer = get_channel_layer()
@@ -37,6 +27,7 @@ def run_ansible_playbook(directory, playbook):
             "type": "task.update",
             "text": data,
         })
+
     try:
         runner = ansible_runner.run(
             private_data_dir=directory,
@@ -58,5 +49,3 @@ def run_ansible_playbook(directory, playbook):
         }
     except Exception as e:
         return {'status': -1, 'error': str(e)}
-
-

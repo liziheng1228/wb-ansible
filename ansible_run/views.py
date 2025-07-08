@@ -6,29 +6,19 @@ from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import ensure_csrf_cookie
-from  .models import CeleryTask
-from .tasks import run_ansible_playbook,background_task
+from .models import CeleryTask
+from .tasks import run_ansible_playbook
 import re
-# Create your views here.
 
-from .tasks import background_task
-
-def trigger_task(request):
-    background_task.delay()  # 不需要传 channel_name
-    return JsonResponse({"status": "Task triggered!"})
 
 # 执行任务并将id入库
 def ansible_run_index(request):
-    # test_consumers.delay()
     directory = './ansible_runner'
     ply = "test.yaml"
     task_id = run_ansible_playbook.delay(directory, ply)
     test1 = CeleryTask(task_id=task_id)
     test1.save()
-    # print(task_id)
-    # data = {
-    #     task_id: task_id
-    # }
+
     return render(request, 'index.html')
 
 
@@ -54,7 +44,7 @@ def get_task_list_api(request):
     data = []
 
     # 遍历 tasks 中的每个元素
-    for item in page_tasks :
+    for item in page_tasks:
         # 构造字典并添加到列表
         data.append({
             'task_id': item['task_id'],
@@ -62,9 +52,8 @@ def get_task_list_api(request):
             'is_used': item['is_used']
         })
 
-
     json_data = {
-        'code':0,
+        'code': 0,
         'count': paginator.count,
         'data': data
     }
@@ -72,22 +61,21 @@ def get_task_list_api(request):
     return JsonResponse(json_data)
 
 
-
 # 暂时没用
 @ensure_csrf_cookie  # 确保返回 CSRF 令牌
 def get_csrf_token(request):
     return JsonResponse({'csrfToken': get_token(request)})
 
-def go_result_page(request, task_id):
 
+def go_result_page(request, task_id):
     print(task_id)
     return render(request, 'getResult.html', context={'task_id': task_id})
 
 
 # 获取结果
-def get_result(request,task_id):
+def get_result(request, task_id):
     # task_id = request.GET.get('task_id')
-    print('获取一下iD',task_id)
+    print('获取一下iD', task_id)
     if not task_id:
         return JsonResponse({'error': '缺少任务ID'}, status=400)
 
