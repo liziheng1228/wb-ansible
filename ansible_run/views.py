@@ -46,6 +46,7 @@ def get_task_list_api(request):
     except EmptyPage:
         page_tasks = paginator.page(paginator.num_pages)
     # 初始化空列表
+    print(1)
     data = []
 
     # 遍历 tasks 中的每个元素

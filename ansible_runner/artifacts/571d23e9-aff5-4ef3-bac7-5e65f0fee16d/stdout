@@ -1,0 +1,14 @@
+SSH password: 
+BECOME password[defaults to SSH password]: 
+
+PLAY [test] ********************************************************************
+
+TASK [test_ansible_runner] *****************************************************
+[1;35m'python3.8', '/usr/bin/python3', 'python3'])[0m
+[0;31mfatal: [192.168.56.131]: FAILED! => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python3"}, "changed": false, "module_stderr": "Shared connection to 192.168.56.131 closed.\r\n", "module_stdout": "/bin/sh: /usr/bin/python3: No such file or directory\r\n", "msg": "The module failed to execute correctly, you probably need to set the interpreter.\nSee stdout/stderr for the exact error", "rc": 127}[0m
+[1;35mcore/2.18/reference_appendices/interpreter_discovery.html for more information.[0m
+[0;31mfatal: [192.168.56.142]: FAILED! => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python3"}, "changed": true, "cmd": "useradd test-1", "delta": "0:00:00.005508", "end": "2025-07-07 17:26:51.562278", "msg": "non-zero return code", "rc": 9, "start": "2025-07-07 17:26:51.556770", "stderr": "useradd: user 'test-1' already exists", "stderr_lines": ["useradd: user 'test-1' already exists"], "stdout": "", "stdout_lines": []}[0m
+
+PLAY RECAP *********************************************************************
+[0;31m192.168.56.131[0m             : ok=0    changed=0    unreachable=0    [0;31mfailed=1   [0m skipped=0    rescued=0    ignored=0   
+[0;31m192.168.56.142[0m             : ok=0    changed=0    unreachable=0    [0;31mfailed=1   [0m skipped=0    rescued=0    ignored=0   
