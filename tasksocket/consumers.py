@@ -16,9 +16,9 @@ class TaskConsumer(AsyncWebsocketConsumer):
         })
 
         """
-        # self.group_name = f"task_{self.scope['url_route']['kwargs']['task_id']}"
-        # print(self.group_name)
-        self.group_name = "task_task123"
+        self.group_name = f"{self.scope['url_route']['kwargs']['task_id']}"
+        print(self.group_name)
+        # self.group_name = "task_task123"
 
         # 将组名称和通道名称一起加入一个组内；self.channel_name是固定写法不可修改
         await self.channel_layer.group_add(

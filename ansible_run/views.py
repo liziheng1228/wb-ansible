@@ -18,8 +18,8 @@ def ansible_run_index(request):
     task_id = run_ansible_playbook.delay(directory, ply)
     test1 = CeleryTask(task_id=task_id)
     test1.save()
-
-    return render(request, 'index.html')
+    print(task_id)
+    return render(request, 'index.html',context={'task_id': task_id})
 
 
 def get_task_id(request):
@@ -75,7 +75,7 @@ def go_result_page(request, task_id):
 # 获取结果
 def get_result(request, task_id):
     # task_id = request.GET.get('task_id')
-    print('获取一下iD', task_id)
+    # print('获取一下iD', task_id)
     if not task_id:
         return JsonResponse({'error': '缺少任务ID'}, status=400)
 

@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 <script>
-const socket = new WebSocket("ws://192.168.56.142:8000/ws/task/task123/");
+
+task_id = '{{ task_id }}'
+
+console.log(task_id)
+const socket = new WebSocket("ws://192.168.56.142:8000/ws/task/"+task_id);
 
 socket.onmessage = function(event) {
     {#console.log(typeof event.data);#}
