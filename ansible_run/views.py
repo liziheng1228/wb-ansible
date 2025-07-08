@@ -7,25 +7,29 @@ from django.middleware.csrf import get_token
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import ensure_csrf_cookie
 from  .models import CeleryTask
-from .tasks import run_ansible_playbook
-
+from .tasks import run_ansible_playbook,background_task
+import re
 # Create your views here.
 
+from .tasks import background_task
 
+def trigger_task(request):
+    background_task.delay()  # 不需要传 channel_name
+    return JsonResponse({"status": "Task triggered!"})
 
 # 执行任务并将id入库
 def ansible_run_index(request):
-    # celery_tasks = CeleryTask.objects.all()
-    # print(celery_tasks)
-    # celery_tasks=CeleryTask
-
+    # test_consumers.delay()
     directory = './ansible_runner'
     ply = "test.yaml"
     task_id = run_ansible_playbook.delay(directory, ply)
     test1 = CeleryTask(task_id=task_id)
     test1.save()
-    print(task_id)
-    return render(request, 'index.html', )
+    # print(task_id)
+    # data = {
+    #     task_id: task_id
+    # }
+    return render(request, 'index.html')
 
 
 def get_task_id(request):

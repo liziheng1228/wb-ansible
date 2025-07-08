@@ -1,3 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
+<script>
+const socket = new WebSocket("ws://192.168.56.142:8000/ws/task/task123/");
+
+socket.onmessage = function(event) {
+    {#console.log(typeof event.data);#}
+    var jsonString = event.data;
+    var jsonObject = JSON.parse(jsonString)
+    console.log(jsonObject)
+    document.getElementById("output").innerText += jsonObject['stdout']+"\n";
+};
+
+function sendMessage() {
+    var tag = document.getElementById("txt");
+    // 可以忽略发送功能，除非你想做更多交互
+}
+</script>
+
+<div id="output"></div>
+
 {% endblock %}
+

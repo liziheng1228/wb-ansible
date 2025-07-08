@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class WbsocketConfig(AppConfig):
+class TasksocketConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'wbsocket'
+    name = 'tasksocket'

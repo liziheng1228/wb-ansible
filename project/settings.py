@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ["192.168.56.142",'localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
+    "channels",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,8 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "ansible_run.apps.AnsibleRunConfig",
-    "channels",
-    "wbsocket"
+    "tasksocket"
 ]
 
 MIDDLEWARE = [
@@ -132,6 +133,10 @@ ASGI_APPLICATION = 'project.asgi.application'
 
 # 通道存储设置
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
-    }}
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    }
+}
