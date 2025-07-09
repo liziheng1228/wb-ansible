@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+ <meta name="csrf-token" content="{{ csrf_token }}">
+<body>
+    <h1>主机列表</h1>
+    <a href="{% url 'host_manager:host_create' %}">添加新主机</a>
+
+    <table border="1">
+        <tr>
+            <th>主机名</th>
+            <th>IP地址</th>
+            <th>端口</th>
+            <th>用户名</th>
+            <th>操作</th>
+        </tr>
+        {% for host in hosts %}
+        <tr>
+            <td>{{ host.hostname }}</td>
+            <td>{{ host.ip }}</td>
+            <td>{{ host.port }}</td>
+            <td>{{ host.username }}</td>
+            <td>
+                <a href="{% url 'host_manager:host_update' host.pk %}">编辑</a>
+{#                <a href="{% url 'host_manager:host_delete' host.pk %}">删除</a>#}
+                <button class="btn btn-danger delete-btn" data-id="{{ host.pk }}">删除</button>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">暂无数据</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+console.log($('meta[name="csrf-token"]').attr('content'))
+$(document).ready(function() {
+    // 绑定删除按钮点击事件
+    $('.delete-btn').click(function() {
+        const id = $(this).data('id');  // 获取要删除的项 ID
+
+
+
+        if (confirm('确定要删除吗？')) {  // 原生 confirm 弹窗
+            // 发送 AJAX DELETE 请求
+            $.ajax({
+                url: `delete/${id}/`,  // 视图对应的 URL
+                {#url: "{% url 'host_manager:host_delete' host.pk %}"#}
+                type: 'POST',        // 请求类型
+                 headers: {
+                     'X-CSRFToken': $('meta[name="csrf-token"]').attr('content')  // 正确获取 token
+                 },
+                success: function(response) {
+                 if (response.success) {
+                        alert('删除成功');
+                        $(`[data-id="${id}"]`).closest('tr').remove();
+                    }
+                },
+
+
+
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

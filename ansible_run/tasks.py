@@ -34,7 +34,7 @@ def run_ansible_playbook(directory, playbook):
             private_data_dir=directory,
             playbook=playbook,
             quiet=True,
-            rotate_artifacts=1,
+            rotate_artifacts=0,
             event_handler=event_handler,
         )
         # 等待任务完成并捕获输出（需根据需求调整）

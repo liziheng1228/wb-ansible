@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>删除确认</title>
+</head>
+<body>
+    <h1>删除主机</h1>
+    <p>确定要删除主机 "{{ host.hostname }}" 吗?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">确认删除</button>
+        <a href="{% url 'host_manager:host_list' %}">取消</a>
+    </form>
+</body>
+</html>

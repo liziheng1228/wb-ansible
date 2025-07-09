@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ansible_run.urls')),
     # path('index/', include('tasksocket.urls')),
-    path('data/', include('data_test.urls', 'data_test'), name='data_test'),
+    path('host_manager/', include(('host_manager.urls', 'host_manager'),namespace='host_manager'), name='host_manager'),
 
 ]

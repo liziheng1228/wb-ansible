@@ -1,0 +1,1 @@
+{"event": "verbose", "uuid": "b5b16761-9c96-44e6-96e3-0f0c9bb12bb1", "counter": 5, "stdout": "\u001b[1;35mentry for \"all\" group, requires a dictionary, found \"<class 'list'>\" instead.\u001b[0m", "start_line": 4, "end_line": 5, "runner_ident": "66dd833f-70e7-4be6-94aa-1dc77820f0ac", "created": "2025-07-09T01:47:01.101956+00:00"}

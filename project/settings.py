@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "ansible_run.apps.AnsibleRunConfig",
     "tasksocket",
-    "data_test",
+    "host_manager",
 
 ]
 

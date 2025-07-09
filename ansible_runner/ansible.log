@@ -38,3 +38,15 @@ core/2.18/reference_appendices/interpreter_discovery.html for more information.
 2025-07-07 15:41:52,860 p=4536 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
 ok
 
+2025-07-09 10:06:17,850 p=4411 u=root n=ansible INFO| PLAY [all] ************************************************************************************************
+2025-07-09 10:06:17,858 p=4411 u=root n=ansible INFO| TASK [test_ansible_runner] ********************************************************************************
+2025-07-09 10:06:18,425 p=4411 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python interpreter at
+/usr/bin/python3, but future installation of another Python interpreter could change the meaning of that
+path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for
+more information.
+
+2025-07-09 10:06:18,425 p=4411 u=root n=ansible INFO| changed: [192.168.56.142]
+2025-07-09 10:06:20,901 p=4411 u=root n=ansible INFO| fatal: [192.168.56.131]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.131 port 22: No route to host", "unreachable": true}
+2025-07-09 10:06:20,902 p=4411 u=root n=ansible INFO| PLAY RECAP ************************************************************************************************
+2025-07-09 10:06:20,902 p=4411 u=root n=ansible INFO| 192.168.56.131             : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-07-09 10:06:20,902 p=4411 u=root n=ansible INFO| 192.168.56.142             : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
