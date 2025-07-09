@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if object %}编辑主机{% else %}添加主机{% endif %}</title>
+</head>
+<body>
+    <h1>{% if object %}编辑主机{% else %}添加主机{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="id_hostname">主机名:</label>
+            <input type="text" name="hostname" id="id_hostname"
+                   value="{{ object.hostname|default_if_none:'' }}" maxlength="100" required>
+        </p>
+        <p>
+            <label for="id_ip">IP地址:</label>
+            <input type="text" name="ip" id="id_ip"
+                   value="{{ object.ip|default_if_none:'' }}" required>
+        </p>
+        <p>
+            <label for="id_port">端口:</label>
+            <input type="number" name="port" id="id_port"
+                   value="{{ object.port|default_if_none:'22' }}" min="1" max="65535" required>
+        </p>
+        <p>
+            <label for="id_username">用户名:</label>
+            <input type="text" name="username" id="id_username"
+                   value="{{ object.username|default_if_none:'' }}" maxlength="50" required>
+        </p>
+        <button type="submit">保存</button>
+        <a href="{% url 'data_test:host_list' %}">取消</a>
+    </form>
+</body>
+</html>

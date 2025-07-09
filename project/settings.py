@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "ansible_run.apps.AnsibleRunConfig",
-    "tasksocket"
+    "tasksocket",
+    "data_test",
+
 ]
 
 MIDDLEWARE = [
