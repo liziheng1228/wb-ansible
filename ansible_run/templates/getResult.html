@@ -9,9 +9,9 @@
     <script src="//unpkg.com/layui@2.11.4/dist/layui.js"></script>
 </head>
 <body>
-    <div class="layui-container">
-        <div class="layui-row">
-          <div class="layui-col-sm12">
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-sm12">
 
             <div class="task-info">
                 <h3>任务ID: <span id="task-id">-</span></h3>
@@ -26,66 +26,70 @@
                 <pre id="stderr"></pre>
                 <h3>返回码 (RC): <span id="rc"></span></h3>
             </div>
-          </div>
         </div>
-
     </div>
 
+</div>
 
 
-    <script>
-        $(document).ready(function() {
-            let csrftoken = null;
-            $.get('/get_csrf_token/', function(data) {
-                csrftoken = data.csrfToken;
-            });
-            // 自动获取任务ID
+<script>
+    $(document).ready(function () {
+        let csrftoken = null;
+        $.get('/get_csrf_token/', function (data) {
+            csrftoken = data.csrfToken;
+        });
+        // 自动获取任务ID
 
-            const taskId = "{{ task_id }}";
-            console.log(taskId)
-            $('#task-id').text(taskId || '未获取到任务ID');
+        const taskId = "{{ task_id }}";
+        console.log(taskId)
+        $('#task-id').text(taskId || '未获取到任务ID');
 
-            // 检查任务状态
-            function checkStatus() {
-                $('#loading').show();
-                {#$('#check-status').prop('disabled', true);#}
-                $('#error-message').hide();
+        // 检查任务状态
+        function checkStatus() {
+            $('#loading').show();
+            {#$('#check-status').prop('disabled', true);#}
+            $('#error-message').hide();
 
-                $.ajax({
-                    url: `/get_result/${taskId}`,
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        console.log(data.status)
-                        if (data.status === 'pending') {
-                            $('#error-message').html('任务仍在执行中...').show();
-                            return;
-                        }
+            $.ajax({
+                url: `/get_result/${taskId}`,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data.status)
+                    if (data.status === 'pending') {
+                        $('#error-message').html('任务仍在执行中...').show();
+                        return;
+                    }
 
-                        // 更新输出内容
-                        $('#stdout').text(data.stdout || '(无输出)');
-                        $('#stderr').text(data.stderr || '(无错误)');
-                        $('#rc').text(data.rc || '未返回');
+                    // 更新输出内容
+                    $('#stdout').text(data.stdout || '(无输出)');
+                    $('#stderr').text(data.stderr || '(无错误)');
+                    $('#rc').text(data.rc || '未返回');
 
-                        {#if (data.rc !== 0 ) {#}
-                        {#    $('#error-message').html(`任务执行中: ${data.stderr}`).show();#}
-                        {#}#}
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    {#if (data.rc !== 0 ) {#}
+                    {#    $('#error-message').html(`任务执行中: ${data.stderr}`).show();#}
+                    {#}#}
+                    }
+                ,
+                    error: function (jqXHR, textStatus, errorThrown) {
                         $('#error-message').html(`请求失败: ${textStatus}`).show();
-                    },
-                    complete: function() {
+                    }
+                ,
+                    complete: function () {
                         $('#loading').hide();
                         {#$('#check-status').prop('disabled', false);#}
                     }
                 });
-            }
+        }
 
             // 初始检查
             checkStatus();
             // 每5秒自动刷新
             setInterval(checkStatus, 5000);
-        });
-    </script>
+        }
+
+    )
+        ;
+</script>
 </body>
 </html>

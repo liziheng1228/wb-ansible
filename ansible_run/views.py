@@ -11,20 +11,33 @@ from .tasks import run_ansible_playbook
 import re
 
 
+# 跳转页面
+def go_index(request):
+    return render(request, 'index.html')
+
+
+def go_task_list(request):
+    return render(request, 'task_list.html')
+
+
+def go_result_page(request, task_id):
+    return render(request, 'getResult.html', context={'task_id': task_id})
+
+
 # 执行任务并将id入库
-def ansible_run_index(request):
+def ansible_run(request):
     directory = './ansible_runner'
     ply = "test.yaml"
     task_id = run_ansible_playbook.delay(directory, ply)
     test1 = CeleryTask(task_id=task_id)
     test1.save()
-    print(task_id)
-    return render(request, 'index.html',context={'task_id': task_id})
+    # print()
 
+    json_data = {
+        'task_id': task_id.task_id
 
-def get_task_id(request):
-    # print(tasks)
-    return render(request, 'task_list.html')
+    }
+    return JsonResponse(json_data)
 
 
 def get_task_list_api(request):
@@ -65,11 +78,6 @@ def get_task_list_api(request):
 @ensure_csrf_cookie  # 确保返回 CSRF 令牌
 def get_csrf_token(request):
     return JsonResponse({'csrfToken': get_token(request)})
-
-
-def go_result_page(request, task_id):
-    print(task_id)
-    return render(request, 'getResult.html', context={'task_id': task_id})
 
 
 # 获取结果

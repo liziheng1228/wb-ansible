@@ -18,8 +18,8 @@
       <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
         <i class="layui-icon layui-icon-spread-left"></i>
       </li>
-      <li class="layui-nav-item layui-hide-xs"><a href="{% url 'get_task_id' %}">任务列表</a></li>
-      <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">nav 2</a></li>
+      <li class="layui-nav-item layui-hide-xs"><a href="{% url 'go_index' %}">首页</a></li>
+      <li class="layui-nav-item layui-hide-xs"><a href="{% url 'go_task_list' %}">任务列表</a></li>
       <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">nav 3</a></li>
 
     </ul>
@@ -37,17 +37,17 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree" lay-filter="test">
 
-        <li class="layui-nav-item"><a href="javascript:;">click menu item</a></li>
-        <li class="layui-nav-item"><a href="javascript:;">the links</a></li>
+{#        <li class="layui-nav-item"><a href="javascript:;">click menu item</a></li>#}
+{#        <li class="layui-nav-item"><a href="javascript:;">the links</a></li>#}
       </ul>
     </div>
   </div>
   <div class="layui-body">
     <!-- 内容主体区域 -->
     <div style="padding: 15px;">
-      <blockquote class="layui-elem-quote layui-text">
-        主体区域
-      </blockquote>
+{#    //  <blockquote class="layui-elem-quote layui-text">#}
+{#        主体区域#}
+{#      </blockquote>#}
       <div class="layui-card layui-panel">
         <div class="layui-card-header">
             {% block title %}
