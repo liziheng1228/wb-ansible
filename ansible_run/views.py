@@ -31,14 +31,14 @@ def ansible_run(request):
         try:
 
             data = json.loads(request.body)
-            print(data)
+
             host_ids = json.loads(data.get('inventory', '[]'))
             hosts = Host.objects.filter(id__in=host_ids)
             if not hosts.exists():
                 return JsonResponse({'error': '未找到对应的目标主机'}, status=400)
             # 构建 inventory 字典格式
             inventory_dict = {
-                "test1": {
+                "test": {
                     "hosts": {
                         host.ip: {
                             "ansible_host": host.ip,
@@ -50,12 +50,21 @@ def ansible_run(request):
                     }
                 }
             }
+            job_type = data.get('job_type')  # 任务类型
+            module_name = data.get('module_name')  # 模块名称
+            module_args = data.get('module_args')  # 模块参数
+            extra_vars = data.get('extra_vars')  # 扩展变量
+            forks = data.get('forks')  # 并发量
+            verbosity = data.get('verbosity')  # 结果显示等级
+
             directory = './ansible_runner'
             ply = "test.yaml"
-            task_id = run_ansible_playbook.delay(directory, ply, inventory_dict)
+            task_id = run_ansible_playbook.delay(directory=directory, playbook=ply, job_type=job_type, inventory=inventory_dict,
+                                                 verbosity=verbosity, forks=forks,
+                                                 module_args=module_args, extra_vars=extra_vars, module_name=module_name)
             test1 = CeleryTask(task_id=task_id)
             test1.save()
-            print(inventory_dict)
+            # print(inventory_dict)
             json_data = {
                 'task_id': task_id.task_id
 
@@ -65,8 +74,8 @@ def ansible_run(request):
             print(e)
             # return JsonResponse({'error': str(e)}, status=500)
 
+    return JsonResponse({'status': 'success'}, status=200)
 
-    return JsonResponse({'status': 'success'},status=200)
 
 """ 
 directory = './ansible_runner'
@@ -90,6 +99,7 @@ directory = './ansible_runner'
     }
     return JsonResponse(json_data)
     """
+
 
 def get_task_list_api(request):
     page = request.GET.get('page', 1)
