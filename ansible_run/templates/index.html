@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <h2>wb-ansible 面板</h2>
+{% endblock %}
+{#<script src="//unpkg.com/layui@2.11.4/dist/layui.js"></script>#}
+{#<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
 {% block content %}
     <style>
         #output-container {
-            width: 100%;
-            height: 500px;
+        {#width: 500px;#} height: 500px;
             border: 1px solid #ccc;
             background-color: #1e1e1e; /* 类似终端黑底 */
             color: #00ff00;
@@ -13,9 +18,31 @@
             box-sizing: border-box;
         }
 
+        #host_tables {
+            height: 550px;
+            overflow-y: auto;
+
+
+        }
+
+
     </style>
-    {#<script src="https://cdn.jsdelivr.net/npm/ansi_up/ansi_up.js"></script>#}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space30">
+            <div id="host_tables" class="layui-col-xs6">
+                <table class="layui-hide" id="job_list" lay-filter="job_list"></table>
+            </div>
+            <div class="layui-col-xs6">
+                <button id="run_ansible" class="layui-btn layui-btn-primary layui-border-green">开始执行</button>
+
+                <pre class="layui-code code-demo" id="output-container" lay-options="{}"> </pre>
+
+            </div>
+        </div>
+
+    </div>
+
+
 
     <script>
         $(document).ready(
@@ -24,7 +51,7 @@
                     function (event) {
                         event.preventDefault(); // 阻止按钮的默认提交行为
                         $.ajax({
-                            url: '{% url 'ansible_run' %}',
+                            url: '{% url 'ansible_run:ansible_run' %}',
                             method: 'GET',
                             success: function (data) {
                                 {#console.log(data['task_id'])#}
@@ -72,14 +99,50 @@
             };
         }
 
+        layui.use(['table'], function () {
+            var table = layui.table;
+            table.render({
+                elem: '#job_list',
+                url: '{% url 'runner_jobs:job-list' %}',
+                page: true,
+                limits: [5, 10, 50, 100, 200],
+                cols: [[
+                    {field: 'job_name', title: '任务名称',},
+                    {field: 'job_type', title: '任务类型'},
+                    {
+                        title: "操作",
+                        templet: function (d) {
+                            // d 是当前行的数据对象，d.id 就是主键
+                            return `
+                             <button lay-event="delete" class="layui-btn layui-bg-red layui-btn-xs">删除</button>
+                            <button lay-event="get"  class="layui-btn layui-btn-xs">查看</button>
+                        `
+                        }
+                    }
+                ]]
+
+            })
+            table.on('tool(job_list)', function (obj) {
+                console.log(obj.data.job_id)
+                if (obj.event == "get") {
+                    layer.open({
+                        type: 2, // page 层类型
+                        area: ['700px', '600px'],
+                        title: 'Hello layer',
+                        scrollbar: false,
+                        maxmin: true, // 允许全屏最小化
+                        content: '/runner_jobs/jobs/' + obj.data.job_id,
+                        end: function () {
+                            // 在这里重载表格
+                            layui.table.reload('job_list'); // 'job_list' 是你 table.render({ elem: "#job_list" }) 中的 elem ID
+                        }
+                    });
+
+                }
+            })
+        })
+
+
     </script>
-    <button id="run_ansible" class="layui-btn layui-btn-primary layui-border-green">开始执行</button>
-    <div id="output-container">
-
-    </div>
-
-
-
-
 {% endblock %}
 

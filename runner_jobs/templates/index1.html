@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Ansible 任务管理</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-top: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        hr {
+            margin: 40px 0;
+            border: 0;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Ansible 任务管理</h1>
+
+    <form id="job-form">
+        <label>任务名称：
+            <input type="text" name="name" required>
+        </label>
+
+        <label>任务类型：
+            <select name="job_type" required>
+                <option value="playbook">Playbook</option>
+                <option value="adhoc">Ad-Hoc 命令</option>
+            </select>
+        </label>
+
+        <label>目标主机列表（JSON 格式）：
+            <textarea name="inventory" rows="3" placeholder='["host1", "host2"]' required></textarea>
+        </label>
+
+        <label>Playbook 内容（YAML）：
+            <textarea name="playbook_content" rows="5"></textarea>
+        </label>
+
+        <label>模块名（如 shell）：
+            <input type="text" name="module_name">
+        </label>
+
+        <label>模块参数：
+            <input type="text" name="module_args">
+        </label>
+
+        <label>额外变量（JSON）：
+            <textarea name="extra_vars" rows="3"></textarea>
+        </label>
+
+        <label>并发数：
+            <input type="number" name="forks" value="5">
+        </label>
+
+        <label>日志详细程度（0~5）：
+            <input type="number" name="verbosity" min="0" max="5" value="0">
+        </label>
+
+        <button type="submit">提交任务</button>
+    </form>
+
+    <hr>
+
+    <h2>任务列表</h2>
+    <table id="job-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>任务名称</th>
+                <th>任务类型</th>
+                <th>目标主机</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 数据由 JS 动态填充 -->
+        </tbody>
+    </table>
+
+    <script>
+        function loadJobs() {
+            $.ajax({
+                url: '{% url 'runner_jobs:job-list' %}',
+                method: 'GET',
+                success: function(data) {
+                    const tbody = $('#job-table tbody');
+                    tbody.empty();
+                    data.forEach(job => {
+                        tbody.append(`
+                            <tr>
+                                <td>${job.id}</td>
+                                <td>${job.name}</td>
+                                <td>${job.job_type}</td>
+                                <td>${job.inventory}</td>
+                                <td>
+                                    <button class="delete-btn" onclick="deleteJob('${job.id}')">删除</button>
+                                </td>
+                            </tr>
+                        `);
+                    });
+                }
+            });
+        }
+
+        $('#job-form').on('submit', function (e) {
+            e.preventDefault();
+
+            const formData = $(this).serializeObject();
+
+            $.ajax({
+                url: '{% url 'runner_jobs:job-create' %}',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function () {
+                    alert('任务创建成功！');
+                    $('#job-form')[0].reset();
+                    loadJobs();
+                },
+                error: function (xhr) {
+                    alert('创建失败：' + xhr.responseText);
+                }
+            });
+        });
+
+        function deleteJob(jobId) {
+            if (!confirm('确定要删除该任务？')) return;
+
+            $.ajax({
+                url: `api/jobs/delete/${jobId}/`,
+                method: 'DELETE',
+                success: function () {
+                    alert('任务已删除');
+                    loadJobs();
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            loadJobs();
+        });
+
+        // jQuery 扩展：将表单转换成对象
+        $.fn.serializeObject = function() {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    </script>
+</body>
+</html>

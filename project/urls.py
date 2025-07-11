@@ -19,8 +19,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('ansible_run.urls')),
-    # path('index/', include('tasksocket.urls')),
+    # path('', include('ansible_run.urls'),name='ansible_run'),
+    path('', include(('ansible_run.urls', 'ansible_run'),namespace='ansible_run'), name='ansible_run'),
+    path('runner_jobs/', include(('runner_jobs.urls', 'runner_jobs'),namespace='runner_jobs')),
     path('host_manager/', include(('host_manager.urls', 'host_manager'),namespace='host_manager'), name='host_manager'),
 
 ]
