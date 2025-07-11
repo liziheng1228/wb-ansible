@@ -16,7 +16,7 @@
 
     <!-- 步骤1 -->
     <div id="step1" class="step-content active layui-panel ">
-        <form class="layui-form layui-form-pane">
+        <form class="layui-form layui-form-pane" style="padding: 20px;">
 
             <div class="layui-form-item">
                 {#                <label class="layui-form-label">主机选择</label>#}
@@ -27,11 +27,10 @@
             {#                <div class="grid-demo">偏移4列</div>#}
             {#            </div>#}
 
-                <div class="layui-form-item  layui-col-md-offset10 ">
-                    <button type="button"  class="layui-btn" onclick="nextStep()">下一步
-                    </button>
-                </div>
-
+            <div class="layui-form-item  layui-col-md-offset10 ">
+                <button type="button" class="layui-btn" onclick="nextStep()">下一步
+                </button>
+            </div>
 
 
         </form>
@@ -41,16 +40,15 @@
     {#    </div>#}
     <!-- 步骤2 -->
     <div id="step2" class=" layui-panel step-content" style="display: none;">
-        <form class="layui-form layui-form-pane" action="">
+        <form class="layui-form layui-form-pane" style="padding: 20px;" action="">
             <div class="layui-form-item">
-                <label class="layui-form-label">任务名称</label>
-                <div class="layui-input-block">
-                    <input type="text" name="taskName" autocomplete="off" placeholder="请输入" lay-verify="required"
-                           class="layui-input">
+                <div class="layui-inline">
+                    <label class="layui-form-label">任务名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="taskName" autocomplete="off" placeholder="请输入" lay-verify="required"
+                               class="layui-input">
+                    </div>
                 </div>
-            </div>
-
-            <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">详细等级</label>
                     <div class="layui-input-inline">
@@ -58,27 +56,29 @@
                                class="layui-input">
                     </div>
                 </div>
-            </div>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">并发数</label>
-                <div class="layui-input-inline">
-                    <input type="number" name="forks" placeholder="不输入默认为5" lay-verify="required"
-                           autocomplete="off"
-                           class="layui-input">
+                <div class="layui-inline">
+                    <label class="layui-form-label">并发数</label>
+                    <div class="layui-input-inline">
+                        <input type="number" name="forks" placeholder="不输入默认为5" lay-verify="required"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">任务类型</label>
+                    <div class="layui-input-inline">
+                        <select name="taskType" lay-filter="aihao">
+                            <option value=""></option>
+                            <option value="playbook">playbook</option>
+                            <option value="ad-hoc">ad-hoc</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">任务类型</label>
-                <div class="layui-input-inline">
-                    <select name="taskType" lay-filter="aihao">
-                        <option value=""></option>
-                        <option value="playbook">playbook</option>
-                        <option value="ad-hoc">ad-hoc</option>
-                    </select>
-                </div>
-            </div>
+
+ 
 
             <!-- 条件展示区 -->
             <div id="playbookArea" class="layui-form-item" style="display: none;">
@@ -117,7 +117,7 @@
         </form>
     </div>
     <div id="step3" class=" layui-panel step-content" style="display: none;">
-        <form class="layui-form layui-form-pane">
+        <form class="layui-form layui-form-pane" style="padding: 20px;">
 
             <div class="layui-form-item">
                 <p>请确认以下信息是否正确：</p>
