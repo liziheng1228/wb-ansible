@@ -2,15 +2,19 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
-from django.views import View
 import json
+from host_manager.models import Host
 from .models import Job
-# Create your views here.
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 
 
 def go_jobs(request):
     return render(request, "index1.html")
+
+
+def get_hosts(request):
+    hosts = Host.objects.values('id', 'hostname', 'ip', 'port', 'username')
+    return JsonResponse(list(hosts), safe=False)
 
 
 # 获取所有任务列表（GET）
@@ -55,9 +59,6 @@ def job_list(request):
     }
 
     return JsonResponse(json_data)
-    #
-    # jobs = Job.objects.all().values()
-    # return JsonResponse(list(jobs), safe=False)
 
 
 # 创建新任务（POST）
@@ -66,7 +67,20 @@ def job_create(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+            # 安全处理数值字段
+            forks = data.get('forks')
+            verbosity = data.get('verbosity')
 
+            try:
+                forks = int(forks) if forks not in (None, '') else 5
+            except (TypeError, ValueError):
+                forks = 5
+
+            try:
+                verbosity = int(verbosity) if verbosity not in (None, '') else 0
+            except (TypeError, ValueError):
+                verbosity = 0
+            print(forks, verbosity)
             job = Job.objects.create(
                 name=data.get('name'),
                 job_type=data.get('job_type'),
@@ -76,8 +90,8 @@ def job_create(request):
                 module_name=data.get('module_name', ''),
                 module_args=data.get('module_args', ''),
                 extra_vars=data.get('extra_vars', ''),
-                forks=data.get('forks', 5),
-                verbosity=data.get('verbosity', 0)
+                forks=forks,
+                verbosity=verbosity
             )
 
             return JsonResponse({
@@ -103,18 +117,25 @@ def job_delete(request, job_id):
 
     return JsonResponse({'error': 'Invalid request method.'}, status=405)
 
-# views.py
 
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from .models import Job
+# 详细信息
 
 def job_detail(request, job_id):
-    # job = Job.objects.get(id='5f409f031cca4c429b78a5f967e56444')
-    # print(job.id)
-    for job in Job.objects.all():
-        print(job.id)
+
     job = get_object_or_404(Job, id=job_id)
+
+    try:
+        host_ids = json.loads(job.inventory) if job.inventory else []
+    except json.JSONDecodeError:
+        host_ids = []
+
+        # 获取主机信息
+    hosts = Host.objects.filter(id__in=host_ids)
+    job = {
+        'job': job,
+        'hosts': hosts,
+    }
+
     print(job)
 
-    return render(request, 'job_detail.html', {'job': job})
+    return render(request, 'job_detail.html', job)

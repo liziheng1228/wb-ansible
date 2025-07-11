@@ -33,7 +33,7 @@
                 <table class="layui-hide" id="job_list" lay-filter="job_list"></table>
             </div>
             <div class="layui-col-xs6">
-                <button id="run_ansible" class="layui-btn layui-btn-primary layui-border-green">开始执行</button>
+{#                <button id="run_ansible" class="layui-btn layui-btn-primary layui-border-green">开始执行</button>#}
 
                 <pre class="layui-code code-demo" id="output-container" lay-options="{}"> </pre>
 
@@ -45,6 +45,20 @@
 
 
     <script>
+        let csrftoken = null;
+
+        $.ajax({
+            url: '{% url 'ansible_run:get_csrf_token' %}', // 替换为你的实际地址
+            method: 'GET',
+            async: false, // 注意：这里设置为同步请求，确保token获取完成后再继续执行
+            success: function (response) {
+                {#console.log(response)#}
+                csrftoken = response.csrfToken; // 假设后端返回的数据结构是 {'csrf_token': 'your-csrf-token'}
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching CSRF token:', error);
+            }
+        });
         $(document).ready(
             function () {
                 $('#run_ansible').on('click',
@@ -65,7 +79,7 @@
         )
 
         function wbsocket(task_id) {
-            {#console.log(task_id)#}
+            console.log(task_id)
             const socket = new WebSocket("ws://192.168.56.142:8000/ws/task/" + task_id);
 
             socket.onmessage = function (event) {
@@ -116,6 +130,9 @@
                             return `
                              <button lay-event="delete" class="layui-btn layui-bg-red layui-btn-xs">删除</button>
                             <button lay-event="get"  class="layui-btn layui-btn-xs">查看</button>
+                            <button lay-event="run_jobs"  class="layui-btn layui-btn-xs">执行</button>
+
+
                         `
                         }
                     }
@@ -137,7 +154,37 @@
                             layui.table.reload('job_list'); // 'job_list' 是你 table.render({ elem: "#job_list" }) 中的 elem ID
                         }
                     });
+                }
+                if (obj.event == 'delete') {
+                    if (confirm('确定要删除吗？')) {  // 原生 confirm 弹窗
+                        // 发送 AJAX DELETE 请求
+                        $.ajax({
+                            url: `/runner_jobs/api/jobs/delete/${obj.data.job_id}/`,
+                            method: 'DELETE',
+                            success: function () {
+                                alert('任务已删除');
+                                layui.table.reload('job_list');
+                            }
+                        });
+                    }
+                }
+                if (obj.event == 'run_jobs') {
 
+                    $.ajax({
+                        url: '{% url 'ansible_run:ansible_run' %}',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(obj.data),
+                        headers: {
+                            'X-CSRFToken': csrftoken // 在这里使用获取到的token
+                        },
+                        success: function (res) {
+                            wbsocket(res['task_id'])
+                        },
+                        error: function (xhr) {
+                            alert('提交失败：' + (xhr.responseJSON?.error || '请检查输入'));
+                        }
+                    });
                 }
             })
         })

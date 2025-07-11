@@ -7,6 +7,7 @@ from django.middleware.csrf import get_token
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import CeleryTask
+from host_manager.models import Host
 from .tasks import run_ansible_playbook
 import re
 
@@ -26,9 +27,59 @@ def go_result_page(request, task_id):
 
 # 执行任务并将id入库
 def ansible_run(request):
-    directory = './ansible_runner'
+    if request.method == 'POST':
+        try:
+
+            data = json.loads(request.body)
+            print(data)
+            host_ids = json.loads(data.get('inventory', '[]'))
+            hosts = Host.objects.filter(id__in=host_ids)
+            if not hosts.exists():
+                return JsonResponse({'error': '未找到对应的目标主机'}, status=400)
+            # 构建 inventory 字典格式
+            inventory_dict = {
+                "test1": {
+                    "hosts": {
+                        host.ip: {
+                            "ansible_host": host.ip,
+                            "ansible_port": host.port,
+                            "ansible_user": host.username,
+                            # "ansible_ssh_pass": host.password,
+                        }
+                        for host in hosts
+                    }
+                }
+            }
+            directory = './ansible_runner'
+            ply = "test.yaml"
+            task_id = run_ansible_playbook.delay(directory, ply, inventory_dict)
+            test1 = CeleryTask(task_id=task_id)
+            test1.save()
+            print(inventory_dict)
+            json_data = {
+                'task_id': task_id.task_id
+
+            }
+            return JsonResponse(json_data)
+        except Exception as e:
+            print(e)
+            # return JsonResponse({'error': str(e)}, status=500)
+
+
+    return JsonResponse({'status': 'success'},status=200)
+
+""" 
+directory = './ansible_runner'
     ply = "test.yaml"
-    task_id = run_ansible_playbook.delay(directory, ply)
+    inventory = {
+        "test1": {
+            "hosts": {
+                "ip1": {},
+                "ip2": {}
+            }
+        }
+    }
+    task_id = run_ansible_playbook.delay(directory, ply, inventory)
     test1 = CeleryTask(task_id=task_id)
     test1.save()
     # print()
@@ -38,7 +89,7 @@ def ansible_run(request):
 
     }
     return JsonResponse(json_data)
-
+    """
 
 def get_task_list_api(request):
     page = request.GET.get('page', 1)

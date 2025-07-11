@@ -19,7 +19,7 @@
         .detail-card {
             background-color: white;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             max-width: 800px;
             margin: auto;
@@ -36,11 +36,9 @@
 
         .field-value {
             background-color: #f8f9fa;
-            padding: 10px;
+            padding: 5px;
             border-radius: 4px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            border-left: 4px solid #3498db;
+        {#white-space: pre-wrap;#}{#word-wrap: break-word;#} border-left: 4px solid #3498db;
         }
 
         a.back-link {
@@ -58,64 +56,82 @@
 </head>
 <body>
 
-    <h1>{{ job.name }} 详情</h1>
+<h1>{{ job.name }} 详情</h1>
 
-    <div class="detail-card">
-{#        <div class="field">#}
-{#            <div class="field-label">任务 ID</div>#}
-{#            <div class="field-value">{{ job.id }}</div>#}
-{#        </div>#}
+<div class="detail-card">
+    {#        <div class="field">#}
+    {#            <div class="field-label">任务 ID</div>#}
+    {#            <div class="field-value">{{ job.id }}</div>#}
+    {#        </div>#}
 
-        <div class="field">
-            <div class="field-label">任务类型</div>
-            <div class="field-value">{{ job.get_job_type_display }}</div>
+    <div class="field">
+        <div class="field-label">任务类型</div>
+        <div class="field-value">{{ job.get_job_type_display }}</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">目标主机</div>
+        <div class="field-value">
+            {% if hosts %}
+                {% for host in hosts %}
+                    <pre> {{ host.ip }}{% if not forloop.last %}, {% endif %}</pre>
+                {% endfor %}
+            {% else %}
+                暂无目标主机
+            {% endif %}
         </div>
+    </div>
 
-        <div class="field">
-            <div class="field-label">目标主机</div>
-            <div class="field-value">{{ job.inventory }}</div>
-        </div>
-
-        {% if job.playbook_content %}
+    {% if job.playbook_content %}
         <div class="field">
             <div class="field-label">Playbook 内容</div>
-            <div class="field-value"><pre>{{ job.playbook_content }}</pre></div>
+            <div class="field-value">
+                <pre>{{ job.playbook_content }}</pre>
+            </div>
         </div>
-        {% endif %}
+    {% endif %}
 
-        {% if job.module_name %}
+    {% if job.module_name %}
         <div class="field">
             <div class="field-label">模块名</div>
             <div class="field-value">{{ job.module_name }}</div>
         </div>
-        {% endif %}
+    {% endif %}
 
-        {% if job.module_args %}
+    {% if job.module_args %}
         <div class="field">
             <div class="field-label">模块参数</div>
             <div class="field-value">{{ job.module_args }}</div>
         </div>
-        {% endif %}
+    {% endif %}
 
-        {% if job.extra_vars %}
+    {% if job.extra_vars %}
         <div class="field">
             <div class="field-label">额外变量</div>
-            <div class="field-value"><pre>{{ job.extra_vars }}</pre></div>
+            <div class="field-value">
+                <pre>{{ job.extra_vars }}</pre>
+            </div>
         </div>
-        {% endif %}
+    {% endif %}
 
-        <div class="field">
-            <div class="field-label">并发数</div>
-            <div class="field-value">{{ job.forks }}</div>
-        </div>
-
-        <div class="field">
-            <div class="field-label">日志详细程度</div>
-            <div class="field-value">{{ job.verbosity }}</div>
-        </div>
+    <div class="field">
+        <div class="field-label">并发数</div>
+        <div class="field-value">{{ job.forks }}</div>
     </div>
 
-    <a class="back-link" href="/">← 返回任务列表</a>
+    <div class="field">
+        <div class="field-label">日志详细程度</div>
+        <div class="field-value">{{ job.verbosity }}</div>
+    </div>
+</div>
+
 
 </body>
+<script>
+
+        {#<li>{{ host.hostname }} ({{ host.ip }}:{{ host.port }}, 用户: {{ host.username }})</li>#}
+        console.log('{{ job }}')
+
+
+</script>
 </html>

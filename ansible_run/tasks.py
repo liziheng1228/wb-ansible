@@ -10,7 +10,8 @@ ANSI_ESCAPE = re.compile(r'\x1b\[[0-9;]*[mGKH]')
 
 runner_uid = []
 @shared_task
-def run_ansible_playbook(directory, playbook):
+def run_ansible_playbook(directory, playbook,inventory):
+    print(inventory)
 
     # 通过 Channels 推送至对应 WebSocket 组
     # 定义 Ansible 事件回调
@@ -32,6 +33,7 @@ def run_ansible_playbook(directory, playbook):
     try:
         runner = ansible_runner.run(
             private_data_dir=directory,
+            inventory=inventory,
             playbook=playbook,
             quiet=True,
             rotate_artifacts=0,

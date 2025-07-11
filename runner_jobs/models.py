@@ -7,14 +7,13 @@ class Job(models.Model):
         ('playbook', 'Playbook'),
         ('adhoc', 'Ad-Hoc 命令'),
     ]
-
+    hosts = models.ManyToManyField('host_manager.Host', verbose_name='目标主机', blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField('任务名称', max_length=255)
     job_type = models.CharField('任务类型', max_length=10, choices=JOB_TYPE_CHOICES)
 
     # 主机列表（JSON 格式字符串，如 ["host1", "host2"]）
     inventory = models.TextField('目标主机列表（JSON格式）')
-
     # 如果是 playbook 类型，存储内容或路径
     playbook_content = models.TextField('Playbook 内容（YAML）', blank=True, null=True)
     # 可选：如果是从文件加载的 playbook，可以加个路径字段
