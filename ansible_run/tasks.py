@@ -12,7 +12,7 @@ runner_uid = []
 
 
 @shared_task
-def run_ansible_playbook(directory,playbook=None, job_type=None, inventory=None, verbosity=0, forks=5,
+def run_ansible_playbook(directory, playbook=None, job_type=None, inventory=None, verbosity=0, forks=5,
                          playbook_content=None, module_name=None, module_args=None, extra_vars=None):
     print(inventory)
 
@@ -37,7 +37,7 @@ def run_ansible_playbook(directory,playbook=None, job_type=None, inventory=None,
     try:
 
         print(job_type)
-        if job_type == "playbook":# 执行 playbook
+        if job_type == "playbook":  # 执行 playbook
             print('playbook')
             runner = ansible_runner.run(
                 private_data_dir=directory,
@@ -48,8 +48,6 @@ def run_ansible_playbook(directory,playbook=None, job_type=None, inventory=None,
                 event_handler=event_handler,
                 verbosity=verbosity,
                 forks=forks,
-                json_mode=True
-
 
             )
             stdout = runner.stdout.read()
@@ -67,10 +65,9 @@ def run_ansible_playbook(directory,playbook=None, job_type=None, inventory=None,
 
             runner = ansible_runner.run(
                 inventory=inventory,
-                json_mode=True,
                 module=module_name,
                 module_args=module_args,
-                host_pattern='test', # 主机组
+                host_pattern='test',  # 主机组
                 quiet=True,
                 private_data_dir=directory,
                 verbosity=verbosity,
@@ -78,9 +75,9 @@ def run_ansible_playbook(directory,playbook=None, job_type=None, inventory=None,
                 event_handler=event_handler,
                 rotate_artifacts=0
             )
-        # # 执行 playbook 命令
+            # # 执行 playbook 命令
 
-        # 等待任务完成并捕获输出（需根据需求调整）
+            # 等待任务完成并捕获输出（需根据需求调整）
             stdout = runner.stdout.read()
             stderr = runner.stderr.read()
             clean_stdout = ANSI_ESCAPE.sub('', stdout)

@@ -9,7 +9,7 @@ from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 
 
 def go_jobs(request):
-    return render(request, "index1.html")
+    return render(request, "create_job.html")
 
 
 def get_hosts(request):

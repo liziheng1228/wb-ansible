@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    <h2>wb-ansible 面板</h2>
+    <h2>任务面板</h2>
 {% endblock %}
 {#<script src="//unpkg.com/layui@2.11.4/dist/layui.js"></script>#}
 {#<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
@@ -33,7 +33,7 @@
                 <table class="layui-hide" id="job_list" lay-filter="job_list"></table>
             </div>
             <div class="layui-col-xs6">
-{#                <button id="run_ansible" class="layui-btn layui-btn-primary layui-border-green">开始执行</button>#}
+                {#                <button id="run_ansible" class="layui-btn layui-btn-primary layui-border-green">开始执行</button>#}
 
                 <pre class="layui-code code-demo" id="output-container" lay-options="{}"> </pre>
 
@@ -120,6 +120,12 @@
                 url: '{% url 'runner_jobs:job-list' %}',
                 page: true,
                 limits: [5, 10, 50, 100, 200],
+                toolbar: `
+                <div>
+                <button type="button" id="left_toolbar_create_jobs"  lay-event="left_toolbar_create_jobs" class="layui-btn layui-btn-sm">创建任务</button>
+                </div>
+
+                `,
                 cols: [[
                     {field: 'job_name', title: '任务名称',},
                     {field: 'job_type', title: '任务类型'},
@@ -139,13 +145,30 @@
                 ]]
 
             })
+            table.on('toolbar(job_list)', function (obj) {
+                console.log(obj.event)
+                if (obj.event == 'left_toolbar_create_jobs') {
+                    layer.open({
+                        type: 2, // page 层类型
+                        area: ['1100px', '400px'],
+                        title: '任务创建',
+                        scrollbar: false,
+                        maxmin: true, // 允许全屏最小化
+                        content: '{% url 'runner_jobs:go_jobs' %}',
+                        end: function () {
+                            // 在这里重载表格
+                            layui.table.reload('job_list'); // 'test' 是你 table.render({ elem: "#test" }) 中的 elem ID
+                        }
+                    });
+                }
+            })
             table.on('tool(job_list)', function (obj) {
                 console.log(obj.data.job_id)
                 if (obj.event == "get") {
                     layer.open({
                         type: 2, // page 层类型
                         area: ['700px', '600px'],
-                        title: 'Hello layer',
+                        title: '任务详情',
                         scrollbar: false,
                         maxmin: true, // 允许全屏最小化
                         content: '/runner_jobs/jobs/' + obj.data.job_id,
