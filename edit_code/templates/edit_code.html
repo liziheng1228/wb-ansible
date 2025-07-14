@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>codemirror示例</title>
+    <link rel="stylesheet" href="{% static 'layui.css' %}">
+    <link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}">
+    <link rel="stylesheet" href="{% static 'codemirror/addon/fold/foldgutter.css' %}">
+    <link rel="stylesheet" href="{% static 'codemirror/addon/hint/show-hint.css' %}">
+    <link rel="stylesheet" href="{% static 'codemirror/addon/lint/lint.css' %}">
+    <link rel="stylesheet" href="{% static 'codemirror/addon/lint/lint.css' %}">
+    <link rel="stylesheet" href="{% static 'codemirror/theme/darcula.css' %}">
+    <style>
+        .CodeMirror {
+            height: 600px; /* 设置你想要的高度 */
+        {#/* 或者使用 min-height 来允许内容撑开 */#}{#/* min-height: 200px; */#}
+        }
+
+        .layui-form-item {
+            padding: 10px;
+            margin: 0px;
+
+        }
+    </style>
+</head>
+<body>
+
+
+<form class="layui-form" lay-filter="form-demo-submit">
+    <div class="layui-field-box">
+
+        <div class="layui-form-item">
+            <div class="layui-row layui-col-space16">
+                <div class="layui-col-md4">
+                    <div class="layui-input-wrap">
+                        <div class="layui-input-prefix">
+                            <i class="layui-icon layui-icon-username"></i>
+                        </div>
+                        <input type="text" name="script_name" placeholder="脚本名称" class="layui-input "
+                               lay-verify="required">
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-input-wrap">
+                        <div class="layui-input-prefix">
+                            <i class="layui-icon layui-icon-about"></i>
+                        </div>
+                        <input type="text" name="describe" placeholder="描述" class="layui-input">
+
+                    </div>
+                </div>
+                <div class=" layui-col-md4 ">
+                    <button class="layui-btn" id="test-btn-submit">保存</button>
+                    {#                <button type="reset" class="layui-btn layui-btn-primary">重置</button>#}
+                </div>
+                {#        <button id="btn" type="button">保存</button>#}
+
+            </div>
+
+            <div class="layui-row">
+                <textarea id="editor" cols="30" rows="50"></textarea>
+
+                {#                <textarea name="" id="editor" cols="30" rows="50"></textarea>#}
+
+            </div>
+
+        </div>
+    </div>
+
+</form>
+</body>
+<script src="{% static 'layui.js' %}"></script>
+
+<script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+<script src="{% static 'codemirror/addon/comment/comment.js' %}"></script>
+<script src="{% static 'codemirror/addon/selection/active-line.js' %}"></script>
+<script src="{% static 'codemirror/addon/hint/show-hint.js' %}"></script>
+<script src="{% static 'codemirror/addon/fold/foldcode.js' %}"></script>
+<script src="{% static 'codemirror/addon/fold/brace-fold.js' %}"></script>
+<script src="{% static 'codemirror/addon/fold/indent-fold.js' %}"></script>
+<script src="{% static 'codemirror/addon/fold/comment-fold.js' %}"></script>
+<script src="{% static 'codemirror/addon/edit/closebrackets.js' %}"></script>
+<script src="{% static 'codemirror/addon/edit/matchbrackets.js' %}"></script>
+<script src="{% static 'codemirror/mode/yaml/yaml.js' %}"></script>
+<script src="{% static 'codemirror/mode/javascript/javascript.js' %}"></script>
+<script src="{% static 'codemirror/keymap/sublime.js' %}"></script>
+<script>
+    let csrftoken = null;
+
+    $.ajax({
+        url: '{% url 'ansible_run:get_csrf_token' %}', // 替换为你的实际地址
+        method: 'GET',
+        async: false, // 注意：这里设置为同步请求，确保token获取完成后再继续执行
+        success: function (response) {
+            {#console.log(response)#}
+            csrftoken = response.csrfToken; // 假设后端返回的数据结构是 {'csrf_token': 'your-csrf-token'}
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching CSRF token:', error);
+        }
+    });
+    window.onload = function editor() {
+        var encoding = "# -*- coding: utf-8 -*-\n";
+
+        var initValue = encoding;
+        var el = document.getElementById("editor");
+        var myCodeMirror = CodeMirror.fromTextArea(el, {
+            mode: "yaml", // 语言模式
+            theme: "darcula", // 主题
+            // theme: "default", // 主题
+            keyMap: "sublime", // 快键键风格
+            lineNumbers: true, // 显示行号
+            smartIndent: true, // 智能缩进
+            indentUnit: 4, // 智能缩进单位为4个空格长度
+            // indentWithTabs: true, // 使用制表符进行智能缩进
+            lineWrapping: true, //
+            // 在行槽中添加行号显示器、折叠器、语法检测器
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter", "CodeMirror-lint-markers"],
+            foldGutter: true, // 启用行槽中的代码折叠
+            autofocus: true, // 自动聚焦
+            matchBrackets: true, // 匹配结束符号，比如"]、}"
+            autoCloseBrackets: true, // 自动闭合符号
+            styleActiveLine: true, // 显示选中行的样式
+        });
+        // 设置初始文本，这个选项也可以在fromTextArea中配置
+        myCodeMirror.setOption("value", initValue);
+        // 编辑器按键监听
+        myCodeMirror.on("keypress", function () {
+            // 显示智能提示
+            // myCodeMirror.showHint(); // 注意，注释了CodeMirror库中show-hint.js第131行的代码（阻止了代码补全，同时提供智能提示）
+        });
+        {#// 获取textare中的值#}
+
+        {##}
+        {##}
+        //
+        layui.use(function () {
+            var $ = layui.$;
+            var form = layui.form;
+            var layer = layui.layer;
+            // 任意位置按钮触发提交
+            $('#test-btn-submit').on('click', function () {
+                form.submit('form-demo-submit', function (data) {
+                    var field = data.field; // 获取表单全部字段值
+                    console.log(field); // 回调函数返回的 data 参数和提交事件中返回的一致
+                    {#console.log(myCodeMirror.getValue())#}
+                    // 执行提交
+                    layer.confirm('确定提交吗？', function (index) {
+                        layer.close(index); // 关闭确认提示框
+                        // 显示填写结果，仅作演示用
+                        // 此处可执行 Ajax 等操作
+                        // …
+                        $.ajax({
+                            url: '{% url 'edit_code:save_code' %}',
+                            type: "POST",
+                            headers: {
+                                'X-CSRFToken': csrftoken // 在这里使用获取到的token
+                            },
+                            data: {
+                                'code': myCodeMirror.getValue(),
+                                'code_name':field['script_name'],
+                                'code_describe':field['describe']
+                            },
+                            success: function (data) {
+                                console.log(data)
+                            }
+                        })
+                    });
+                });
+                return false;
+            });
+        });
+    };
+
+</script>
+</html>

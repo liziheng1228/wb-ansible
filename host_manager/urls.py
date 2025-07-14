@@ -13,6 +13,6 @@ urlpatterns = [
 
 
     # API
-    path('get_host_list_api/', views.get_task_list_api, name='get_host_list_api'),
+    path('get_host_list_api/', views.get_hosts_list_api, name='get_host_list_api'),
 
 ]

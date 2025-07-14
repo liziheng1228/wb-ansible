@@ -145,6 +145,7 @@
                 ]]
 
             })
+            // 创建任务
             table.on('toolbar(job_list)', function (obj) {
                 console.log(obj.event)
                 if (obj.event == 'left_toolbar_create_jobs') {
@@ -162,8 +163,9 @@
                     });
                 }
             })
+            // 查看详情
             table.on('tool(job_list)', function (obj) {
-                console.log(obj.data.job_id)
+
                 if (obj.event == "get") {
                     layer.open({
                         type: 2, // page 层类型
@@ -178,6 +180,7 @@
                         }
                     });
                 }
+                // 删除任务
                 if (obj.event == 'delete') {
                     if (confirm('确定要删除吗？')) {  // 原生 confirm 弹窗
                         // 发送 AJAX DELETE 请求
@@ -192,7 +195,7 @@
                     }
                 }
                 if (obj.event == 'run_jobs') {
-
+                    console.log(JSON.stringify(obj.data))
                     $.ajax({
                         url: '{% url 'ansible_run:ansible_run' %}',
                         method: 'POST',
@@ -202,6 +205,7 @@
                             'X-CSRFToken': csrftoken // 在这里使用获取到的token
                         },
                         success: function (res) {
+
                             wbsocket(res['task_id'])
                         },
                         error: function (xhr) {

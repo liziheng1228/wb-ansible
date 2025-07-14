@@ -17,12 +17,12 @@ def get_hosts(request):
     return JsonResponse(list(hosts), safe=False)
 
 
-# 获取所有任务列表（GET）
+# 获取所有任务列表（GET）传给前端再传给ansible-task执行
 def job_list(request):
     page = request.GET.get('page', 1)
     limit = request.GET.get('limit', 5)
-
-    jobs = Job.objects.values()  # 获取所有任务并按创建时间排序
+    jobs = Job.objects.prefetch_related('inventory').order_by('-created_at')
+    # jobs = Job.objects.values()  # 获取所有任务并按创建时间排序
     paginator = Paginator(jobs, limit)
     try:
         page_jobs = paginator.page(page)
@@ -33,32 +33,37 @@ def job_list(request):
     # 初始化空列表
 
     data = []
-
     # 遍历 tasks 中的每个元素
+
     for item in page_jobs:
         # 构造字典并添加到列表
+        host_ips = list(item.inventory.values_list('ip', flat=True))
+        # host_ips = list(job.inventory.values_list('ip', flat=True))
+        # print(type(item))
+
         data.append({
-            "job_id": item['id'],
-            'job_name': item['name'],
-            'job_type': item['job_type'],
-            'inventory': item['inventory'],
-            'playbook_content': item['playbook_content'],
-            'playbook_path': item['playbook_path'],
-            'module_name': item['module_name'],
-            'module_args': item['module_args'],
-            'extra_vars': item['extra_vars'],
-            'forks': item['forks'],
-            'verbosity': item['verbosity'],
+            "job_id": str(item.id),
+            'job_name': item.name,
+            'job_type': item.job_type,
+            'inventory': host_ips,
+            'playbook_content': item.playbook_content,
+            'playbook_path': item.playbook_path,
+            'module_name': item.module_name,
+            'module_args': item.module_args,
+            'extra_vars': item.extra_vars,
+            'forks': item.forks,
+            'verbosity': item.verbosity,
 
         })
+
 
     json_data = {
         'code': 0,
         'count': paginator.count,
         'data': data
     }
-
-    return JsonResponse(json_data)
+    # print(json_data)
+    return JsonResponse(json_data,safe=False)
 
 
 # 创建新任务（POST）
@@ -80,11 +85,10 @@ def job_create(request):
                 verbosity = int(verbosity) if verbosity not in (None, '') else 0
             except (TypeError, ValueError):
                 verbosity = 0
-            print(forks, verbosity)
+
             job = Job.objects.create(
                 name=data.get('name'),
                 job_type=data.get('job_type'),
-                inventory=data.get('inventory'),
                 playbook_content=data.get('playbook_content', ''),
                 playbook_path=data.get('playbook_path', ''),
                 module_name=data.get('module_name', ''),
@@ -93,11 +97,17 @@ def job_create(request):
                 forks=forks,
                 verbosity=verbosity
             )
+            # inventory = data.get('inventory'),
+            host_ids = data.get('inventory',[])
+
+            # 设置多对多关系
+            if host_ids:
+                job.inventory.add(*host_ids)  # 注意：你的 ManyToManyField 名字叫 inventory
 
             return JsonResponse({
                 'id': str(job.id),
                 'name': job.name,
-                'status': 'success'
+                'status': '123'
             }, status=201)
 
         except Exception as e:
@@ -118,9 +128,21 @@ def job_delete(request, job_id):
     return JsonResponse({'error': 'Invalid request method.'}, status=405)
 
 
-# 详细信息
-
+# 任务详细信息
 def job_detail(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+
+    # 获取所有关联的 host，并取它们的 ip
+    host_ips = list(job.inventory.values_list('ip', flat=True))
+    job = {
+        'job': job,
+        'hosts': host_ips,
+    }
+    # print(job)
+    return render(request, 'job_detail.html', job)
+
+
+def job_detail2(request, job_id):
 
     job = get_object_or_404(Job, id=job_id)
 
@@ -136,6 +158,6 @@ def job_detail(request, job_id):
         'hosts': hosts,
     }
 
-    print(job)
+    # print(job)
 
     return render(request, 'job_detail.html', job)

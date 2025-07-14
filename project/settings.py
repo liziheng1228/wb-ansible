@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "ansible_run.apps.AnsibleRunConfig",
-    "tasksocket",
-    "host_manager",
-    "runner_jobs"
+    "tasksocket.apps.TasksocketConfig",
+    "host_manager.apps.HostManagerConfig",
+    "runner_jobs.apps.RunnerJobsConfig",
+    "edit_code.apps.EditcodeConfig",
+    "userlogin.apps.UserLoginConfig",
 
 ]
 
@@ -139,3 +141,6 @@ CHANNEL_LAYERS = {
         },
     }
 }
+# 配置自定义的认证模型类
+# AUTH_USER_MODEL = '应用名称.模型类'
+AUTH_USER_MODEL = 'userlogin.User'

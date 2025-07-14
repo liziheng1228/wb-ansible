@@ -74,7 +74,7 @@
         <div class="field-value">
             {% if hosts %}
                 {% for host in hosts %}
-                    <pre> {{ host.ip }}{% if not forloop.last %}, {% endif %}</pre>
+                    <pre> {{ host }}{% if not forloop.last %}, {% endif %}</pre>
                 {% endfor %}
             {% else %}
                 暂无目标主机

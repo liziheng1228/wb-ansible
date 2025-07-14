@@ -29,24 +29,30 @@ def go_result_page(request, task_id):
 def ansible_run(request):
     if request.method == 'POST':
         try:
-
+            # hosts = Host.objects.filter(id__in=host_ids)
+            # if not hosts.exists():
+            #     return JsonResponse({'error': '未找到对应的目标主机'}, status=400,safe=False)
             data = json.loads(request.body)
 
-            host_ids = json.loads(data.get('inventory', '[]'))
-            hosts = Host.objects.filter(id__in=host_ids)
-            if not hosts.exists():
+            hosts = data.get('inventory', '[]')
+            hosts_info = Host.objects.filter(ip__in=hosts).values('ip', 'port', 'username')
+            if not hosts_info.exists():
                 return JsonResponse({'error': '未找到对应的目标主机'}, status=400)
+            print(hosts_info)
+
+            #
+
             # 构建 inventory 字典格式
             inventory_dict = {
                 "test": {
                     "hosts": {
-                        host.ip: {
-                            "ansible_host": host.ip,
-                            "ansible_port": host.port,
-                            "ansible_user": host.username,
-                            # "ansible_ssh_pass": host.password,
+                        host_info['ip']: {
+                            "ansible_host": host_info['ip'],
+                            "ansible_port": host_info['port'],
+                            "ansible_user": host_info['username'],
+                            # 添加其他需要的信息
                         }
-                        for host in hosts
+                        for host_info in hosts_info
                     }
                 }
             }
@@ -59,6 +65,7 @@ def ansible_run(request):
 
             directory = './ansible_runner'
             ply = "test.yaml"
+            print(module_name,module_args)
             task_id = run_ansible_playbook.delay(directory=directory, playbook=ply, job_type=job_type, inventory=inventory_dict,
                                                  verbosity=verbosity, forks=forks,
                                                  module_args=module_args, extra_vars=extra_vars, module_name=module_name)
@@ -71,36 +78,15 @@ def ansible_run(request):
             }
             return JsonResponse(json_data)
         except Exception as e:
-            print(e)
-            # return JsonResponse({'error': str(e)}, status=500)
 
-    return JsonResponse({'status': 'success'}, status=200)
+            return JsonResponse({'error': str(e)}, status=500)
 
-
-""" 
-directory = './ansible_runner'
-    ply = "test.yaml"
-    inventory = {
-        "test1": {
-            "hosts": {
-                "ip1": {},
-                "ip2": {}
-            }
-        }
-    }
-    task_id = run_ansible_playbook.delay(directory, ply, inventory)
-    test1 = CeleryTask(task_id=task_id)
-    test1.save()
-    # print()
-
-    json_data = {
-        'task_id': task_id.task_id
-
-    }
-    return JsonResponse(json_data)
-    """
+    # return JsonResponse({'status': 'success'}, status=200,safe=False)
 
 
+
+
+# 获取任务列表
 def get_task_list_api(request):
     page = request.GET.get('page', 1)
     limit = request.GET.get('limit', 5)
@@ -114,7 +100,6 @@ def get_task_list_api(request):
     except EmptyPage:
         page_tasks = paginator.page(paginator.num_pages)
     # 初始化空列表
-    print(1)
     data = []
 
     # 遍历 tasks 中的每个元素
@@ -135,7 +120,7 @@ def get_task_list_api(request):
     return JsonResponse(json_data)
 
 
-# 暂时没用
+# csrf返给前端使用
 @ensure_csrf_cookie  # 确保返回 CSRF 令牌
 def get_csrf_token(request):
     return JsonResponse({'csrfToken': get_token(request)})

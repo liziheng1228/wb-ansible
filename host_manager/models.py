@@ -1,5 +1,5 @@
 from django.db import models
-
+from userlogin.models import User
 class Host(models.Model):
     hostname = models.CharField(max_length=100, verbose_name="主机名")
     ip = models.GenericIPAddressField(verbose_name="IP地址")
@@ -8,6 +8,13 @@ class Host(models.Model):
     # 可以增加更多字段，如密码，但注意安全，建议加密存储
     # 密码字段，实际生产环境应该使用加密，这里为了简单使用CharField，但注意：不能明文存储密码
     # password = models.CharField(max_length=200, blank=True, null=True)
+    # 关联用户表
+    users = models.ManyToManyField(
+        User,
+        related_name='hosts',
+        verbose_name='可用该主机的用户',
+        blank=True
+    )
     class Meta:
         db_table = "host"
         verbose_name = "主机信息"
