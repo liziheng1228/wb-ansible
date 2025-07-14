@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.utils import timezone
 from edit_code.models import PlaybookCode
+from userlogin.models import User
 
 
 class Job(models.Model):
@@ -23,6 +24,13 @@ class Job(models.Model):
     extra_vars = models.TextField('额外变量（JSON格式）', blank=True, null=True)  # 如 {"user": "admin"}
     forks = models.PositiveIntegerField('并发数', default=5)
     verbosity = models.PositiveIntegerField('日志详细程度（0~5）', default=0)
+    user  = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='创建人',
+        null=True,
+        blank=True,
+    )
     # Playbook 相关
     playbook = models.ForeignKey(
         PlaybookCode,

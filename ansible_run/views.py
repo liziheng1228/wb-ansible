@@ -1,6 +1,7 @@
 import json
 
 from celery.result import AsyncResult
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
@@ -13,19 +14,21 @@ import re
 
 
 # 跳转页面
+@login_required(login_url="/login")
 def go_index(request):
     return render(request, 'index.html')
 
-
+@login_required(login_url="/login")
 def go_task_list(request):
     return render(request, 'task_list.html')
 
-
+@login_required(login_url="/login")
 def go_result_page(request, task_id):
     return render(request, 'getResult.html', context={'task_id': task_id})
 
 
 # 执行任务并将id入库
+@login_required(login_url="/login")
 def ansible_run(request):
     if request.method == 'POST':
         try:
@@ -87,6 +90,7 @@ def ansible_run(request):
 
 
 # 获取任务列表
+@login_required(login_url="/login")
 def get_task_list_api(request):
     page = request.GET.get('page', 1)
     limit = request.GET.get('limit', 5)
@@ -127,6 +131,7 @@ def get_csrf_token(request):
 
 
 # 获取结果
+@login_required(login_url="/login")
 def get_result(request, task_id):
     # task_id = request.GET.get('task_id')
     # print('获取一下iD', task_id)

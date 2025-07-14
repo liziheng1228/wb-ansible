@@ -21,7 +21,13 @@ def get_hosts(request):
 def job_list(request):
     page = request.GET.get('page', 1)
     limit = request.GET.get('limit', 5)
-    jobs = Job.objects.prefetch_related('inventory').order_by('-created_at')
+    print(request.user)
+    # jobs = Job.objects.prefetch_related('inventory').order_by('-created_at')
+    jobs = Job.objects.filter(user=request.user).prefetch_related('inventory').order_by('-created_at')
+    # jobs2 = Job.objects.filter(users=request.user)
+    # print(jobs)
+    print(jobs)
+
     # jobs = Job.objects.values()  # 获取所有任务并按创建时间排序
     paginator = Paginator(jobs, limit)
     try:
@@ -94,6 +100,7 @@ def job_create(request):
                 module_name=data.get('module_name', ''),
                 module_args=data.get('module_args', ''),
                 extra_vars=data.get('extra_vars', ''),
+                user=request.user, # 绑定当前登录用户
                 forks=forks,
                 verbosity=verbosity
             )

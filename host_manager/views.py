@@ -12,13 +12,20 @@ from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy, reverse
 from .models import Host
 
+
+# 跳转到host页面
 @login_required(login_url="/login")
 def go_host_manager(request):
     return render(request, "host_manager/host_list.html")
 
+
+# 获取host列表APi
 @login_required(login_url="/login")
 def get_hosts_list_api(request):
     # 验证是否登录
+    """
+    逻辑还没写完
+    """
     print(request.user.is_authenticated)
     if not request.user.is_authenticated:
         json_data = {
@@ -27,10 +34,10 @@ def get_hosts_list_api(request):
             # 'data': data
         }
         return JsonResponse(json_data)
+
     page = request.GET.get('page', 1)
     limit = request.GET.get('limit', 5)
     hosts = Host.objects.filter(users=request.user)
-    # hosts = Host.objects.values()  # 获取所有任务并按创建时间排序
     paginator = Paginator(hosts, limit)
     try:
         page_hosts = paginator.page(page)
@@ -41,7 +48,6 @@ def get_hosts_list_api(request):
     # 初始化空列表
     print(1)
     data = []
-
 
     for host in page_hosts:
         data.append({
@@ -58,13 +64,12 @@ def get_hosts_list_api(request):
     }
 
     return JsonResponse(json_data)
+
+
+# 创建主机
 @method_decorator(login_required(login_url="/login"), name='dispatch')
 class HostCreateView(View):
     template_name = 'host_manager/create_host.html'
-
-    def get(self, request, *args, **kwargs):
-        # 显示空表单页面（可选）
-        return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
         # 从 POST 数据中获取字段值
@@ -83,17 +88,13 @@ class HostCreateView(View):
 
         # 将当前用户添加到 users 多对多字段中
         current_user = request.user
-        print(type(current_user))
         host.users.add(current_user)
-
-        # 可选：添加其他指定用户（例如从前端传来的用户ID列表）
-        # user_ids = request.POST.getlist('user_ids')
-        # users = User.objects.filter(id__in=user_ids)
-        # host.users.add(*users)
 
         # 跳转成功页面
         return redirect(reverse('host_manager:go_host_manager'))
 
+
+# 更新主机
 @method_decorator(login_required(login_url="/login"), name='dispatch')
 class HostUpdateView(UpdateView):
     model = Host
@@ -101,6 +102,8 @@ class HostUpdateView(UpdateView):
     template_name = 'host_manager/create_host.html'
     success_url = reverse_lazy('host_manager:go_host_manager')
 
+
+# 删除主机
 @method_decorator(login_required(login_url="/login"), name='dispatch')
 class HostDeleteView(DeleteView):
     model = Host
