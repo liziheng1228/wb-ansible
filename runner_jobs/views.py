@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -9,18 +10,19 @@ from host_manager.models import Host
 from .models import Job
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 
-
+@login_required(login_url="/login")
 def go_jobs(request):
     playbooks = PlaybookCode.objects.filter(created_by=request.user)
     return render(request, "create_job.html", {'playbooks': playbooks})
 
-
+@login_required(login_url="/login")
 def get_hosts(request):
     hosts = Host.objects.values('id', 'hostname', 'ip', 'port', 'username')
     return JsonResponse(list(hosts), safe=False)
 
 
 # 获取所有任务列表（GET）传给前端再传给ansible-task执行
+@login_required(login_url="/login")
 def job_list(request):
     page = request.GET.get('page', 1)
     limit = request.GET.get('limit', 5)
@@ -71,6 +73,7 @@ def job_list(request):
 
 # 创建新任务（POST）
 @csrf_exempt
+@login_required(login_url="/login")
 def job_create(request):
 
     if request.method == 'POST':
@@ -103,20 +106,31 @@ def job_create(request):
                     except PlaybookCode.DoesNotExist:
                         return JsonResponse({'error': '指定的 Playbook 不存在或不属于当前用户'}, status=400)
 
-            job = Job.objects.create(
-                name=data.get('name'),
-                job_type=data.get('job_type'),
-                playbook_path=data.get('playbook_path', ''),
-                module_name=data.get('module_name', ''),
-                module_args=data.get('module_args', ''),
-                extra_vars=data.get('extra_vars', ''),
-                user=request.user,  # 绑定当前登录用户
-                forks=forks,
-                verbosity=verbosity,
-                playbook=playbook,  # 绑定playbook
-                playbook_content = playbook.content, # 内容取出来保存
+                job = Job.objects.create(
+                    name=data.get('name'),
+                    job_type=data.get('job_type'),
+                    playbook_path=data.get('playbook_path', ''),
+                    module_name=data.get('module_name', ''),
+                    module_args=data.get('module_args', ''),
+                    extra_vars=data.get('extra_vars', ''),
+                    user=request.user,  # 绑定当前登录用户
+                    forks=forks,
+                    verbosity=verbosity,
+                    playbook=playbook,  # 绑定playbook
+                    playbook_content = playbook.content, # 内容取出来保存
 
-            )
+                )
+            elif data.get('job_type') == 'ad-hoc':
+                job = Job.objects.create(
+                    name=data.get('name'),
+                    job_type=data.get('job_type'),
+                    module_name=data.get('module_name', ''),
+                    module_args=data.get('module_args', ''),
+                    extra_vars=data.get('extra_vars', ''),
+                    user=request.user,  # 绑定当前登录用户
+                    forks=forks,
+                    verbosity=verbosity,
+                )
             # inventory = data.get('inventory'),
             host_ids = data.get('inventory', [])
 
@@ -131,7 +145,7 @@ def job_create(request):
             }, status=201)
 
         except Exception as e:
-
+            print(e)
             return JsonResponse({'error': str(e)}, status=400)
 
     return JsonResponse({'error': 'Invalid request method.'}, status=405)
@@ -139,6 +153,7 @@ def job_create(request):
 
 # 删除指定任务（DELETE）
 @csrf_exempt
+@login_required(login_url="/login")
 def job_delete(request, job_id):
     job = get_object_or_404(Job, id=job_id)
 
@@ -150,6 +165,7 @@ def job_delete(request, job_id):
 
 
 # 任务详细信息
+@login_required(login_url="/login")
 def job_detail(request, job_id):
     job = get_object_or_404(Job, id=job_id)
 

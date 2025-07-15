@@ -15,7 +15,6 @@ runner_uid = []
 @shared_task
 def run_ansible_playbook(directory, playbook=None, job_type=None, inventory=None, verbosity=0, forks=5,
                          playbook_content=None, module_name=None, module_args=None, extra_vars=None):
-
     # 通过 Channels 推送至对应 WebSocket 组
     # 定义 Ansible 事件回调
 
@@ -34,22 +33,57 @@ def run_ansible_playbook(directory, playbook=None, job_type=None, inventory=None
             "text": data,
         })
 
-    try:
 
+    try:
+        # 密码传入，不推荐明文保存，测试使用；可以改为免密登录执行任务
+        password_dict = {
+            "^SSH password:\\s*?$": "1",
+            "^BECOME password.*:\\s*?$": "1"
+        }
         if job_type == "playbook":  # 执行 playbook
+            ansible_cfg = """[defaults]
+            inventory      = inventory
+            #callback_whitelist = profile_tasks
+            #bin_ansible_callbacks = True 
+            ask_pass      = True
+            forks          = 10
+            host_key_checking = False
+            log_path = ansible.log
+            remote_tmp=/tmp
+
+            [inventory]
+            [privilege_escalation]
+            become=true
+            become_method = sudo
+            become_user = root
+            become_ask_pass=true
+            [paramiko_connection]
+            [ssh_connection]
+            [persistent_connection]
+            [accelerate]
+            [selinux]
+            [colors]
+            [diff]
+            scp_if_ssh=True
+            """
             playbook_content = playbook
 
             from tempfile import TemporaryDirectory
             with TemporaryDirectory() as temp_dir:
+                print(temp_dir)
+                ansible_cfg_path = os.path.join(temp_dir, 'ansible.cfg')
                 playbook_path = os.path.join(temp_dir, 'playbook.yml')
+
+                # ✅ 写入内容到临时文件
+                with open(ansible_cfg_path, 'w', encoding='utf-8') as f:
+                    f.write(ansible_cfg)
+
                 # ✅ 写入内容到临时文件
                 with open(playbook_path, 'w', encoding='utf-8') as f:
-                    print(playbook_path)
-
                     f.write(playbook_content)
 
                 runner = ansible_runner.run(
-                    private_data_dir=directory,
+                    private_data_dir=temp_dir,
                     inventory=inventory,
                     playbook=playbook_path,
                     quiet=True,
@@ -57,6 +91,7 @@ def run_ansible_playbook(directory, playbook=None, job_type=None, inventory=None
                     event_handler=event_handler,
                     verbosity=verbosity,
                     forks=forks,
+                    passwords=password_dict
 
                 )
                 stdout = runner.stdout.read()

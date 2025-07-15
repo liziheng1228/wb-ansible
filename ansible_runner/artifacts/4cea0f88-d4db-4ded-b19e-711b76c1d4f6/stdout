@@ -1,0 +1,1 @@
+[0;31mERROR! this task '1' has extra params, which is only allowed in the following modules: script, include_vars, add_host, meta, raw, include_tasks, win_shell, include_role, win_command, import_tasks, command, import_role, group_by, shell, set_fact[0m

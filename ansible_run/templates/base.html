@@ -32,8 +32,27 @@
             </li>
             <li class="layui-nav-item layui-hide-xs"><a href="{% url 'ansible_run:go_index' %}">首页</a></li>
             <li class="layui-nav-item layui-hide-xs"><a href="{% url 'ansible_run:go_task_list' %}">任务列表</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'host_manager:go_host_manager' %}">主机管理</a></li>
+            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'host_manager:go_host_manager' %}">主机管理</a>
+            </li>
             <li class="layui-nav-item layui-hide-xs"><a href="{% url 'playbook:list_page' %}">Playbook管理</a></li>
+            {#            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'playbook:list_page' %}"></a></li>#}
+
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item layui-hide layui-show-sm-inline-block">
+                <a href="javascript:;">
+                    <img src="//unpkg.com/outeres@0.0.10/img/layui/icon-v2.png" class="layui-nav-img">
+                    {{ user.username }}
+
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">Your Profile</a></dd>
+                    <dd><a href="javascript:;">Settings</a></dd>
+                    <dd><a href="{% url 'login:logout' %}">退出登录</a></dd>
+
+                </dl>
+            </li>
+
         </ul>
 
     </div>
@@ -50,11 +69,11 @@
 
                     {% endblock %}
                 </div>
-{#                <div class="layui-card-body">#}
-                    {% block content %}
+                {#                <div class="layui-card-body">#}
+                {% block content %}
 
-                    {% endblock %}
-{#                </div>#}
+                {% endblock %}
+                {#                </div>#}
             </div>
             <br><br>
         </div>
