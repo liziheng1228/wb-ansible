@@ -1,3 +1,4 @@
+import os
 import re
 import ansible_runner
 from asgiref.sync import async_to_sync
@@ -14,7 +15,6 @@ runner_uid = []
 @shared_task
 def run_ansible_playbook(directory, playbook=None, job_type=None, inventory=None, verbosity=0, forks=5,
                          playbook_content=None, module_name=None, module_args=None, extra_vars=None):
-    print(inventory)
 
     # 通过 Channels 推送至对应 WebSocket 组
     # 定义 Ansible 事件回调
@@ -36,30 +36,39 @@ def run_ansible_playbook(directory, playbook=None, job_type=None, inventory=None
 
     try:
 
-        print(job_type)
         if job_type == "playbook":  # 执行 playbook
-            print('playbook')
-            runner = ansible_runner.run(
-                private_data_dir=directory,
-                inventory=inventory,
-                playbook=playbook,
-                quiet=True,
-                rotate_artifacts=0,
-                event_handler=event_handler,
-                verbosity=verbosity,
-                forks=forks,
+            playbook_content = playbook
 
-            )
-            stdout = runner.stdout.read()
-            stderr = runner.stderr.read()
-            clean_stdout = ANSI_ESCAPE.sub('', stdout)
-            clean_stderr = ANSI_ESCAPE.sub('', stderr)
+            from tempfile import TemporaryDirectory
+            with TemporaryDirectory() as temp_dir:
+                playbook_path = os.path.join(temp_dir, 'playbook.yml')
+                # ✅ 写入内容到临时文件
+                with open(playbook_path, 'w', encoding='utf-8') as f:
+                    print(playbook_path)
 
-            return {
-                'stdout': clean_stdout,
-                'stderr': clean_stderr,
-                'rc': runner.rc
-            }
+                    f.write(playbook_content)
+
+                runner = ansible_runner.run(
+                    private_data_dir=directory,
+                    inventory=inventory,
+                    playbook=playbook_path,
+                    quiet=True,
+                    rotate_artifacts=1,
+                    event_handler=event_handler,
+                    verbosity=verbosity,
+                    forks=forks,
+
+                )
+                stdout = runner.stdout.read()
+                stderr = runner.stderr.read()
+                clean_stdout = ANSI_ESCAPE.sub('', stdout)
+                clean_stderr = ANSI_ESCAPE.sub('', stderr)
+
+                return {
+                    'stdout': clean_stdout,
+                    'stderr': clean_stderr,
+                    'rc': runner.rc
+                }
         elif job_type == "ad-hoc":
             print('adhoc')
 
@@ -73,7 +82,7 @@ def run_ansible_playbook(directory, playbook=None, job_type=None, inventory=None
                 verbosity=verbosity,
                 forks=forks,
                 event_handler=event_handler,
-                rotate_artifacts=0
+                rotate_artifacts=1
             )
             # # 执行 playbook 命令
 

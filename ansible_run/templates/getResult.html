@@ -66,9 +66,7 @@
                     $('#stderr').text(data.stderr || '(无错误)');
                     $('#rc').text(data.rc || '未返回');
 
-                    {#if (data.rc !== 0 ) {#}
-                    {#    $('#error-message').html(`任务执行中: ${data.stderr}`).show();#}
-                    {#}#}
+
                     }
                 ,
                     error: function (jqXHR, textStatus, errorThrown) {

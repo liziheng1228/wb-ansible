@@ -10,6 +10,7 @@ class PlaybookCode(models.Model):
     content = models.TextField("YAML 内容")
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
+    # 创建者绑定user模型
     created_by = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -23,3 +24,4 @@ class PlaybookCode(models.Model):
     class Meta:
         verbose_name = "Playbook"
         verbose_name_plural = "Playbooks"
+        unique_together = ('created_by', 'name')

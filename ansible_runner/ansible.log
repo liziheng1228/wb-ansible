@@ -617,3 +617,21 @@ drwx------   2 root root      25 Jul  3 16:56 .ssh
 -rw-------   1 root root    8763 Jul 11 15:10 .viminfo
 -rw-r--r--   1 root root      10 Nov 18  2024 .vimrc
 
+2025-07-15 13:28:31,557 p=12116 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 13:28:31,558 p=12116 u=root n=ansible INFO| 192.168.56.142 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+2025-07-15 13:28:34,032 p=12116 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}

@@ -21,8 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('ansible_run.urls'),name='ansible_run'),
     path('login/', include(('userlogin.urls','login'), namespace='login')),
-
-    path('editcode/',include(('edit_code.urls','edit_code'),namespace='edit_code'),name='edit_code'),
+    path('playbook/',include(('edit_code.urls','playbook'),namespace='playbook'),name='playbook'),
     path('', include(('ansible_run.urls', 'ansible_run'),namespace='ansible_run'), name='ansible_run'),
     path('runner_jobs/', include(('runner_jobs.urls', 'runner_jobs'),namespace='runner_jobs')),
     path('host_manager/', include(('host_manager.urls', 'host_manager'),namespace='host_manager'), name='host_manager'),

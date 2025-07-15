@@ -3,13 +3,16 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 import json
+
+from edit_code.models import PlaybookCode
 from host_manager.models import Host
 from .models import Job
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 
 
 def go_jobs(request):
-    return render(request, "create_job.html")
+    playbooks = PlaybookCode.objects.filter(created_by=request.user)
+    return render(request, "create_job.html", {'playbooks': playbooks})
 
 
 def get_hosts(request):
@@ -21,14 +24,9 @@ def get_hosts(request):
 def job_list(request):
     page = request.GET.get('page', 1)
     limit = request.GET.get('limit', 5)
-    print(request.user)
-    # jobs = Job.objects.prefetch_related('inventory').order_by('-created_at')
-    jobs = Job.objects.filter(user=request.user).prefetch_related('inventory').order_by('-created_at')
-    # jobs2 = Job.objects.filter(users=request.user)
-    # print(jobs)
-    print(jobs)
 
-    # jobs = Job.objects.values()  # 获取所有任务并按创建时间排序
+    jobs = Job.objects.filter(user=request.user).prefetch_related('inventory').order_by('-created_at')
+
     paginator = Paginator(jobs, limit)
     try:
         page_jobs = paginator.page(page)
@@ -62,20 +60,21 @@ def job_list(request):
 
         })
 
-
     json_data = {
         'code': 0,
         'count': paginator.count,
         'data': data
     }
     # print(json_data)
-    return JsonResponse(json_data,safe=False)
+    return JsonResponse(json_data, safe=False)
 
 
 # 创建新任务（POST）
 @csrf_exempt
 def job_create(request):
+
     if request.method == 'POST':
+
         try:
             data = json.loads(request.body)
             # 安全处理数值字段
@@ -92,20 +91,34 @@ def job_create(request):
             except (TypeError, ValueError):
                 verbosity = 0
 
+            # 获取 playbook 实例（如果 job_type 是 playbook）
+            playbook = None
+            print(data.get('job_type'))
+
+            if data.get('job_type') == 'playbook':
+                playbook_id = data.get('playbook')
+                if playbook_id:
+                    try:
+                        playbook = PlaybookCode.objects.get(id=playbook_id, created_by=request.user)
+                    except PlaybookCode.DoesNotExist:
+                        return JsonResponse({'error': '指定的 Playbook 不存在或不属于当前用户'}, status=400)
+
             job = Job.objects.create(
                 name=data.get('name'),
                 job_type=data.get('job_type'),
-                playbook_content=data.get('playbook_content', ''),
                 playbook_path=data.get('playbook_path', ''),
                 module_name=data.get('module_name', ''),
                 module_args=data.get('module_args', ''),
                 extra_vars=data.get('extra_vars', ''),
-                user=request.user, # 绑定当前登录用户
+                user=request.user,  # 绑定当前登录用户
                 forks=forks,
-                verbosity=verbosity
+                verbosity=verbosity,
+                playbook=playbook,  # 绑定playbook
+                playbook_content = playbook.content, # 内容取出来保存
+
             )
             # inventory = data.get('inventory'),
-            host_ids = data.get('inventory',[])
+            host_ids = data.get('inventory', [])
 
             # 设置多对多关系
             if host_ids:
@@ -118,6 +131,7 @@ def job_create(request):
             }, status=201)
 
         except Exception as e:
+
             return JsonResponse({'error': str(e)}, status=400)
 
     return JsonResponse({'error': 'Invalid request method.'}, status=405)
@@ -146,25 +160,4 @@ def job_detail(request, job_id):
         'hosts': host_ips,
     }
     # print(job)
-    return render(request, 'job_detail.html', job)
-
-
-def job_detail2(request, job_id):
-
-    job = get_object_or_404(Job, id=job_id)
-
-    try:
-        host_ids = json.loads(job.inventory) if job.inventory else []
-    except json.JSONDecodeError:
-        host_ids = []
-
-        # 获取主机信息
-    hosts = Host.objects.filter(id__in=host_ids)
-    job = {
-        'job': job,
-        'hosts': hosts,
-    }
-
-    # print(job)
-
     return render(request, 'job_detail.html', job)

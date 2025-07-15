@@ -19,13 +19,10 @@
         <form class="layui-form layui-form-pane" style="padding: 20px;">
 
             <div class="layui-form-item">
-                {#                <label class="layui-form-label">主机选择</label>#}
+
                 <input type="hidden" name="host" id="hostInput">
                 <table id="hostTable" lay-filter="hostTable"></table>
             </div>
-            {#            <div class="layui-col-md4 layui-col-md-offset4">#}
-            {#                <div class="grid-demo">偏移4列</div>#}
-            {#            </div>#}
 
             <div class="layui-form-item  layui-col-md-offset10 ">
                 <button type="button" class="layui-btn" onclick="nextStep()">下一步
@@ -35,9 +32,7 @@
 
         </form>
     </div>
-    {#    <div class="layui-panel">#}
-    {# #}
-    {#    </div>#}
+
     <!-- 步骤2 -->
     <div id="step2" class=" layui-panel step-content" style="display: none;">
         <form class="layui-form layui-form-pane" style="padding: 20px;" action="">
@@ -78,17 +73,18 @@
             </div>
 
 
-
-
             <!-- 条件展示区 -->
             <div id="playbookArea" class="layui-form-item" style="display: none;">
                 <label class="layui-form-label">Playbook脚本</label>
                 <div class="layui-input-block">
-                    <select name="playbook">
+                    <select name="playbook" lay-search="" lay-creatable="">
                         <option value="">请选择 Playbook</option>
-                        <option value="setup">setup.yml</option>
-                        <option value="deploy">deploy.yml</option>
-                        <option value="backup">backup.yml</option>
+                        {% for pb in playbooks %}
+                            <option value="{{ pb.id }}">{{ pb.name }}</option>
+                        {% endfor %}
+                        {#                        <option value="setup">setup.yml</option>#}
+                        {#                        <option value="deploy">deploy.yml</option>#}
+                        {#                        <option value="backup">backup.yml</option>#}
                     </select>
                 </div>
             </div>
@@ -144,7 +140,10 @@
 
 <script>
     let currentStep = 1;
-
+    {% for pb in playbooks %}
+        console.log('{{ pb }}')
+        {#<option value="{{ pb.id }}">{{ pb.name }}</option>#}
+    {% endfor %}
     function showStep(step) {
         document.querySelectorAll('.step-content').forEach(el => el.style.display = 'none');
         document.getElementById('step' + step).style.display = 'block';
@@ -154,16 +153,29 @@
         if (currentStep < 4) {
             if (currentStep === 1) {
                 const hostInput = document.getElementById('hostInput');
-                const hostValue = hostInput ? hostInput.value : '未选择';
+                const hostValue = hostInput ? hostInput.value.trim() : '';
+
+                if (!hostValue) {
+
+                    layer.msg('请先选择主机', {icon: 0});
+                    return;
+                }
+
                 document.getElementById('confirmHost').innerText = hostValue;
 
             } else if (currentStep === 2) {
-
-                // ✅ 正确获取任务名称
+                // 获取任务名称
                 const taskNameInput = document.querySelector("input[name='taskName']");
-                const taskName = taskNameInput ? taskNameInput.value : '未填写';
+                const taskName = taskNameInput ? taskNameInput.value.trim() : '';
 
-                // ✅ 正确获取任务类型下拉框
+                if (!taskName) {
+
+                    layer.msg('任务名称不能为空', {icon: 0});
+
+                    return;
+                }
+
+                // 获取任务类型
                 const taskTypeSelect = document.querySelector("select[name='taskType']");
                 let taskTypeValue = '';
                 let taskTypeText = '未选择';
@@ -174,17 +186,29 @@
                     taskTypeText = selectedOption ? selectedOption.text : '未选择';
                 }
 
-                // 设置页面显示
+                if (!taskTypeValue) {
+
+                    layer.msg('请选择任务类型', {icon: 0});
+
+                    return;
+                }
+
+                // 设置确认页内容
                 document.getElementById('confirmTaskName').innerText = taskName;
                 document.getElementById('confirmTaskType').innerText = taskTypeText;
 
-                // 根据任务类型展示不同内容
+                // 根据任务类型判断 Playbook 或 Ad-Hoc 的输入
                 if (taskTypeValue === 'playbook') {
                     const playbookSelect = document.querySelector("select[name='playbook']");
-                    let playbookText = '未选择';
-                    if (playbookSelect && playbookSelect.options[playbookSelect.selectedIndex]) {
-                        playbookText = playbookSelect.options[playbookSelect.selectedIndex].text;
+
+                    if (!playbookSelect || !playbookSelect.value) {
+
+                        layer.msg('请选择 Playbook', {icon: 0});
+
+                        return;
                     }
+
+                    const playbookText = playbookSelect.options[playbookSelect.selectedIndex].text;
                     document.querySelector("#confirmPlaybook span").innerText = playbookText;
                     document.getElementById('confirmPlaybook').style.display = 'block';
                     document.getElementById('confirmAdHocModule').style.display = 'none';
@@ -194,8 +218,16 @@
                     const moduleInput = document.querySelector("input[name='module']");
                     const argsInput = document.querySelector("input[name='arguments']");
 
-                    const module = moduleInput ? moduleInput.value : '未填写';
-                    const argumentsVal = argsInput ? argsInput.value : '未填写';
+                    const module = moduleInput ? moduleInput.value.trim() : '';
+                    const argumentsVal = argsInput ? argsInput.value.trim() : '';
+
+                    if (!module) {
+
+                        layer.msg('模块名不能为空', {icon: 0});
+
+                        return;
+                    }
+
 
                     document.querySelector("#confirmAdHocModule span").innerText = module;
                     document.querySelector("#confirmAdHocArgs span").innerText = argumentsVal;
@@ -204,6 +236,8 @@
                     document.getElementById('confirmPlaybook').style.display = 'none';
                 }
             }
+
+            // 所有验证通过后才允许下一步
             currentStep++;
             showStep(currentStep);
         }
@@ -269,11 +303,13 @@
         table.on('checkbox(hostTable)', function (obj) {
 
             const checkStatus = table.checkStatus('hostTable'); // 获取当前表格选中项
-            const selectedHosts = checkStatus.data.map(item => item.id); // ✅ 改成 item.id
-            const hostListStr = selectedHosts.join(',');
+            const selectedHosts = checkStatus.data.map(item => item.id);
+
+
+            const hostListStr = checkStatus.data.map(item => item.ip).join(',');
 
             $('#hostInput').val(hostListStr); // 显示为逗号分隔的字符串，用于页面展示
-            $('#hostInput').data('hostIds', selectedHosts); // ✅ 可以用 data 存储真实 ID 数组
+            $('#hostInput').data('hostIds', selectedHosts); // 用 data 存储真实 ID 数组
 
 
         });
@@ -313,7 +349,7 @@
             formData.module_name = module_name ? module_name.value : '';
             formData.module_args = module_args ? module_args.value : '';
         }
-        console.log(formData)
+
         // 发送到后端
         $.ajax({
             url: '{% url "runner_jobs:job-create" %}',
@@ -325,7 +361,7 @@
             },
             success: function (response) {
                 {#alert('任务创建成功！');#}
-                console.log('✅ 服务器返回：', response);
+
 
                 var index = parent.layer.getFrameIndex(window.name); // 先得到当前 iframe 层的索引
                 parent.layer.close(index); // 再执行关闭

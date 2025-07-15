@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//unpkg.com/layui@2.11.4/dist/css/layui.css" rel="stylesheet">
+
+    <script src="//unpkg.com/layui@2.11.4/dist/layui.js"></script>
     <title>codemirror示例</title>
     <link rel="stylesheet" href="{% static 'layui.css' %}">
     <link rel="stylesheet" href="{% static 'codemirror/lib/codemirror.css' %}">
@@ -104,9 +107,7 @@
         }
     });
     window.onload = function editor() {
-        var encoding = "# -*- coding: utf-8 -*-\n";
 
-        var initValue = encoding;
         var el = document.getElementById("editor");
         var myCodeMirror = CodeMirror.fromTextArea(el, {
             mode: "yaml", // 语言模式
@@ -127,17 +128,14 @@
             styleActiveLine: true, // 显示选中行的样式
         });
         // 设置初始文本，这个选项也可以在fromTextArea中配置
-        myCodeMirror.setOption("value", initValue);
+        //myCodeMirror.setOption("value", initValue);
         // 编辑器按键监听
         myCodeMirror.on("keypress", function () {
             // 显示智能提示
             // myCodeMirror.showHint(); // 注意，注释了CodeMirror库中show-hint.js第131行的代码（阻止了代码补全，同时提供智能提示）
         });
-        {#// 获取textare中的值#}
 
-        {##}
-        {##}
-        //
+
         layui.use(function () {
             var $ = layui.$;
             var form = layui.form;
@@ -155,19 +153,48 @@
                         // 此处可执行 Ajax 等操作
                         // …
                         $.ajax({
-                            url: '{% url 'edit_code:save_code' %}',
+                            url: '{% url 'playbook:save_code' %}',
                             type: "POST",
                             headers: {
                                 'X-CSRFToken': csrftoken // 在这里使用获取到的token
                             },
                             data: {
                                 'code': myCodeMirror.getValue(),
-                                'code_name':field['script_name'],
-                                'code_describe':field['describe']
+                                'code_name': field['script_name'],
+                                'code_describe': field['describe']
                             },
                             success: function (data) {
-                                console.log(data)
+                                if (data.status === 'success') {
+                                    console.log(data)
+                                    var index = parent.layer.getFrameIndex(window.name); // 先得到当前 iframe 层的索引
+                                    parent.layer.close(index); // 再执行关闭
+                                } else {
+                                    console.log(data.message)
+                                    alert("错误：" + data.message);
+                                }
+
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(jqXHR,textStatus)
+                                // 所有非 2xx 的状态码都会进入 error 回调
+                                if (jqXHR.status === 500) {
+                                    alert('服务器内部错误（500）');
+                                    console.error('服务器错误:', jqXHR.responseText);
+                                } else if (jqXHR.status === 400) {
+                                    layer.msg(jqXHR.responseJSON.message, {icon: 0})
+
+                                } else if (jqXHR.status === 403) {
+                                    layer.msg('权限不足', {icon: 0})
+
+
+                                } else {
+                                    layer.msg('未知错误', {icon: 0})
+
+                                    alert('未知错误:', jqXHR.status);
+                                }
                             }
+
+
                         })
                     });
                 });

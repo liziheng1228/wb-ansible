@@ -69,8 +69,12 @@ def get_hosts_list_api(request):
 # 创建主机
 @method_decorator(login_required(login_url="/login"), name='dispatch')
 class HostCreateView(View):
+    print(123)
     template_name = 'host_manager/create_host.html'
 
+    def get(self, request, *args, **kwargs):
+        # 返回创建主机的页面
+        return render(request, self.template_name)
     def post(self, request, *args, **kwargs):
         # 从 POST 数据中获取字段值
         hostname = request.POST.get('hostname')

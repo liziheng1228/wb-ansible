@@ -41,7 +41,7 @@ def ansible_run(request):
             hosts_info = Host.objects.filter(ip__in=hosts).values('ip', 'port', 'username')
             if not hosts_info.exists():
                 return JsonResponse({'error': '未找到对应的目标主机'}, status=400)
-            print(hosts_info)
+            print(data['playbook_content'])
 
             #
 
@@ -67,7 +67,7 @@ def ansible_run(request):
             verbosity = data.get('verbosity')  # 结果显示等级
 
             directory = './ansible_runner'
-            ply = "test.yaml"
+            ply = data['playbook_content']
             print(module_name,module_args)
             task_id = run_ansible_playbook.delay(directory=directory, playbook=ply, job_type=job_type, inventory=inventory_dict,
                                                  verbosity=verbosity, forks=forks,
