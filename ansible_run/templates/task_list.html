@@ -1,13 +1,12 @@
 
 {% extends 'base.html' %}
 {% block title %}
-    任务列表
+        <h2>任务日志</h2>
+
 {% endblock %}
 {% block content %}
     <table class="layui-hide" id="test" lay-filter="test"></table>
 
-
-    <script src="//unpkg.com/layui@2.11.4/dist/layui.js"></script>
     <script>
 
         layui.use(['table', 'dropdown'], function () {
@@ -58,9 +57,6 @@
             })
 
         })
-
-
-
 
     </script>
 {% endblock %}

@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('edit_code', '0001_initial'),
+        ('playbook', '0001_initial'),
         ('runner_jobs', '0002_job_hosts'),
     ]
 
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='job',
             name='playbook',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='edit_code.playbookcode', verbose_name='关联的 Playbook'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='playbook.playbookcode', verbose_name='关联的 Playbook'),
         ),
         migrations.AddField(
             model_name='job',

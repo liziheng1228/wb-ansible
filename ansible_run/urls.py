@@ -11,7 +11,7 @@ urlpatterns = [
     path('get_result/<str:task_id>/', views.get_result, name='get_result'),
 
     # api
-    path('api/get_task_list', views.get_task_list_api, name='get_task_list_api'),
-    path('api/ansible_run', views.ansible_run, name='ansible_run'),
+    path('api/tasks/get-list', views.get_task_list_api, name='get_task_list_api'),
+    path('api/ansible-run', views.ansible_run, name='ansible_run'),
 
 ]

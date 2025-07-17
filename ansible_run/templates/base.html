@@ -13,8 +13,8 @@
     <script src="{% static 'jquery-3.6.0.min.js' %}"></script>
 
     <style>
-        .layui-body {
-            left: 0px;
+        .layui-card-body{
+
         }
 
     </style>
@@ -23,18 +23,19 @@
 
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo layui-hide-xs layui-bg-black">wb-ansible</div>
+        <div class="layui-logo layui-hide-xs ">
+            <a style="color: whitesmoke" href="{% url 'ansible_run:go_index' %}">wb-ansible</a>
+        </div>
         <!-- 头部区域（可配合layui 已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <!-- 移动端显示 -->
             <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
                 <i class="layui-icon layui-icon-spread-left"></i>
             </li>
-            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'ansible_run:go_index' %}">首页</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'ansible_run:go_task_list' %}">任务列表</a></li>
-            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'host_manager:go_host_manager' %}">主机管理</a>
-            </li>
-            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'playbook:list_page' %}">Playbook管理</a></li>
+            {#            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'ansible_run:go_index' %}">首页</a></li>#}
+            {#            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'ansible_run:go_task_list' %}">任务列表</a></li>#}
+            {#            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'host_manager:go_host_manager' %}">主机管理</a></li>#}
+            {#            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'playbook:list_page' %}">Playbook管理</a></li>#}
             {#            <li class="layui-nav-item layui-hide-xs"><a href="{% url 'playbook:list_page' %}"></a></li>#}
 
         </ul>
@@ -57,25 +58,56 @@
 
     </div>
 
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">ansib任务</a>
+                    <dl class="layui-nav-child">
+                        <dd><a style="color: whitesmoke" href="{% url 'ansible_run:go_index' %}">任务管理</a>
+                        </dd>
+
+                        <dd>
+                            {#                            <a href="{% url 'ansible_run:go_task_list' %}">任务日志</a>#}
+                            <a href="{% url 'ansible_run:go_task_list' %}">任务日志</a>
+
+                        </dd>
+                        <dd>
+                            <a href="{% url 'host_manager:go_host_manager' %}">主机管理</a>
+                        </dd>
+                        <dd><a href="{% url 'playbook:list_page' %}">Playbook管理</a></dd>
+                    </dl>
+                </li>
+                {#                <li class="layui-nav-item">#}
+                {#                    <a href="javascript:;">menu group 2</a>#}
+                {#                    <dl class="layui-nav-child">#}
+                {#                        <dd><a href="javascript:;">list 1</a></dd>#}
+                {#                        <dd><a href="javascript:;">list 2</a></dd>#}
+                {#                        <dd><a href="javascript:;">超链接</a></dd>#}
+                {#                    </dl>#}
+                {#                </li>#}
+                {#                <li class="layui-nav-item"><a href="javascript:;">click menu item</a></li>#}
+                {#                <li class="layui-nav-item"><a href="javascript:;">the links</a></li>#}
+            </ul>
+        </div>
+    </div>
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            {#    //  <blockquote class="layui-elem-quote layui-text">#}
-            {#        主体区域#}
-            {#      </blockquote>#}
             <div class="layui-card layui-panel">
                 <div class="layui-card-header">
                     {% block title %}
 
                     {% endblock %}
                 </div>
-                {#                <div class="layui-card-body">#}
-                {% block content %}
+                <div class="layui-card-body">
+                    {% block content %}
 
-                {% endblock %}
-                {#                </div>#}
+                    {% endblock %}
+                </div>
             </div>
-            <br><br>
+
         </div>
     </div>
     {#  <div class="layui-footer">#}

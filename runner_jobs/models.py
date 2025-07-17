@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 from django.utils import timezone
-from edit_code.models import PlaybookCode
+from playbook.models import PlaybookCode
 from userlogin.models import User
 
 

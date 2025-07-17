@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 import json
 
-from edit_code.models import PlaybookCode
+from playbook.models import PlaybookCode
 from host_manager.models import Host
 from .models import Job
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator

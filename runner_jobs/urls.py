@@ -2,7 +2,7 @@ from django.urls import path
 from django.urls import path
 from .views import job_list, job_create, job_delete, go_jobs, job_detail,get_hosts
 # runner_jobs
-# app_name = 'host_manager'
+# app_name = 'runner_jobs'
 urlpatterns = [
     path('', go_jobs, name='go_jobs'),
     path('jobs/<uuid:job_id>/', job_detail, name='job-detail'),
