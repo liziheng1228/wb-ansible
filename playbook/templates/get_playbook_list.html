@@ -58,7 +58,7 @@
                     layer.open({
                         type: 2, // page 层类型
                         area: ['700px', '600px'],
-                        title: '编辑主机',
+                        title: '编辑Playbook',
                         scrollbar: false,
                         maxmin: true, // 允许全屏最小化
                         content: '/playbook/update/'+ obj.data.id,
@@ -190,7 +190,7 @@
                             layui.table.reload('test');
                         });
                     } else {
-                        layer.msg('未选择主机', {icon: 2});
+                        layer.msg('未选择Playbook', {icon: 2});
                     }
 
                 }
