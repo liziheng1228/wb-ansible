@@ -1,6 +1,0 @@
-SSH password: 
-BECOME password[defaults to SSH password]: 
-
-PLAY [test1] *******************************************************************
-
-TASK [test_ansible_runner] *****************************************************

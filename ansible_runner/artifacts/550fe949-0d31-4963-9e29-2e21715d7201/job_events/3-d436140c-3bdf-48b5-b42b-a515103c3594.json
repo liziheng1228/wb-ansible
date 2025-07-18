@@ -1,1 +1,0 @@
-{"event": "verbose", "uuid": "d436140c-3bdf-48b5-b42b-a515103c3594", "counter": 3, "stdout": "\u001b[1;35m[WARNING]: Invalid characters were found in group names but not replaced, use\u001b[0m", "start_line": 2, "end_line": 3, "runner_ident": "550fe949-0d31-4963-9e29-2e21715d7201", "created": "2025-07-09T01:53:02.612444+00:00"}

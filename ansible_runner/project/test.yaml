@@ -1,7 +1,0 @@
----
-- hosts: test
-  remote_user: root
-  gather_facts: no
-  tasks:
-    - name: test_ansible_runner
-      shell: echo ok
