@@ -1,17 +1,5 @@
 # Django generated files
 # 忽略所有应用下的 migrations 目录及其内容
-**/migrations/
-**/__pycache__/
-*.log
-*.pot
-*.mo
 db.sqlite3
-media/
-env/
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.DS_Store
-ansible_runner
+ansible_runner/*
 .idea
