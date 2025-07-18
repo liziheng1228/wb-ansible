@@ -160,7 +160,7 @@
                                     if (response.status === 'success') {
                                         layer.msg(response.message, {icon: 1});
                                         // 刷新表格
-                                        tableIns.reload();
+                                        layui.table.reload('test');
                                     } else {
                                         layer.msg(response.message, {icon: 2});
                                     }

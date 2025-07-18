@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -10,10 +11,12 @@ from host_manager.models import Host
 from .models import Job
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 
+
 @login_required(login_url="/login")
 def go_jobs(request):
     playbooks = PlaybookCode.objects.filter(created_by=request.user)
     return render(request, "create_job.html", {'playbooks': playbooks})
+
 
 @login_required(login_url="/login")
 def get_hosts(request):
@@ -24,10 +27,25 @@ def get_hosts(request):
 # 获取所有任务列表（GET）传给前端再传给ansible-task执行
 @login_required(login_url="/login")
 def job_list(request):
+
     page = request.GET.get('page', 1)
     limit = request.GET.get('limit', 5)
 
-    jobs = Job.objects.filter(user=request.user).prefetch_related('inventory').order_by('-created_at')
+    # 从GET参数获取搜索关键词
+    keyword = request.GET.get('host_search', '').strip()
+
+    if not keyword:
+        # 如果没有关键词，返回所有主机
+        # hosts = Host.objects.all().values()
+        jobs = Job.objects.filter(user=request.user)
+
+    else:
+        # 使用Q对象实现多字段联合搜索
+        query = Q(name__icontains=keyword)
+
+        # jobs = Job.objects.filter(query, user=request.user)
+
+        jobs = Job.objects.filter(query,user=request.user).prefetch_related('inventory').order_by('-created_at')
 
     paginator = Paginator(jobs, limit)
     try:
@@ -44,7 +62,6 @@ def job_list(request):
     for item in page_jobs:
         # 构造字典并添加到列表
         host_ips = list(item.inventory.values_list('ip', flat=True))
-        # host_ips = list(job.inventory.values_list('ip', flat=True))
         # print(type(item))
 
         data.append({
@@ -75,7 +92,6 @@ def job_list(request):
 @csrf_exempt
 @login_required(login_url="/login")
 def job_create(request):
-
     if request.method == 'POST':
 
         try:
@@ -117,7 +133,7 @@ def job_create(request):
                     forks=forks,
                     verbosity=verbosity,
                     playbook=playbook,  # 绑定playbook
-                    playbook_content = playbook.content, # 内容取出来保存
+                    playbook_content=playbook.content,  # 内容取出来保存
 
                 )
             elif data.get('job_type') == 'ad-hoc':
@@ -162,6 +178,65 @@ def job_delete(request, job_id):
         return JsonResponse({'status': 'deleted'})
 
     return JsonResponse({'error': 'Invalid request method.'}, status=405)
+
+
+# 批量删除
+@login_required(login_url="/login")
+def batch_delete(request):
+    """
+    批量删除任务视图函数
+    """
+    # 确保只处理POST请求
+    if request.method != 'POST':
+        return JsonResponse({
+            'status': 'error',
+            'message': '仅支持POST请求'
+        }, status=405)
+
+    # 获取要删除的任务ID列表
+    job_ids = request.POST.getlist('job_ids[]')
+
+    if not job_ids:
+        # 如果没有选择任何任务
+        return JsonResponse({
+            'status': 'error',
+            'message': '请选择要删除的任务'
+        })
+
+    job_ids = [job_id for job_id in job_ids]
+
+    try:
+        # 获取当前用户有权删除的任务
+        jobs = Job.objects.filter(
+            id__in=job_ids,
+            user=request.user  # 确保用户只能删除自己的任务
+        )
+
+        # 记录删除的任务数量
+        deleted_count = jobs.count()
+
+        if deleted_count == 0:
+            # 如果没有找到符合条件的记录
+
+            return JsonResponse({
+                'status': 'error',
+                'message': '没有找到符合条件的任务'
+            })
+        # 执行批量删除
+        jobs.delete()
+        # 返回成功响应
+        return JsonResponse({
+            'status': 'success',
+            'message': f'成功删除 {deleted_count} 个任务'
+        })
+    except Exception as e:
+        # 处理删除过程中的异常
+        error_message = f'删除失败: {str(e)}'
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'status': 'error',
+                'message': error_message
+            })
 
 
 # 任务详细信息

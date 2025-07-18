@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -54,7 +54,7 @@ def get_hosts_list_api(request):
                 Q(username__icontains=keyword) | \
                 Q(port__icontains=keyword)
 
-        hosts = Host.objects.filter(query,users=request.user)
+        hosts = Host.objects.filter(query, users=request.user)
     paginator = Paginator(hosts, limit)
     try:
         page_hosts = paginator.page(page)
@@ -84,35 +84,81 @@ def get_hosts_list_api(request):
 
 
 # 创建主机
+from django.http import JsonResponse
+from django.core.exceptions import ValidationError
+
+
 @method_decorator(login_required(login_url="/login"), name='dispatch')
 class HostCreateView(View):
     template_name = 'host_manager/create_host.html'
 
     def get(self, request, *args, **kwargs):
-        # 返回创建主机的页面
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
-        # 从 POST 数据中获取字段值
+        # 获取参数
         hostname = request.POST.get('hostname')
         ip = request.POST.get('ip')
         port = request.POST.get('port', 22)
         username = request.POST.get('username')
+        ssh_password = request.POST.get('ssh_password')  # 新增字段
+        become_password = request.POST.get('become_password')  # 新增字段
+        pk = request.POST.get('pk')  # 新增字段：用于判断是否为编辑
 
-        # 创建主机对象
-        host = Host.objects.create(
-            hostname=hostname,
-            ip=ip,
-            port=port,
-            username=username
-        )
+        # 类型转换
+        try:
+            port = int(port)
+        except (TypeError, ValueError):
+            return JsonResponse({'error': '端口号必须为整数'}, status=400)
 
-        # 将当前用户添加到 users 多对多字段中
-        current_user = request.user
-        host.users.add(current_user)
+        # 参数校验
+        if not all([hostname, ip, username]):
+            return JsonResponse({'error': '请填写所有必填字段'}, status=400)
 
-        # 跳转成功页面
-        return redirect(reverse('host_manager:go_host_manager'))
+        # 统一错误处理
+        try:
+            if pk:
+                host = get_object_or_404(Host, pk=pk, users=request.user)
+                if Host.objects.filter(users=request.user, ip=ip).exclude(pk=pk).exists():
+                    return JsonResponse({
+                        'status': 'error',
+                        'message': f'您已有一个 {ip} 主机'
+                    }, status=400)
+            else:
+                if Host.objects.filter(users=request.user, ip=ip).exists():
+                    return JsonResponse({
+                        'status': 'error',
+                        'message': '该用户已存在相同IP的主机'
+                    }, status=400)
+                host = Host()
+
+            # 设置字段
+            host.hostname = hostname
+            host.ip = ip
+            host.port = port
+            host.username = username
+            # 设置并加密密码（注意：即使为空也保留旧值）
+            if ssh_password:
+                host.set_ssh_password(ssh_password)
+            if become_password:
+                host.set_become_password(become_password)
+            # 保存
+            host.save()
+            # 第一次创建时绑定用户
+            if not pk:
+                host.users.add(request.user)
+
+            return JsonResponse({
+                'status': 'success',
+                'message': '保存成功',
+                'id': host.id
+            })
+
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=500)
 
 
 # 更新主机
@@ -122,6 +168,14 @@ class HostUpdateView(UpdateView):
     fields = ['hostname', 'ip', 'port', 'username']
     template_name = 'host_manager/create_host.html'
     success_url = reverse_lazy('host_manager:go_host_manager')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        return JsonResponse({'success': True})
+
+    def form_invalid(self, form):
+        errors = form.errors.as_json()
+        return JsonResponse({'error': errors}, status=400)
 
 
 # 删除主机

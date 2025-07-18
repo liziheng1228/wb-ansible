@@ -1521,3 +1521,104 @@ wal
 xunjian.sh
 
 2025-07-15 16:26:26,674 p=33924 u=root n=ansible ERROR| ERROR! this task '1' has extra params, which is only allowed in the following modules: script, include_vars, add_host, meta, raw, include_tasks, win_shell, include_role, win_command, import_tasks, command, import_role, group_by, shell, set_fact
+2025-07-17 17:20:09,614 p=7796 u=root n=ansible ERROR| ERROR! this task 'user' has extra params, which is only allowed in the following modules: import_tasks, win_shell, command, add_host, include_tasks, script, set_fact, include_role, raw, include_vars, import_role, meta, group_by, shell, win_command
+2025-07-17 17:21:49,779 p=7845 u=root n=ansible ERROR| ERROR! this task 'user' has extra params, which is only allowed in the following modules: include_role, set_fact, import_tasks, shell, include_tasks, script, raw, meta, add_host, command, win_shell, import_role, group_by, include_vars, win_command
+2025-07-17 17:21:53,264 p=7852 u=root n=ansible INFO| 192.168.56.142 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Invalid/incorrect password: Permission denied, please try again.\r\nPermission denied, please try again.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-17 17:22:23,725 p=7873 u=root n=ansible INFO| 192.168.56.142 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Invalid/incorrect password: Permission denied, please try again.\r\nPermission denied, please try again.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-17 17:23:48,825 p=7910 u=root n=ansible INFO| 192.168.56.142 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Invalid/incorrect password: Permission denied, please try again.\r\nPermission denied, please try again.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-18 09:27:07,915 p=10039 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-18 09:27:07,915 p=10039 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+ansible_runner.tar
+bin
+boot
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+
+2025-07-18 09:27:17,825 p=10142 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-18 09:27:17,825 p=10142 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+ansible_runner.tar
+bin
+boot
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+
+2025-07-18 09:27:21,976 p=10237 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-18 09:27:21,976 p=10237 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+ansible_runner.tar
+bin
+boot
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+

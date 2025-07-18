@@ -1,6 +1,7 @@
 import json
 
 from celery.result import AsyncResult
+from cryptography.fernet import InvalidToken
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, JsonResponse
@@ -18,9 +19,11 @@ import re
 def go_index(request):
     return render(request, 'index.html')
 
+
 @login_required(login_url="/login")
 def go_task_list(request):
     return render(request, 'task_list.html')
+
 
 @login_required(login_url="/login")
 def go_result_page(request, task_id):
@@ -32,18 +35,32 @@ def go_result_page(request, task_id):
 def ansible_run(request):
     if request.method == 'POST':
         try:
-            # hosts = Host.objects.filter(id__in=host_ids)
-            # if not hosts.exists():
-            #     return JsonResponse({'error': '未找到对应的目标主机'}, status=400,safe=False)
-            data = json.loads(request.body)
 
+            data = json.loads(request.body)
             hosts = data.get('inventory', '[]')
-            hosts_info = Host.objects.filter(ip__in=hosts).values('ip', 'port', 'username')
+
+            hosts_info = Host.objects.filter(ip__in=hosts, users=request.user).values('ip', 'port', 'username',
+                                                                                      'ssh_password_encrypted',
+                                                                                      'become_password_encrypted')
+
             if not hosts_info.exists():
                 return JsonResponse({'error': '未找到对应的目标主机'}, status=400)
-            print(data['playbook_content'])
+            # print(data['playbook_content'])
 
-            #
+            hosts_queryset = Host.objects.filter(ip__in=hosts, users=request.user)
+            # 提取密码
+            for host in hosts_queryset:
+                try:
+                    ssh_pass = host.get_ssh_password()
+                except InvalidToken:
+                    ssh_pass = None
+                    print(f"[警告] 主机 {host.ip} 的 SSH 密码解密失败")
+
+                try:
+                    become_pass = host.get_become_password()
+                except InvalidToken:
+                    become_pass = None
+                    print(f"[警告] 主机 {host.ip} 的提权密码解密失败")
 
             # 构建 inventory 字典格式
             inventory_dict = {
@@ -53,25 +70,30 @@ def ansible_run(request):
                             "ansible_host": host_info['ip'],
                             "ansible_port": host_info['port'],
                             "ansible_user": host_info['username'],
+
                             # 添加其他需要的信息
                         }
                         for host_info in hosts_info
                     }
                 }
             }
-            job_type = data.get('job_type')  # 任务类型
-            module_name = data.get('module_name')  # 模块名称
-            module_args = data.get('module_args')  # 模块参数
-            extra_vars = data.get('extra_vars')  # 扩展变量
-            forks = data.get('forks')  # 并发量
-            verbosity = data.get('verbosity')  # 结果显示等级
 
-            directory = './ansible_runner'
-            ply = data['playbook_content']
-            print(module_name,module_args)
-            task_id = run_ansible_playbook.delay(directory=directory, playbook=ply, job_type=job_type, inventory=inventory_dict,
-                                                 verbosity=verbosity, forks=forks,
-                                                 module_args=module_args, extra_vars=extra_vars, module_name=module_name)
+            # 构造 kwargs 字典
+            kwargs = {
+                'playbook': data['playbook_content'],  # playbook内容 （没有与Playbook管理做动态绑定，Playbook内容编辑之后需要新建任务）
+                'job_type': data.get('job_type'),  # 任务类型
+                'inventory': inventory_dict,
+                'verbosity': data.get('verbosity'),  # 结果显示等级
+                'forks': data.get('forks'),  # 并发量
+                'module_args': data.get('module_args'),  # 模块参数
+                'extra_vars': data.get('extra_vars'),  # 扩展变量
+                'module_name': data.get('module_name'),  # 模块名称
+                'ssh_pass': ssh_pass,
+                'become_pass': become_pass,
+            }
+            # print(module_name, module_args)
+            # 传参执行任务
+            task_id = run_ansible_playbook.delay(**kwargs)
             test1 = CeleryTask(task_id=task_id)
             test1.save()
             # print(inventory_dict)
@@ -83,10 +105,6 @@ def ansible_run(request):
         except Exception as e:
 
             return JsonResponse({'error': str(e)}, status=500)
-
-    # return JsonResponse({'status': 'success'}, status=200,safe=False)
-
-
 
 
 # 获取任务列表

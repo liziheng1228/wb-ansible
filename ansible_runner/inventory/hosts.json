@@ -1,1 +1,1 @@
-{"test": {"hosts": {"192.168.56.142": {"ansible_host": "192.168.56.142", "ansible_port": 22, "ansible_user": "lzh"}, "192.168.56.140": {"ansible_host": "192.168.56.140", "ansible_port": 22, "ansible_user": "lzh"}, "10.161.66.66": {"ansible_host": "10.161.66.66", "ansible_port": 22, "ansible_user": "root"}, "192.168.56.143": {"ansible_host": "192.168.56.143", "ansible_port": 2, "ansible_user": "22"}}}}
+{"test": {"hosts": {"192.168.56.142": {"ansible_host": "192.168.56.142", "ansible_port": 22, "ansible_user": "root", "ansible_ssh_pass": "1"}}}}

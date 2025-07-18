@@ -23,16 +23,30 @@
 
 
     </style>
+
     <div class="layui-fluid">
+
         <div class="layui-row layui-col-space30">
+
             <div id="host_tables" class="layui-col-xs6">
+                <form class="layui-form  layui-col-space10 ">
+                    <div class="layui-col-md6">
+                        <div class="layui-input-wrap">
+
+                            <input type="text" name="host_search" value="" placeholder="任务名称"
+                                   class="layui-input"
+                                   lay-affix="clear">
+                        </div>
+                    </div>
+                    <div class="layui-btn-container layui-col-xs12 layui-col-md4">
+                        <button class="layui-btn" lay-submit lay-filter="table-search">搜索</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">清空</button>
+                    </div>
+                </form>
                 <table class="layui-hide" id="job_list" lay-filter="job_list"></table>
             </div>
             <div class="layui-col-xs6">
-                {#                <button id="run_ansible" class="layui-btn layui-btn-primary layui-border-green">开始执行</button>#}
-
                 <pre class="layui-code code-demo" id="output-container" lay-options="{}"> </pre>
-
             </div>
         </div>
 
@@ -111,6 +125,7 @@
 
         layui.use(['table'], function () {
             var table = layui.table;
+            var form = layui.form
             table.render({
                 elem: '#job_list',
                 url: '{% url 'runner_jobs:job-list' %}',
@@ -119,10 +134,12 @@
                 toolbar: `
                 <div>
                 <button type="button" id="left_toolbar_create_jobs"  lay-event="left_toolbar_create_jobs" class="layui-btn layui-btn-sm">创建任务</button>
+                <button type="button" id="left_toolbar_delete_jobs"  lay-event="left_toolbar_delete_jobs" class="layui-btn layui-btn-sm layui-bg-red">批量删除</button>
                 </div>
 
                 `,
                 cols: [[
+                    {type: 'checkbox', fixed: 'left'},
                     {field: 'job_name', title: '任务名称',},
                     {field: 'job_type', title: '任务类型'},
                     {
@@ -158,6 +175,55 @@
                         }
                     });
                 }
+
+                if (obj.event == 'left_toolbar_delete_jobs') {
+                    var id = obj.config.id;
+                    var checkStatus = table.checkStatus(id);
+                    let list = checkStatus.data
+                    console.log(checkStatus)
+
+                    let selectedIds = []
+                    for (let i = 0; i < list.length; i++) {
+                        selectedIds.push(list[i].job_id)
+                    }
+                    console.log(selectedIds)
+
+                    if (selectedIds.length > 0) {
+                        // 确认删除
+                        layer.confirm('确定要删除选中的 ' + selectedIds.length + ' 任务吗？', {
+                            icon: 3,
+                            title: '批量删除确认',
+                            btn: ['确定删除', '取消']
+                        }, function (index) {
+                            // 发送AJAX请求
+                            $.ajax({
+                                url: '{% url "runner_jobs:batch_delete_jobs_api" %}',
+                                type: 'POST',
+                                data: {
+                                    'job_ids[]': selectedIds,
+                                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                                },
+                                success: function (response) {
+                                    if (response.status === 'success') {
+                                        layer.msg(response.message, {icon: 1});
+                                        // 刷新表格
+                                        layui.table.reload('job_list');
+                                    } else {
+                                        layer.msg(response.message, {icon: 2});
+                                    }
+                                },
+                                error: function () {
+                                    layer.msg('删除请求失败', {icon: 2});
+                                }
+                            });
+                            layer.close(index);
+                            layui.table.reload('job_list');
+                        });
+                    } else {
+                        layer.msg('未选择任务', {icon: 2});
+                    }
+
+                }
             })
             // 查看详情
             table.on('tool(job_list)', function (obj) {
@@ -190,6 +256,7 @@
                         });
                     }
                 }
+                // 执行任务
                 if (obj.event == 'run_jobs') {
                     console.log(JSON.stringify(obj.data))
                     $.ajax({
@@ -209,7 +276,20 @@
                         }
                     });
                 }
-            })
+            })            // 搜索
+            form.on('submit(table-search)', function (data) {
+                var field = data.field; // 获得表单字段
+                console.log(field)
+                // 执行搜索重载
+                table.reload('job_list', {
+                    page: {
+                        curr: 1 // 重新从第 1 页开始
+                    },
+                    where: field // 搜索的字段
+                });
+                return false; // 阻止默认 form 跳转
+            });
+
         })
 
 
