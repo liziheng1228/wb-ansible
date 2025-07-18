@@ -1,8 +1,0 @@
-SSH password: 
-BECOME password[defaults to SSH password]: 
-[1;35m[WARNING]: Could not match supplied host pattern, ignoring: test1[0m
-
-PLAY [test1] *******************************************************************
-[0;36mskipping: no hosts matched[0m
-
-PLAY RECAP *********************************************************************

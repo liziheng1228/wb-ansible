@@ -1,7 +1,0 @@
-SSH password: 
-BECOME password[defaults to SSH password]: 
-[1;31m192.168.56.142 | UNREACHABLE! => {[0m
-[1;31m    "changed": false,[0m
-[1;31m    "msg": "Invalid/incorrect password: Permission denied, please try again.\r\nPermission denied, please try again.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",[0m
-[1;31m    "unreachable": true[0m
-[1;31m}[0m
