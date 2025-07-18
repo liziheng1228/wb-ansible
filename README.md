@@ -27,14 +27,13 @@ Django layui Celery channels
 2.  xxxx
 3.  xxxx
 ### 预览
-![输入图片说明](gitPreviewimage.png)
-![输入图片说明](gitPreviewimage.png)
-![输入图片说明](gitPreviewimage.png)
-![输入图片说明](gitPreviewimage.png)
-![输入图片说明](gitPreviewimage.png)
-![输入图片说明](gitPreviewimage.png)
-![输入图片说明](gitPreviewimage.png)
-![输入图片说明](gitPreviewimage.png)
+![输入图片说明](Previewimage.png)
+![输入图片说明](Previewimage2.png)
+![输入图片说明](Previewimage3.png)
+![输入图片说明](Previewimage4.png)
+![输入图片说明](Previewimage5.png)
+![输入图片说明](Previewimage6.png)
+
 ### 参与贡献
 
 1.  Fork 本仓库
