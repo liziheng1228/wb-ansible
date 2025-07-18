@@ -1,0 +1,24 @@
+SSH password: 
+BECOME password[defaults to SSH password]: 
+[1;35mcore/2.18/reference_appendices/interpreter_discovery.html for more information.[0m
+[0;33m192.168.56.142 | CHANGED | rc=0 >>[0m
+[0;33mansible_runner.tar[0m
+[0;33mbin[0m
+[0;33mboot[0m
+[0;33mdev[0m
+[0;33metc[0m
+[0;33mhome[0m
+[0;33mlib[0m
+[0;33mlib64[0m
+[0;33mmedia[0m
+[0;33mmnt[0m
+[0;33mopt[0m
+[0;33mproc[0m
+[0;33mroot[0m
+[0;33mrun[0m
+[0;33msbin[0m
+[0;33msrv[0m
+[0;33msys[0m
+[0;33mtmp[0m
+[0;33musr[0m
+[0;33mvar[0m
