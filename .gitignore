@@ -13,4 +13,4 @@ __pycache__/
 *.pyo
 *.pyd
 .DS_Store
-./ansible_runner
+ansible_runner
