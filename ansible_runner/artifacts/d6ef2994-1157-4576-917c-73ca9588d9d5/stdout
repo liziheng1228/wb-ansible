@@ -1,0 +1,10 @@
+SSH password: 
+BECOME password[defaults to SSH password]: 
+[1;35m[WARNING]: Invalid characters were found in group names but not replaced, use[0m
+[1;35m-vvvv to see details[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: test[0m
+
+PLAY [test] ********************************************************************
+[0;36mskipping: no hosts matched[0m
+
+PLAY RECAP *********************************************************************

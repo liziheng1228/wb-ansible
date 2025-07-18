@@ -1,0 +1,12 @@
+SSH password: 
+BECOME password[defaults to SSH password]: 
+[1;35m[WARNING]: Skipping unexpected key (host01) in group (hosts), only "vars",[0m
+[1;35m"children" and "hosts" are valid[0m
+[1;35m[WARNING]: provided hosts list is empty, only localhost is available. Note that[0m
+[1;35mthe implicit localhost does not match 'all'[0m
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: test[0m
+
+PLAY [test] ********************************************************************
+[0;36mskipping: no hosts matched[0m
+
+PLAY RECAP *********************************************************************

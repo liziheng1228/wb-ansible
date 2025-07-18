@@ -1,0 +1,1 @@
+{"event": "verbose", "uuid": "c613c1e2-cf13-460d-a0cc-59c1e24d8285", "counter": 10, "stdout": "\u001b[1;35m[WARNING]: Unable to parse /opt/wb-ansible/ansible_runner/inventory/hosts.json\u001b[0m", "start_line": 9, "end_line": 10, "runner_ident": "4a5b44d1-603d-4fb7-b85c-28d58395eba5", "created": "2025-07-09T01:47:28.012469+00:00"}

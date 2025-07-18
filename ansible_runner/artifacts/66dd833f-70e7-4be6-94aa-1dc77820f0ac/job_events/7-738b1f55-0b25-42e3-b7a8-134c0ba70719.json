@@ -1,0 +1,1 @@
+{"event": "verbose", "uuid": "738b1f55-0b25-42e3-b7a8-134c0ba70719", "counter": 7, "stdout": "\u001b[1;35mansible/ansible_runner/inventory/hosts.json with ini plugin: Invalid host\u001b[0m", "start_line": 6, "end_line": 7, "runner_ident": "66dd833f-70e7-4be6-94aa-1dc77820f0ac", "created": "2025-07-09T01:47:01.102245+00:00"}

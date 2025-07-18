@@ -1,0 +1,13 @@
+SSH password: 
+BECOME password[defaults to SSH password]: 
+
+PLAY [test] ********************************************************************
+
+TASK [test_ansible_runner] *****************************************************
+[1;35mcore/2.18/reference_appendices/interpreter_discovery.html for more information.[0m
+[0;33mchanged: [192.168.56.142][0m
+[1;31mfatal: [192.168.56.131]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.131 port 22: No route to host", "unreachable": true}[0m
+
+PLAY RECAP *********************************************************************
+[0;31m192.168.56.131[0m             : ok=0    changed=0    [1;31munreachable=1   [0m failed=0    skipped=0    rescued=0    ignored=0   
+[0;33m192.168.56.142[0m             : [0;32mok=1   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

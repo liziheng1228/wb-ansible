@@ -1,0 +1,1 @@
+{"event": "verbose", "uuid": "3b286156-7506-4171-a0e9-c6b7ede5c4ae", "counter": 2, "stdout": "BECOME password[defaults to SSH password]: ", "start_line": 1, "end_line": 2, "runner_ident": "44621a5d-0459-4c47-9184-b95f6238d27c", "created": "2025-07-09T01:42:51.884661+00:00"}

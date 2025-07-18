@@ -1,0 +1,41 @@
+SSH password: 
+BECOME password[defaults to SSH password]: 
+[1;35mcore/2.18/reference_appendices/interpreter_discovery.html for more information.[0m
+[0;33m192.168.56.142 | CHANGED | rc=0 >>[0m
+[0;33mtotal 9336[0m
+[0;33mdr-xr-x---. 15 root root    4096 Jul 14 16:10 .[0m
+[0;33mdr-xr-xr-x. 17 root root     270 Jul  4 10:23 ..[0m
+[0;33m-rwxrwxrwx   1 root root     636 Jul  2 17:08 1.sh[0m
+[0;33m-rw-------.  1 root root    1337 Nov 18  2024 anaconda-ks.cfg[0m
+[0;33mdrwx------   4 root root      27 Jul  3 16:54 .ansible[0m
+[0;33m-rw-r--r--   1 root root   11101 Jul  3 17:28 ansible.log[0m
+[0;33mdrwxr-xr-x   5 root root     153 Jul  4 16:10 ansible_run[0m
+[0;33m-rw-------.  1 root root   20428 Jul 11 17:27 .bash_history[0m
+[0;33m-rw-r--r--.  1 root root      18 Dec 29  2013 .bash_logout[0m
+[0;33m-rw-r--r--.  1 root root     176 Dec 29  2013 .bash_profile[0m
+[0;33m-rw-r--r--   1 root root     190 Nov 18  2024 .bashrc[0m
+[0;33mdrwxr-xr-x   3 root root      17 Jul  4 10:52 .cache[0m
+[0;33mdrwxr-xr-x   3 root root      23 Jul  4 10:45 .config[0m
+[0;33m-rw-r--r--.  1 root root     100 Dec 29  2013 .cshrc[0m
+[0;33m-rw-r--r--   1 root root    3875 Jul 14 16:10 dump.rdb[0m
+[0;33mdrwxr-xr-x   3 root root      17 Jul  3 17:02 examples[0m
+[0;33m-rw-r--r--   1 root root      78 Jul  7 09:33 .gitconfig[0m
+[0;33m-rw-------   1 root root      41 Jul 11 17:26 .git-credentials[0m
+[0;33mdrwxr-xr-x   2 root root       6 Jul  4 09:09 inventory[0m
+[0;33m-rw-------   1 root root      45 Jul  7 16:09 .lesshst[0m
+[0;33mdrwxr-----   3 root root      19 Jul  4 10:46 .pki[0m
+[0;33mdrwxr-xr-x   8 root root     156 Jul  7 10:29 project[0m
+[0;33mdrwxr-xr-x   3 root root      35 Dec  3  2024 project1[0m
+[0;33mdrwxr-xr-x  22 root root    4096 Jul  4 11:21 .pycharm_helpers[0m
+[0;33m-rw-r--r--   1 root root       7 Jul  4 11:18 .python_history[0m
+[0;33mdrwxrwxr-x   8 root root    4096 Jul  8 11:07 redis-7.2.0[0m
+[0;33m-rw-rw-rw-   1 root root 3381269 Aug 15  2023 redis-7.2.0.tar.gz[0m
+[0;33m-rw-r--r--   1 root root     305 Jul  4 11:16 requirements.txt[0m
+[0;33mdrwxrwxrwx   2 root root       6 Jul  4 11:12 share[0m
+[0;33mdrwx------   2 root root      25 Jul  3 16:56 .ssh[0m
+[0;33m-rw-r--r--   1 root root 3672728 Nov  7  2023 sudo-1.9.15-1.el7.x86_64.rpm[0m
+[0;33m-rw-r--r--   1 root root 2382800 Jan 12  2021 sudo-1.9.5-2.el7.x86_64.rpm[0m
+[0;33m-rw-r--r--   1 root root    2503 Apr 21 15:33 sudo.sh[0m
+[0;33m-rw-r--r--.  1 root root     129 Dec 29  2013 .tcshrc[0m
+[0;33m-rw-------   1 root root    8763 Jul 11 15:10 .viminfo[0m
+[0;33m-rw-r--r--   1 root root      10 Nov 18  2024 .vimrc[0m

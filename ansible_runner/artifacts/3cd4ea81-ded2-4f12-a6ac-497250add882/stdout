@@ -1,0 +1,8 @@
+SSH password: 
+BECOME password[defaults to SSH password]: 
+[1;35m[WARNING]: Invalid characters were found in group names but not replaced, use[0m
+[1;35m-vvvv to see details[0m
+
+PLAY [test-1] ******************************************************************
+
+TASK [test_ansible_runner] *****************************************************

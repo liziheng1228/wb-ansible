@@ -1,0 +1,1624 @@
+2025-07-07 15:34:38,001 p=4425 u=root n=ansible WARNING| [WARNING]: No python interpreters found for host 192.168.56.131 (tried ['python3.13', 'python3.12', 'python3.11', 'python3.10',
+'python3.9', 'python3.8', '/usr/bin/python3', 'python3'])
+
+2025-07-07 15:34:38,001 p=4425 u=root n=ansible INFO| 192.168.56.131 | FAILED! => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "module_stderr": "Shared connection to 192.168.56.131 closed.\r\n",
+    "module_stdout": "/bin/sh: /usr/bin/python3: No such file or directory\r\n",
+    "msg": "The module failed to execute correctly, you probably need to set the interpreter.\nSee stdout/stderr for the exact error",
+    "rc": 127
+}
+2025-07-07 15:34:38,189 p=4425 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python interpreter at /usr/bin/python3, but future
+installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-07 15:34:38,189 p=4425 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+ok
+
+2025-07-07 15:41:52,628 p=4536 u=root n=ansible WARNING| [WARNING]: No python interpreters found for host 192.168.56.131 (tried ['python3.13', 'python3.12', 'python3.11', 'python3.10',
+'python3.9', 'python3.8', '/usr/bin/python3', 'python3'])
+
+2025-07-07 15:41:52,628 p=4536 u=root n=ansible INFO| 192.168.56.131 | FAILED! => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "module_stderr": "Shared connection to 192.168.56.131 closed.\r\n",
+    "module_stdout": "/bin/sh: /usr/bin/python3: No such file or directory\r\n",
+    "msg": "The module failed to execute correctly, you probably need to set the interpreter.\nSee stdout/stderr for the exact error",
+    "rc": 127
+}
+2025-07-07 15:41:52,860 p=4536 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python interpreter at /usr/bin/python3, but future
+installation of another Python interpreter could change the meaning of that path. See https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-07 15:41:52,860 p=4536 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+ok
+
+2025-07-09 10:06:17,850 p=4411 u=root n=ansible INFO| PLAY [all] ************************************************************************************************
+2025-07-09 10:06:17,858 p=4411 u=root n=ansible INFO| TASK [test_ansible_runner] ********************************************************************************
+2025-07-09 10:06:18,425 p=4411 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python interpreter at
+/usr/bin/python3, but future installation of another Python interpreter could change the meaning of that
+path. See https://docs.ansible.com/ansible-core/2.18/reference_appendices/interpreter_discovery.html for
+more information.
+
+2025-07-09 10:06:18,425 p=4411 u=root n=ansible INFO| changed: [192.168.56.142]
+2025-07-09 10:06:20,901 p=4411 u=root n=ansible INFO| fatal: [192.168.56.131]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.131 port 22: No route to host", "unreachable": true}
+2025-07-09 10:06:20,902 p=4411 u=root n=ansible INFO| PLAY RECAP ************************************************************************************************
+2025-07-09 10:06:20,902 p=4411 u=root n=ansible INFO| 192.168.56.131             : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-07-09 10:06:20,902 p=4411 u=root n=ansible INFO| 192.168.56.142             : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-07-11 14:43:22,939 p=6120 u=root n=ansible INFO| host01 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.1.3 port 22: Connection timed out",
+    "unreachable": true
+}
+2025-07-11 14:43:49,626 p=6132 u=root n=ansible INFO| host01 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.1.3 port 22: Connection timed out",
+    "unreachable": true
+}
+2025-07-11 14:44:27,243 p=6144 u=root n=ansible INFO| host01 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.1.3 port 22: Connection timed out",
+    "unreachable": true
+}
+2025-07-11 14:47:33,863 p=6168 u=root n=ansible INFO| host01 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.1.3 port 22: Connection timed out",
+    "unreachable": true
+}
+2025-07-11 14:49:11,779 p=6192 u=root n=ansible INFO| host01 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.1.3 port 22: Connection timed out",
+    "unreachable": true
+}
+2025-07-11 14:55:17,325 p=6236 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 14:55:17,325 p=6236 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 14:55:26,781 p=6236 u=root n=ansible INFO| 192.168.1.13 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.1.13 port 22: Connection timed out",
+    "unreachable": true
+}
+2025-07-11 15:03:49,192 p=6476 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:03:49,192 p=6476 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:03:51,649 p=6476 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:03:51,661 p=6476 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:04:25,986 p=6581 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:04:25,986 p=6581 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:04:28,569 p=6581 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:04:28,576 p=6581 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:04:36,147 p=6684 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:04:36,147 p=6684 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:04:38,725 p=6684 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:04:38,729 p=6684 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:06:32,992 p=6839 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:06:32,992 p=6839 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:06:35,463 p=6839 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:06:35,471 p=6839 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:10:18,399 p=7963 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:10:18,399 p=7963 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:10:20,977 p=7963 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:10:20,981 p=7963 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:12:04,052 p=8095 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:12:04,052 p=8095 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:12:06,483 p=8095 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:12:06,484 p=8095 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:13:29,828 p=8715 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:13:29,828 p=8715 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:13:32,413 p=8715 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:13:32,417 p=8715 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:13:44,399 p=8829 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:13:44,400 p=8829 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:13:50,494 p=9273 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:13:50,494 p=9273 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:13:50,665 p=9275 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:13:50,665 p=9275 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:13:50,706 p=9279 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:13:50,706 p=9279 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:13:51,443 p=9273 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:13:51,443 p=9273 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:13:51,445 p=9275 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:13:51,445 p=9275 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:13:51,447 p=9279 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:13:51,447 p=9279 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:14:47,406 p=9693 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-11 15:14:47,406 p=9693 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+1.sh
+anaconda-ks.cfg
+ansible.log
+ansible_run
+dump.rdb
+examples
+inventory
+project
+project1
+redis-7.2.0
+redis-7.2.0.tar.gz
+requirements.txt
+share
+sudo-1.9.15-1.el7.x86_64.rpm
+sudo-1.9.5-2.el7.x86_64.rpm
+sudo.sh
+
+2025-07-11 15:14:49,994 p=9693 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:14:50,002 p=9693 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:16:57,334 p=9966 u=root n=ansible INFO| 192.168.56.142 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.142 port 33: Connection refused",
+    "unreachable": true
+}
+2025-07-11 15:17:00,347 p=9966 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.140 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-11 15:17:00,351 p=9966 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-14 16:14:32,630 p=6819 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-14 16:14:57,659 p=6851 u=root n=ansible INFO| 192.168.56.142 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Invalid/incorrect password: Permission denied, please try again.\r\nPermission denied, please try again.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-14 16:15:08,299 p=6879 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-14 16:15:08,299 p=6879 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+total 9336
+dr-xr-x---. 15 root root    4096 Jul 14 16:10 .
+dr-xr-xr-x. 17 root root     270 Jul  4 10:23 ..
+-rwxrwxrwx   1 root root     636 Jul  2 17:08 1.sh
+-rw-------.  1 root root    1337 Nov 18  2024 anaconda-ks.cfg
+drwx------   4 root root      27 Jul  3 16:54 .ansible
+-rw-r--r--   1 root root   11101 Jul  3 17:28 ansible.log
+drwxr-xr-x   5 root root     153 Jul  4 16:10 ansible_run
+-rw-------.  1 root root   20428 Jul 11 17:27 .bash_history
+-rw-r--r--.  1 root root      18 Dec 29  2013 .bash_logout
+-rw-r--r--.  1 root root     176 Dec 29  2013 .bash_profile
+-rw-r--r--   1 root root     190 Nov 18  2024 .bashrc
+drwxr-xr-x   3 root root      17 Jul  4 10:52 .cache
+drwxr-xr-x   3 root root      23 Jul  4 10:45 .config
+-rw-r--r--.  1 root root     100 Dec 29  2013 .cshrc
+-rw-r--r--   1 root root    3875 Jul 14 16:10 dump.rdb
+drwxr-xr-x   3 root root      17 Jul  3 17:02 examples
+-rw-r--r--   1 root root      78 Jul  7 09:33 .gitconfig
+-rw-------   1 root root      41 Jul 11 17:26 .git-credentials
+drwxr-xr-x   2 root root       6 Jul  4 09:09 inventory
+-rw-------   1 root root      45 Jul  7 16:09 .lesshst
+drwxr-----   3 root root      19 Jul  4 10:46 .pki
+drwxr-xr-x   8 root root     156 Jul  7 10:29 project
+drwxr-xr-x   3 root root      35 Dec  3  2024 project1
+drwxr-xr-x  22 root root    4096 Jul  4 11:21 .pycharm_helpers
+-rw-r--r--   1 root root       7 Jul  4 11:18 .python_history
+drwxrwxr-x   8 root root    4096 Jul  8 11:07 redis-7.2.0
+-rw-rw-rw-   1 root root 3381269 Aug 15  2023 redis-7.2.0.tar.gz
+-rw-r--r--   1 root root     305 Jul  4 11:16 requirements.txt
+drwxrwxrwx   2 root root       6 Jul  4 11:12 share
+drwx------   2 root root      25 Jul  3 16:56 .ssh
+-rw-r--r--   1 root root 3672728 Nov  7  2023 sudo-1.9.15-1.el7.x86_64.rpm
+-rw-r--r--   1 root root 2382800 Jan 12  2021 sudo-1.9.5-2.el7.x86_64.rpm
+-rw-r--r--   1 root root    2503 Apr 21 15:33 sudo.sh
+-rw-r--r--.  1 root root     129 Dec 29  2013 .tcshrc
+-rw-------   1 root root    8763 Jul 11 15:10 .viminfo
+-rw-r--r--   1 root root      10 Nov 18  2024 .vimrc
+
+2025-07-14 16:38:42,255 p=7114 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-14 16:38:42,255 p=7114 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+total 9352
+dr-xr-x---. 15 root root    4096 Jul 14 16:15 .
+dr-xr-xr-x. 17 root root     270 Jul  4 10:23 ..
+-rwxrwxrwx   1 root root     636 Jul  2 17:08 1.sh
+-rw-------.  1 root root    1337 Nov 18  2024 anaconda-ks.cfg
+drwx------   4 root root      27 Jul  3 16:54 .ansible
+-rw-r--r--   1 root root   11101 Jul  3 17:28 ansible.log
+drwxr-xr-x   5 root root     153 Jul  4 16:10 ansible_run
+-rw-------.  1 root root   20428 Jul 11 17:27 .bash_history
+-rw-r--r--.  1 root root      18 Dec 29  2013 .bash_logout
+-rw-r--r--.  1 root root     176 Dec 29  2013 .bash_profile
+-rw-r--r--   1 root root     190 Nov 18  2024 .bashrc
+drwxr-xr-x   3 root root      17 Jul  4 10:52 .cache
+drwxr-xr-x   3 root root      23 Jul  4 10:45 .config
+-rw-r--r--.  1 root root     100 Dec 29  2013 .cshrc
+-rw-r--r--   1 root root   16553 Jul 14 16:15 dump.rdb
+drwxr-xr-x   3 root root      17 Jul  3 17:02 examples
+-rw-r--r--   1 root root      78 Jul  7 09:33 .gitconfig
+-rw-------   1 root root      41 Jul 14 16:15 .git-credentials
+drwxr-xr-x   2 root root       6 Jul  4 09:09 inventory
+-rw-------   1 root root      45 Jul  7 16:09 .lesshst
+drwxr-----   3 root root      19 Jul  4 10:46 .pki
+drwxr-xr-x   8 root root     156 Jul  7 10:29 project
+drwxr-xr-x   3 root root      35 Dec  3  2024 project1
+drwxr-xr-x  22 root root    4096 Jul  4 11:21 .pycharm_helpers
+-rw-r--r--   1 root root       7 Jul  4 11:18 .python_history
+drwxrwxr-x   8 root root    4096 Jul  8 11:07 redis-7.2.0
+-rw-rw-rw-   1 root root 3381269 Aug 15  2023 redis-7.2.0.tar.gz
+-rw-r--r--   1 root root     305 Jul  4 11:16 requirements.txt
+drwxrwxrwx   2 root root       6 Jul  4 11:12 share
+drwx------   2 root root      25 Jul  3 16:56 .ssh
+-rw-r--r--   1 root root 3672728 Nov  7  2023 sudo-1.9.15-1.el7.x86_64.rpm
+-rw-r--r--   1 root root 2382800 Jan 12  2021 sudo-1.9.5-2.el7.x86_64.rpm
+-rw-r--r--   1 root root    2503 Apr 21 15:33 sudo.sh
+-rw-r--r--.  1 root root     129 Dec 29  2013 .tcshrc
+-rw-------   1 root root    8763 Jul 11 15:10 .viminfo
+-rw-r--r--   1 root root      10 Nov 18  2024 .vimrc
+
+2025-07-15 13:28:31,557 p=12116 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 13:28:31,558 p=12116 u=root n=ansible INFO| 192.168.56.142 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+2025-07-15 13:28:34,032 p=12116 u=root n=ansible INFO| 192.168.56.144 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.144 port 22: No route to host",
+    "unreachable": true
+}
+2025-07-15 15:39:33,904 p=16909 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 15:39:33,904 p=16909 u=root n=ansible INFO| 192.168.56.140 | FAILED! => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "module_stderr": "Shared connection to 192.168.56.140 closed.\r\n",
+    "module_stdout": "\r\nlzh is not in the sudoers file.\r\nThis incident has been reported to the administrator.\r\n",
+    "msg": "MODULE FAILURE: No start of json char found\nSee stdout/stderr for the exact error",
+    "rc": 1
+}
+2025-07-15 15:40:07,414 p=16956 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 15:40:07,415 p=16956 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+
+
+2025-07-15 15:40:54,457 p=16990 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 15:40:54,457 p=16990 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+
+
+2025-07-15 15:41:03,188 p=17005 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 15:41:03,188 p=17005 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+
+
+2025-07-15 15:41:28,354 p=17023 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 15:41:28,355 p=17023 u=root n=ansible INFO| 192.168.56.140 | FAILED | rc=2 >>
+ls: cannot open directory /root: Permission deniednon-zero return code
+
+2025-07-15 15:41:42,974 p=17038 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 15:41:42,974 p=17038 u=root n=ansible INFO| 192.168.56.140 | FAILED | rc=2 >>
+ls: cannot open directory /root: Permission deniednon-zero return code
+
+2025-07-15 15:41:50,857 p=17053 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 15:41:50,857 p=17053 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 15:53:55,686 p=17268 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:54:56,726 p=17292 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:55:20,869 p=17321 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:55:48,565 p=17336 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:55:55,325 p=17355 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:55:57,458 p=17368 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:55:59,452 p=17381 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:56:05,728 p=17395 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:56:07,895 p=17407 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:56:35,828 p=17516 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:58:14,109 p=19081 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:59:00,633 p=19114 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:59:28,776 p=19122 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 15:59:51,320 p=19130 u=root n=ansible INFO| ansible [core 2.18.6]
+  config file = /opt/wb-ansible/ansible_runner/ansible.cfg
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/python3/lib/python3.13/site-packages/ansible
+  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/bin/ansible
+  python version = 3.13.1 (main, Jul  3 2025, 17:24:15) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)] (/usr/local/python3/bin/python3.13)
+  jinja version = 3.1.6
+  libyaml = True
+2025-07-15 15:59:51,321 p=19130 u=root n=ansible INFO| Using /opt/wb-ansible/ansible_runner/ansible.cfg as config file
+2025-07-15 15:59:51,424 p=19130 u=root n=ansible INFO| host_list declined parsing /opt/wb-ansible/ansible_runner/inventory/hosts.json as it did not pass its verify_file() method
+2025-07-15 15:59:51,425 p=19130 u=root n=ansible INFO| script declined parsing /opt/wb-ansible/ansible_runner/inventory/hosts.json as it did not pass its verify_file() method
+2025-07-15 15:59:51,425 p=19130 u=root n=ansible INFO| auto declined parsing /opt/wb-ansible/ansible_runner/inventory/hosts.json as it did not pass its verify_file() method
+2025-07-15 15:59:51,425 p=19130 u=root n=ansible INFO| Parsed /opt/wb-ansible/ansible_runner/inventory/hosts.json inventory source with yaml plugin
+2025-07-15 15:59:51,478 p=19130 u=root n=ansible INFO| Skipping callback 'awx_display', as we already have a stdout callback.
+2025-07-15 15:59:51,478 p=19130 u=root n=ansible INFO| Skipping callback 'default', as we already have a stdout callback.
+2025-07-15 15:59:51,479 p=19130 u=root n=ansible INFO| Skipping callback 'minimal', as we already have a stdout callback.
+2025-07-15 15:59:51,479 p=19130 u=root n=ansible INFO| Skipping callback 'oneline', as we already have a stdout callback.
+2025-07-15 15:59:51,516 p=19130 u=root n=ansible INFO| <192.168.56.140> ESTABLISH SSH CONNECTION FOR USER: lzh
+2025-07-15 15:59:51,517 p=19130 u=root n=ansible INFO| <192.168.56.140> SSH: EXEC ssh -vvv -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="lzh"' -o ConnectTimeout=10 -o 'ControlPath="/root/.ansible/cp/a7bb4eb506"' 192.168.56.140 '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo /tmp `"&& mkdir "` echo /tmp/ansible-tmp-1752566391.5127273-19134-168601507542621 `" && echo ansible-tmp-1752566391.5127273-19134-168601507542621="` echo /tmp/ansible-tmp-1752566391.5127273-19134-168601507542621 `" ) && sleep 0'"'"''
+2025-07-15 15:59:51,583 p=19130 u=root n=ansible INFO| <192.168.56.140> (255, b'', b'OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug1: Control socket "/root/.ansible/cp/a7bb4eb506" does not exist\r\ndebug2: resolving "192.168.56.140" port 22\r\ndebug2: ssh_connect_direct: needpriv 0\r\ndebug1: Connecting to 192.168.56.140 [192.168.56.140] port 22.\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug1: fd 3 clearing O_NONBLOCK\r\ndebug1: Connection established.\r\ndebug3: timeout: 10000 ms remain after connect\r\ndebug1: permanently_set_uid: 0/0\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_rsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_rsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_dsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_dsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ecdsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ecdsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ed25519 type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ed25519-cert type -1\r\ndebug1: Enabling compatibility mode for protocol 2.0\r\ndebug1: Local version string SSH-2.0-OpenSSH_7.4\r\ndebug1: Remote protocol version 2.0, remote software version OpenSSH_7.4\r\ndebug1: match: OpenSSH_7.4 pat OpenSSH* compat 0x04000000\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug1: Authenticating to 192.168.56.140:22 as \'lzh\'\r\ndebug3: hostkeys_foreach: reading file "/root/.ssh/known_hosts"\r\ndebug3: record_hostkey: found key type ECDSA in file /root/.ssh/known_hosts:2\r\ndebug3: load_hostkeys: loaded 1 keys from 192.168.56.140\r\ndebug3: order_hostkeyalgs: prefer hostkeyalgs: ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521\r\ndebug3: send packet: type 20\r\ndebug1: SSH2_MSG_KEXINIT sent\r\ndebug3: receive packet: type 20\r\ndebug1: SSH2_MSG_KEXINIT received\r\ndebug2: local client KEXINIT proposal\r\ndebug2: KEX algorithms: curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1,ext-info-c\r\ndebug2: host key algorithms: ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-dss-cert-v01@openssh.com,ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa,ssh-dss\r\ndebug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc\r\ndebug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc\r\ndebug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1\r\ndebug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1\r\ndebug2: compression ctos: zlib@openssh.com,zlib,none\r\ndebug2: compression stoc: zlib@openssh.com,zlib,none\r\ndebug2: languages ctos: \r\ndebug2: languages stoc: \r\ndebug2: first_kex_follows 0 \r\ndebug2: reserved 0 \r\ndebug2: peer server KEXINIT proposal\r\ndebug2: KEX algorithms: curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1\r\ndebug2: host key algorithms: ssh-rsa,rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519\r\ndebug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc,blowfish-cbc,cast128-cbc,3des-cbc\r\ndebug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc,blowfish-cbc,cast128-cbc,3des-cbc\r\ndebug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1\r\ndebug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1\r\ndebug2: compression ctos: none,zlib@openssh.com\r\ndebug2: compression stoc: none,zlib@openssh.com\r\ndebug2: languages ctos: \r\ndebug2: languages stoc: \r\ndebug2: first_kex_follows 0 \r\ndebug2: reserved 0 \r\ndebug1: kex: algorithm: curve25519-sha256\r\ndebug1: kex: host key algorithm: ecdsa-sha2-nistp256\r\ndebug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com\r\ndebug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com\r\ndebug1: kex: curve25519-sha256 need=64 dh_need=64\r\ndebug1: kex: curve25519-sha256 need=64 dh_need=64\r\ndebug3: send packet: type 30\r\ndebug1: expecting SSH2_MSG_KEX_ECDH_REPLY\r\ndebug3: receive packet: type 31\r\ndebug1: Server host key: ecdsa-sha2-nistp256 SHA256:dlUsanaBCKzCWNbNNj6LuVNZJSTrJlD0O63ANmIqZAc\r\ndebug3: hostkeys_foreach: reading file "/root/.ssh/known_hosts"\r\ndebug3: record_hostkey: found key type ECDSA in file /root/.ssh/known_hosts:2\r\ndebug3: load_hostkeys: loaded 1 keys from 192.168.56.140\r\ndebug1: Host \'192.168.56.140\' is known and matches the ECDSA host key.\r\ndebug1: Found key in /root/.ssh/known_hosts:2\r\ndebug3: send packet: type 21\r\ndebug2: set_newkeys: mode 1\r\ndebug1: rekey after 134217728 blocks\r\ndebug1: SSH2_MSG_NEWKEYS sent\r\ndebug1: expecting SSH2_MSG_NEWKEYS\r\ndebug3: receive packet: type 21\r\ndebug1: SSH2_MSG_NEWKEYS received\r\ndebug2: set_newkeys: mode 0\r\ndebug1: rekey after 134217728 blocks\r\ndebug2: key: /root/.ssh/id_rsa ((nil))\r\ndebug2: key: /root/.ssh/id_dsa ((nil))\r\ndebug2: key: /root/.ssh/id_ecdsa ((nil))\r\ndebug2: key: /root/.ssh/id_ed25519 ((nil))\r\ndebug3: send packet: type 5\r\ndebug3: receive packet: type 7\r\ndebug1: SSH2_MSG_EXT_INFO received\r\ndebug1: kex_input_ext_info: server-sig-algs=<rsa-sha2-256,rsa-sha2-512>\r\ndebug3: receive packet: type 6\r\ndebug2: service_accept: ssh-userauth\r\ndebug1: SSH2_MSG_SERVICE_ACCEPT received\r\ndebug3: send packet: type 50\r\ndebug3: receive packet: type 51\r\ndebug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password\r\ndebug3: start over, passed a different list publickey,gssapi-keyex,gssapi-with-mic,password\r\ndebug3: preferred gssapi-with-mic,gssapi-keyex,hostbased,publickey\r\ndebug3: authmethod_lookup gssapi-with-mic\r\ndebug3: remaining preferred: gssapi-keyex,hostbased,publickey\r\ndebug3: authmethod_is_enabled gssapi-with-mic\r\ndebug1: Next authentication method: gssapi-with-mic\r\ndebug1: Unspecified GSS failure.  Minor code may provide more information\nNo Kerberos credentials available (default cache: KEYRING:persistent:0)\n\r\ndebug1: Unspecified GSS failure.  Minor code may provide more information\nNo Kerberos credentials available (default cache: KEYRING:persistent:0)\n\r\ndebug2: we did not send a packet, disable method\r\ndebug3: authmethod_lookup gssapi-keyex\r\ndebug3: remaining preferred: hostbased,publickey\r\ndebug3: authmethod_is_enabled gssapi-keyex\r\ndebug1: Next authentication method: gssapi-keyex\r\ndebug1: No valid Key exchange context\r\ndebug2: we did not send a packet, disable method\r\ndebug3: authmethod_lookup publickey\r\ndebug3: remaining preferred: ,publickey\r\ndebug3: authmethod_is_enabled publickey\r\ndebug1: Next authentication method: publickey\r\ndebug1: Trying private key: /root/.ssh/id_rsa\r\ndebug3: no such identity: /root/.ssh/id_rsa: No such file or directory\r\ndebug1: Trying private key: /root/.ssh/id_dsa\r\ndebug3: no such identity: /root/.ssh/id_dsa: No such file or directory\r\ndebug1: Trying private key: /root/.ssh/id_ecdsa\r\ndebug3: no such identity: /root/.ssh/id_ecdsa: No such file or directory\r\ndebug1: Trying private key: /root/.ssh/id_ed25519\r\ndebug3: no such identity: /root/.ssh/id_ed25519: No such file or directory\r\ndebug2: we did not send a packet, disable method\r\ndebug1: No more authentication methods to try.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).\r\n')
+2025-07-15 15:59:51,590 p=19130 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug1: Control socket \"/root/.ansible/cp/a7bb4eb506\" does not exist\r\ndebug2: resolving \"192.168.56.140\" port 22\r\ndebug2: ssh_connect_direct: needpriv 0\r\ndebug1: Connecting to 192.168.56.140 [192.168.56.140] port 22.\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug1: fd 3 clearing O_NONBLOCK\r\ndebug1: Connection established.\r\ndebug3: timeout: 10000 ms remain after connect\r\ndebug1: permanently_set_uid: 0/0\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_rsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_rsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_dsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_dsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ecdsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ecdsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ed25519 type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ed25519-cert type -1\r\ndebug1: Enabling compatibility mode for protocol 2.0\r\ndebug1: Local version string SSH-2.0-OpenSSH_7.4\r\ndebug1: Remote protocol version 2.0, remote software version OpenSSH_7.4\r\ndebug1: match: OpenSSH_7.4 pat OpenSSH* compat 0x04000000\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug1: Authenticating to 192.168.56.140:22 as 'lzh'\r\ndebug3: hostkeys_foreach: reading file \"/root/.ssh/known_hosts\"\r\ndebug3: record_hostkey: found key type ECDSA in file /root/.ssh/known_hosts:2\r\ndebug3: load_hostkeys: loaded 1 keys from 192.168.56.140\r\ndebug3: order_hostkeyalgs: prefer hostkeyalgs: ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521\r\ndebug3: send packet: type 20\r\ndebug1: SSH2_MSG_KEXINIT sent\r\ndebug3: receive packet: type 20\r\ndebug1: SSH2_MSG_KEXINIT received\r\ndebug2: local client KEXINIT proposal\r\ndebug2: KEX algorithms: curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1,ext-info-c\r\ndebug2: host key algorithms: ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-dss-cert-v01@openssh.com,ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa,ssh-dss\r\ndebug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc\r\ndebug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc\r\ndebug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1\r\ndebug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1\r\ndebug2: compression ctos: zlib@openssh.com,zlib,none\r\ndebug2: compression stoc: zlib@openssh.com,zlib,none\r\ndebug2: languages ctos: \r\ndebug2: languages stoc: \r\ndebug2: first_kex_follows 0 \r\ndebug2: reserved 0 \r\ndebug2: peer server KEXINIT proposal\r\ndebug2: KEX algorithms: curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1\r\ndebug2: host key algorithms: ssh-rsa,rsa-sha2-512,rsa-sha2-256,ecdsa-sha2-nistp256,ssh-ed25519\r\ndebug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc,blowfish-cbc,cast128-cbc,3des-cbc\r\ndebug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc,blowfish-cbc,cast128-cbc,3des-cbc\r\ndebug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1\r\ndebug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1\r\ndebug2: compression ctos: none,zlib@openssh.com\r\ndebug2: compression stoc: none,zlib@openssh.com\r\ndebug2: languages ctos: \r\ndebug2: languages stoc: \r\ndebug2: first_kex_follows 0 \r\ndebug2: reserved 0 \r\ndebug1: kex: algorithm: curve25519-sha256\r\ndebug1: kex: host key algorithm: ecdsa-sha2-nistp256\r\ndebug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com\r\ndebug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com\r\ndebug1: kex: curve25519-sha256 need=64 dh_need=64\r\ndebug1: kex: curve25519-sha256 need=64 dh_need=64\r\ndebug3: send packet: type 30\r\ndebug1: expecting SSH2_MSG_KEX_ECDH_REPLY\r\ndebug3: receive packet: type 31\r\ndebug1: Server host key: ecdsa-sha2-nistp256 SHA256:dlUsanaBCKzCWNbNNj6LuVNZJSTrJlD0O63ANmIqZAc\r\ndebug3: hostkeys_foreach: reading file \"/root/.ssh/known_hosts\"\r\ndebug3: record_hostkey: found key type ECDSA in file /root/.ssh/known_hosts:2\r\ndebug3: load_hostkeys: loaded 1 keys from 192.168.56.140\r\ndebug1: Host '192.168.56.140' is known and matches the ECDSA host key.\r\ndebug1: Found key in /root/.ssh/known_hosts:2\r\ndebug3: send packet: type 21\r\ndebug2: set_newkeys: mode 1\r\ndebug1: rekey after 134217728 blocks\r\ndebug1: SSH2_MSG_NEWKEYS sent\r\ndebug1: expecting SSH2_MSG_NEWKEYS\r\ndebug3: receive packet: type 21\r\ndebug1: SSH2_MSG_NEWKEYS received\r\ndebug2: set_newkeys: mode 0\r\ndebug1: rekey after 134217728 blocks\r\ndebug2: key: /root/.ssh/id_rsa ((nil))\r\ndebug2: key: /root/.ssh/id_dsa ((nil))\r\ndebug2: key: /root/.ssh/id_ecdsa ((nil))\r\ndebug2: key: /root/.ssh/id_ed25519 ((nil))\r\ndebug3: send packet: type 5\r\ndebug3: receive packet: type 7\r\ndebug1: SSH2_MSG_EXT_INFO received\r\ndebug1: kex_input_ext_info: server-sig-algs=<rsa-sha2-256,rsa-sha2-512>\r\ndebug3: receive packet: type 6\r\ndebug2: service_accept: ssh-userauth\r\ndebug1: SSH2_MSG_SERVICE_ACCEPT received\r\ndebug3: send packet: type 50\r\ndebug3: receive packet: type 51\r\ndebug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password\r\ndebug3: start over, passed a different list publickey,gssapi-keyex,gssapi-with-mic,password\r\ndebug3: preferred gssapi-with-mic,gssapi-keyex,hostbased,publickey\r\ndebug3: authmethod_lookup gssapi-with-mic\r\ndebug3: remaining preferred: gssapi-keyex,hostbased,publickey\r\ndebug3: authmethod_is_enabled gssapi-with-mic\r\ndebug1: Next authentication method: gssapi-with-mic\r\ndebug1: Unspecified GSS failure.  Minor code may provide more information\nNo Kerberos credentials available (default cache: KEYRING:persistent:0)\n\r\ndebug1: Unspecified GSS failure.  Minor code may provide more information\nNo Kerberos credentials available (default cache: KEYRING:persistent:0)\n\r\ndebug2: we did not send a packet, disable method\r\ndebug3: authmethod_lookup gssapi-keyex\r\ndebug3: remaining preferred: hostbased,publickey\r\ndebug3: authmethod_is_enabled gssapi-keyex\r\ndebug1: Next authentication method: gssapi-keyex\r\ndebug1: No valid Key exchange context\r\ndebug2: we did not send a packet, disable method\r\ndebug3: authmethod_lookup publickey\r\ndebug3: remaining preferred: ,publickey\r\ndebug3: authmethod_is_enabled publickey\r\ndebug1: Next authentication method: publickey\r\ndebug1: Trying private key: /root/.ssh/id_rsa\r\ndebug3: no such identity: /root/.ssh/id_rsa: No such file or directory\r\ndebug1: Trying private key: /root/.ssh/id_dsa\r\ndebug3: no such identity: /root/.ssh/id_dsa: No such file or directory\r\ndebug1: Trying private key: /root/.ssh/id_ecdsa\r\ndebug3: no such identity: /root/.ssh/id_ecdsa: No such file or directory\r\ndebug1: Trying private key: /root/.ssh/id_ed25519\r\ndebug3: no such identity: /root/.ssh/id_ed25519: No such file or directory\r\ndebug2: we did not send a packet, disable method\r\ndebug1: No more authentication methods to try.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:01:02,637 p=19151 u=root n=ansible INFO| Using /opt/wb-ansible/ansible_runner/ansible.cfg as config file
+2025-07-15 16:01:02,908 p=19151 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug1: Control socket \"/root/.ansible/cp/a7bb4eb506\" does not exist\r\ndebug1: Connecting to 192.168.56.140 [192.168.56.140] port 22.\r\ndebug1: fd 3 clearing O_NONBLOCK\r\ndebug1: Connection established.\r\ndebug1: permanently_set_uid: 0/0\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_rsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_rsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_dsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_dsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ecdsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ecdsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ed25519 type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ed25519-cert type -1\r\ndebug1: Enabling compatibility mode for protocol 2.0\r\ndebug1: Local version string SSH-2.0-OpenSSH_7.4\r\ndebug1: Remote protocol version 2.0, remote software version OpenSSH_7.4\r\ndebug1: match: OpenSSH_7.4 pat OpenSSH* compat 0x04000000\r\ndebug1: Authenticating to 192.168.56.140:22 as 'lzh'\r\ndebug1: SSH2_MSG_KEXINIT sent\r\ndebug1: SSH2_MSG_KEXINIT received\r\ndebug1: kex: algorithm: curve25519-sha256\r\ndebug1: kex: host key algorithm: ecdsa-sha2-nistp256\r\ndebug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com\r\ndebug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com\r\ndebug1: kex: curve25519-sha256 need=64 dh_need=64\r\ndebug1: kex: curve25519-sha256 need=64 dh_need=64\r\ndebug1: expecting SSH2_MSG_KEX_ECDH_REPLY\r\ndebug1: Server host key: ecdsa-sha2-nistp256 SHA256:dlUsanaBCKzCWNbNNj6LuVNZJSTrJlD0O63ANmIqZAc\r\ndebug1: Host '192.168.56.140' is known and matches the ECDSA host key.\r\ndebug1: Found key in /root/.ssh/known_hosts:2\r\ndebug1: rekey after 134217728 blocks\r\ndebug1: SSH2_MSG_NEWKEYS sent\r\ndebug1: expecting SSH2_MSG_NEWKEYS\r\ndebug1: SSH2_MSG_NEWKEYS received\r\ndebug1: rekey after 134217728 blocks\r\ndebug1: SSH2_MSG_EXT_INFO received\r\ndebug1: kex_input_ext_info: server-sig-algs=<rsa-sha2-256,rsa-sha2-512>\r\ndebug1: SSH2_MSG_SERVICE_ACCEPT received\r\ndebug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password\r\ndebug1: Next authentication method: gssapi-with-mic\r\ndebug1: Unspecified GSS failure.  Minor code may provide more information\nNo Kerberos credentials available (default cache: KEYRING:persistent:0)\n\r\ndebug1: Unspecified GSS failure.  Minor code may provide more information\nNo Kerberos credentials available (default cache: KEYRING:persistent:0)\n\r\ndebug1: Next authentication method: gssapi-keyex\r\ndebug1: No valid Key exchange context\r\ndebug1: Next authentication method: publickey\r\ndebug1: Trying private key: /root/.ssh/id_rsa\r\ndebug1: Trying private key: /root/.ssh/id_dsa\r\ndebug1: Trying private key: /root/.ssh/id_ecdsa\r\ndebug1: Trying private key: /root/.ssh/id_ed25519\r\ndebug1: No more authentication methods to try.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:02:09,975 p=19186 u=root n=ansible INFO| Using /opt/wb-ansible/ansible_runner/ansible.cfg as config file
+2025-07-15 16:02:10,227 p=19186 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug1: Control socket \"/root/.ansible/cp/a7bb4eb506\" does not exist\r\ndebug1: Connecting to 192.168.56.140 [192.168.56.140] port 22.\r\ndebug1: fd 3 clearing O_NONBLOCK\r\ndebug1: Connection established.\r\ndebug1: permanently_set_uid: 0/0\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_rsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_rsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_dsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_dsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ecdsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ecdsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ed25519 type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ed25519-cert type -1\r\ndebug1: Enabling compatibility mode for protocol 2.0\r\ndebug1: Local version string SSH-2.0-OpenSSH_7.4\r\ndebug1: Remote protocol version 2.0, remote software version OpenSSH_7.4\r\ndebug1: match: OpenSSH_7.4 pat OpenSSH* compat 0x04000000\r\ndebug1: Authenticating to 192.168.56.140:22 as 'lzh'\r\ndebug1: SSH2_MSG_KEXINIT sent\r\ndebug1: SSH2_MSG_KEXINIT received\r\ndebug1: kex: algorithm: curve25519-sha256\r\ndebug1: kex: host key algorithm: ecdsa-sha2-nistp256\r\ndebug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com\r\ndebug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com\r\ndebug1: kex: curve25519-sha256 need=64 dh_need=64\r\ndebug1: kex: curve25519-sha256 need=64 dh_need=64\r\ndebug1: expecting SSH2_MSG_KEX_ECDH_REPLY\r\ndebug1: Server host key: ecdsa-sha2-nistp256 SHA256:dlUsanaBCKzCWNbNNj6LuVNZJSTrJlD0O63ANmIqZAc\r\ndebug1: Host '192.168.56.140' is known and matches the ECDSA host key.\r\ndebug1: Found key in /root/.ssh/known_hosts:2\r\ndebug1: rekey after 134217728 blocks\r\ndebug1: SSH2_MSG_NEWKEYS sent\r\ndebug1: expecting SSH2_MSG_NEWKEYS\r\ndebug1: SSH2_MSG_NEWKEYS received\r\ndebug1: rekey after 134217728 blocks\r\ndebug1: SSH2_MSG_EXT_INFO received\r\ndebug1: kex_input_ext_info: server-sig-algs=<rsa-sha2-256,rsa-sha2-512>\r\ndebug1: SSH2_MSG_SERVICE_ACCEPT received\r\ndebug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password\r\ndebug1: Next authentication method: gssapi-with-mic\r\ndebug1: Unspecified GSS failure.  Minor code may provide more information\nNo Kerberos credentials available (default cache: KEYRING:persistent:0)\n\r\ndebug1: Unspecified GSS failure.  Minor code may provide more information\nNo Kerberos credentials available (default cache: KEYRING:persistent:0)\n\r\ndebug1: Next authentication method: gssapi-keyex\r\ndebug1: No valid Key exchange context\r\ndebug1: Next authentication method: publickey\r\ndebug1: Trying private key: /root/.ssh/id_rsa\r\ndebug1: Trying private key: /root/.ssh/id_dsa\r\ndebug1: Trying private key: /root/.ssh/id_ecdsa\r\ndebug1: Trying private key: /root/.ssh/id_ed25519\r\ndebug1: No more authentication methods to try.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:03:06,052 p=19209 u=lzh n=ansible INFO| Using /opt/wb-ansible/ansible_runner/ansible.cfg as config file
+2025-07-15 16:03:07,783 p=19209 u=lzh n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 16:03:07,783 p=19209 u=lzh n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 16:03:23,735 p=19249 u=root n=ansible INFO| Using /opt/wb-ansible/ansible_runner/ansible.cfg as config file
+2025-07-15 16:03:23,989 p=19249 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug1: Control socket \"/root/.ansible/cp/a7bb4eb506\" does not exist\r\ndebug1: Connecting to 192.168.56.140 [192.168.56.140] port 22.\r\ndebug1: fd 3 clearing O_NONBLOCK\r\ndebug1: Connection established.\r\ndebug1: permanently_set_uid: 0/0\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_rsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_rsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_dsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_dsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ecdsa type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ecdsa-cert type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ed25519 type -1\r\ndebug1: key_load_public: No such file or directory\r\ndebug1: identity file /root/.ssh/id_ed25519-cert type -1\r\ndebug1: Enabling compatibility mode for protocol 2.0\r\ndebug1: Local version string SSH-2.0-OpenSSH_7.4\r\ndebug1: Remote protocol version 2.0, remote software version OpenSSH_7.4\r\ndebug1: match: OpenSSH_7.4 pat OpenSSH* compat 0x04000000\r\ndebug1: Authenticating to 192.168.56.140:22 as 'lzh'\r\ndebug1: SSH2_MSG_KEXINIT sent\r\ndebug1: SSH2_MSG_KEXINIT received\r\ndebug1: kex: algorithm: curve25519-sha256\r\ndebug1: kex: host key algorithm: ecdsa-sha2-nistp256\r\ndebug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com\r\ndebug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: zlib@openssh.com\r\ndebug1: kex: curve25519-sha256 need=64 dh_need=64\r\ndebug1: kex: curve25519-sha256 need=64 dh_need=64\r\ndebug1: expecting SSH2_MSG_KEX_ECDH_REPLY\r\ndebug1: Server host key: ecdsa-sha2-nistp256 SHA256:dlUsanaBCKzCWNbNNj6LuVNZJSTrJlD0O63ANmIqZAc\r\ndebug1: Host '192.168.56.140' is known and matches the ECDSA host key.\r\ndebug1: Found key in /root/.ssh/known_hosts:2\r\ndebug1: rekey after 134217728 blocks\r\ndebug1: SSH2_MSG_NEWKEYS sent\r\ndebug1: expecting SSH2_MSG_NEWKEYS\r\ndebug1: SSH2_MSG_NEWKEYS received\r\ndebug1: rekey after 134217728 blocks\r\ndebug1: SSH2_MSG_EXT_INFO received\r\ndebug1: kex_input_ext_info: server-sig-algs=<rsa-sha2-256,rsa-sha2-512>\r\ndebug1: SSH2_MSG_SERVICE_ACCEPT received\r\ndebug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password\r\ndebug1: Next authentication method: gssapi-with-mic\r\ndebug1: Unspecified GSS failure.  Minor code may provide more information\nNo Kerberos credentials available (default cache: KEYRING:persistent:0)\n\r\ndebug1: Unspecified GSS failure.  Minor code may provide more information\nNo Kerberos credentials available (default cache: KEYRING:persistent:0)\n\r\ndebug1: Next authentication method: gssapi-keyex\r\ndebug1: No valid Key exchange context\r\ndebug1: Next authentication method: publickey\r\ndebug1: Trying private key: /root/.ssh/id_rsa\r\ndebug1: Trying private key: /root/.ssh/id_dsa\r\ndebug1: Trying private key: /root/.ssh/id_ecdsa\r\ndebug1: Trying private key: /root/.ssh/id_ed25519\r\ndebug1: No more authentication methods to try.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:04:28,076 p=19304 u=root n=ansible INFO| Using /opt/wb-ansible/ansible_runner/ansible.cfg as config file
+2025-07-15 16:04:29,821 p=19304 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 16:04:29,821 p=19304 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 16:04:45,403 p=19323 u=root n=ansible INFO| ansible [core 2.18.6]
+  config file = /opt/wb-ansible/ansible_runner/ansible.cfg
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/python3/lib/python3.13/site-packages/ansible
+  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/bin/ansible
+  python version = 3.13.1 (main, Jul  3 2025, 17:24:15) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)] (/usr/local/python3/bin/python3.13)
+  jinja version = 3.1.6
+  libyaml = True
+2025-07-15 16:04:45,403 p=19323 u=root n=ansible INFO| Using /opt/wb-ansible/ansible_runner/ansible.cfg as config file
+2025-07-15 16:04:45,509 p=19323 u=root n=ansible INFO| host_list declined parsing /opt/wb-ansible/ansible_runner/inventory/hosts.json as it did not pass its verify_file() method
+2025-07-15 16:04:45,511 p=19323 u=root n=ansible INFO| auto declined parsing /opt/wb-ansible/ansible_runner/inventory/hosts.json as it did not pass its verify_file() method
+2025-07-15 16:04:45,511 p=19323 u=root n=ansible INFO| Parsed /opt/wb-ansible/ansible_runner/inventory/hosts.json inventory source with yaml plugin
+2025-07-15 16:04:45,564 p=19323 u=root n=ansible INFO| Skipping callback 'awx_display', as we already have a stdout callback.
+2025-07-15 16:04:45,564 p=19323 u=root n=ansible INFO| Skipping callback 'default', as we already have a stdout callback.
+2025-07-15 16:04:45,564 p=19323 u=root n=ansible INFO| Skipping callback 'minimal', as we already have a stdout callback.
+2025-07-15 16:04:45,564 p=19323 u=root n=ansible INFO| Skipping callback 'oneline', as we already have a stdout callback.
+2025-07-15 16:04:45,600 p=19323 u=root n=ansible INFO| <192.168.56.140> ESTABLISH SSH CONNECTION FOR USER: lzh
+2025-07-15 16:04:45,600 p=19323 u=root n=ansible INFO| <192.168.56.140> SSH: EXEC ssh -vvv -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="lzh"' -o ConnectTimeout=10 -o 'ControlPath="/root/.ansible/cp/a7bb4eb506"' 192.168.56.140 '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo /tmp `"&& mkdir "` echo /tmp/ansible-tmp-1752566685.5976856-19328-117709118176344 `" && echo ansible-tmp-1752566685.5976856-19328-117709118176344="` echo /tmp/ansible-tmp-1752566685.5976856-19328-117709118176344 `" ) && sleep 0'"'"''
+2025-07-15 16:04:45,632 p=19323 u=root n=ansible INFO| <192.168.56.140> (0, b'ansible-tmp-1752566685.5976856-19328-117709118176344=/tmp/ansible-tmp-1752566685.5976856-19328-117709118176344\n', b'OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug2: mux_client_hello_exchange: master version 4\r\ndebug3: mux_client_forwards: request forwardings: 0 local, 0 remote\r\ndebug3: mux_client_request_session: entering\r\ndebug3: mux_client_request_alive: entering\r\ndebug3: mux_client_request_alive: done pid = 19313\r\ndebug3: mux_client_request_session: session request sent\r\ndebug1: mux_client_request_session: master session id: 2\r\ndebug3: mux_client_read_packet: read header failed: Broken pipe\r\ndebug2: Received exit status from master 0\r\n')
+2025-07-15 16:04:45,720 p=19323 u=root n=ansible INFO| <192.168.56.140> Attempting python interpreter discovery
+2025-07-15 16:04:45,720 p=19323 u=root n=ansible INFO| <192.168.56.140> ESTABLISH SSH CONNECTION FOR USER: lzh
+2025-07-15 16:04:45,720 p=19323 u=root n=ansible INFO| <192.168.56.140> SSH: EXEC ssh -vvv -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="lzh"' -o ConnectTimeout=10 -o 'ControlPath="/root/.ansible/cp/a7bb4eb506"' 192.168.56.140 '/bin/sh -c '"'"'echo PLATFORM; uname; echo FOUND; command -v '"'"'"'"'"'"'"'"'python3.13'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.12'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.11'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.10'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.9'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.8'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'/usr/bin/python3'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3'"'"'"'"'"'"'"'"'; echo ENDFOUND && sleep 0'"'"''
+2025-07-15 16:04:45,742 p=19323 u=root n=ansible INFO| <192.168.56.140> (0, b'PLATFORM\nLinux\nFOUND\n/usr/bin/python3\n/usr/bin/python3\nENDFOUND\n', b'OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug2: mux_client_hello_exchange: master version 4\r\ndebug3: mux_client_forwards: request forwardings: 0 local, 0 remote\r\ndebug3: mux_client_request_session: entering\r\ndebug3: mux_client_request_alive: entering\r\ndebug3: mux_client_request_alive: done pid = 19313\r\ndebug3: mux_client_request_session: session request sent\r\ndebug1: mux_client_request_session: master session id: 2\r\ndebug3: mux_client_read_packet: read header failed: Broken pipe\r\ndebug2: Received exit status from master 0\r\n')
+2025-07-15 16:04:45,742 p=19323 u=root n=ansible INFO| <192.168.56.140> ESTABLISH SSH CONNECTION FOR USER: lzh
+2025-07-15 16:04:45,743 p=19323 u=root n=ansible INFO| <192.168.56.140> SSH: EXEC ssh -vvv -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="lzh"' -o ConnectTimeout=10 -o 'ControlPath="/root/.ansible/cp/a7bb4eb506"' 192.168.56.140 '/bin/sh -c '"'"'/usr/bin/python3 && sleep 0'"'"''
+2025-07-15 16:04:45,793 p=19323 u=root n=ansible INFO| <192.168.56.140> (0, b'{"platform_dist_result": [], "osrelease_content": "NAME=\\"CentOS Linux\\"\\nVERSION=\\"7 (Core)\\"\\nID=\\"centos\\"\\nID_LIKE=\\"rhel fedora\\"\\nVERSION_ID=\\"7\\"\\nPRETTY_NAME=\\"CentOS Linux 7 (Core)\\"\\nANSI_COLOR=\\"0;31\\"\\nCPE_NAME=\\"cpe:/o:centos:centos:7\\"\\nHOME_URL=\\"https://www.centos.org/\\"\\nBUG_REPORT_URL=\\"https://bugs.centos.org/\\"\\n\\nCENTOS_MANTISBT_PROJECT=\\"CentOS-7\\"\\nCENTOS_MANTISBT_PROJECT_VERSION=\\"7\\"\\nREDHAT_SUPPORT_PRODUCT=\\"centos\\"\\nREDHAT_SUPPORT_PRODUCT_VERSION=\\"7\\"\\n\\n"}\n', b'OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug2: mux_client_hello_exchange: master version 4\r\ndebug3: mux_client_forwards: request forwardings: 0 local, 0 remote\r\ndebug3: mux_client_request_session: entering\r\ndebug3: mux_client_request_alive: entering\r\ndebug3: mux_client_request_alive: done pid = 19313\r\ndebug3: mux_client_request_session: session request sent\r\ndebug1: mux_client_request_session: master session id: 2\r\ndebug3: mux_client_read_packet: read header failed: Broken pipe\r\ndebug2: Received exit status from master 0\r\n')
+2025-07-15 16:04:45,793 p=19323 u=root n=ansible INFO| <192.168.56.140> Python interpreter discovery fallback (unsupported Linux distribution: centos)
+2025-07-15 16:04:45,793 p=19323 u=root n=ansible INFO| Using module file /usr/local/python3/lib/python3.13/site-packages/ansible/modules/command.py
+2025-07-15 16:04:45,793 p=19323 u=root n=ansible INFO| <192.168.56.140> PUT /root/.ansible/tmp/ansible-local-19323c7off83g/tmp6nyj0jhe TO /tmp/ansible-tmp-1752566685.5976856-19328-117709118176344/AnsiballZ_command.py
+2025-07-15 16:04:45,794 p=19323 u=root n=ansible INFO| <192.168.56.140> SSH: EXEC sftp -b - -vvv -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="lzh"' -o ConnectTimeout=10 -o 'ControlPath="/root/.ansible/cp/a7bb4eb506"' '[192.168.56.140]'
+2025-07-15 16:04:45,831 p=19323 u=root n=ansible INFO| <192.168.56.140> (0, b'sftp> put /root/.ansible/tmp/ansible-local-19323c7off83g/tmp6nyj0jhe /tmp/ansible-tmp-1752566685.5976856-19328-117709118176344/AnsiballZ_command.py\n', b'OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug2: mux_client_hello_exchange: master version 4\r\ndebug3: mux_client_forwards: request forwardings: 0 local, 0 remote\r\ndebug3: mux_client_request_session: entering\r\ndebug3: mux_client_request_alive: entering\r\ndebug3: mux_client_request_alive: done pid = 19313\r\ndebug3: mux_client_request_session: session request sent\r\ndebug1: mux_client_request_session: master session id: 2\r\ndebug2: Remote version: 3\r\ndebug2: Server supports extension "posix-rename@openssh.com" revision 1\r\ndebug2: Server supports extension "statvfs@openssh.com" revision 2\r\ndebug2: Server supports extension "fstatvfs@openssh.com" revision 2\r\ndebug2: Server supports extension "hardlink@openssh.com" revision 1\r\ndebug2: Server supports extension "fsync@openssh.com" revision 1\r\ndebug3: Sent message fd 3 T:16 I:1\r\ndebug3: SSH_FXP_REALPATH . -> /home/lzh size 0\r\ndebug3: Looking up /root/.ansible/tmp/ansible-local-19323c7off83g/tmp6nyj0jhe\r\ndebug3: Sent message fd 3 T:17 I:2\r\ndebug3: Received stat reply T:101 I:2\r\ndebug1: Couldn\'t stat remote file: No such file or directory\r\ndebug3: Sent message SSH2_FXP_OPEN I:3 P:/tmp/ansible-tmp-1752566685.5976856-19328-117709118176344/AnsiballZ_command.py\r\ndebug3: Sent message SSH2_FXP_WRITE I:4 O:0 S:32768\r\ndebug3: SSH2_FXP_STATUS 0\r\ndebug3: In write loop, ack for 4 32768 bytes at 0\r\ndebug3: Sent message SSH2_FXP_WRITE I:5 O:32768 S:32768\r\ndebug3: Sent message SSH2_FXP_WRITE I:6 O:65536 S:32768\r\ndebug3: Sent message SSH2_FXP_WRITE I:7 O:98304 S:21676\r\ndebug3: SSH2_FXP_STATUS 0\r\ndebug3: In write loop, ack for 5 32768 bytes at 32768\r\ndebug3: SSH2_FXP_STATUS 0\r\ndebug3: In write loop, ack for 6 32768 bytes at 65536\r\ndebug3: SSH2_FXP_STATUS 0\r\ndebug3: In write loop, ack for 7 21676 bytes at 98304\r\ndebug3: Sent message SSH2_FXP_CLOSE I:4\r\ndebug3: SSH2_FXP_STATUS 0\r\ndebug3: mux_client_read_packet: read header failed: Broken pipe\r\ndebug2: Received exit status from master 0\r\n')
+2025-07-15 16:04:45,831 p=19323 u=root n=ansible INFO| <192.168.56.140> ESTABLISH SSH CONNECTION FOR USER: lzh
+2025-07-15 16:04:45,832 p=19323 u=root n=ansible INFO| <192.168.56.140> SSH: EXEC ssh -vvv -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="lzh"' -o ConnectTimeout=10 -o 'ControlPath="/root/.ansible/cp/a7bb4eb506"' 192.168.56.140 '/bin/sh -c '"'"'chmod u+rwx /tmp/ansible-tmp-1752566685.5976856-19328-117709118176344/ /tmp/ansible-tmp-1752566685.5976856-19328-117709118176344/AnsiballZ_command.py && sleep 0'"'"''
+2025-07-15 16:04:45,852 p=19323 u=root n=ansible INFO| <192.168.56.140> (0, b'', b'OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug2: mux_client_hello_exchange: master version 4\r\ndebug3: mux_client_forwards: request forwardings: 0 local, 0 remote\r\ndebug3: mux_client_request_session: entering\r\ndebug3: mux_client_request_alive: entering\r\ndebug3: mux_client_request_alive: done pid = 19313\r\ndebug3: mux_client_request_session: session request sent\r\ndebug1: mux_client_request_session: master session id: 2\r\ndebug3: mux_client_read_packet: read header failed: Broken pipe\r\ndebug2: Received exit status from master 0\r\n')
+2025-07-15 16:04:45,853 p=19323 u=root n=ansible INFO| <192.168.56.140> ESTABLISH SSH CONNECTION FOR USER: lzh
+2025-07-15 16:04:45,853 p=19323 u=root n=ansible INFO| <192.168.56.140> SSH: EXEC ssh -vvv -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="lzh"' -o ConnectTimeout=10 -o 'ControlPath="/root/.ansible/cp/a7bb4eb506"' -tt 192.168.56.140 '/bin/sh -c '"'"'sudo -H -S -n  -u root /bin/sh -c '"'"'"'"'"'"'"'"'echo BECOME-SUCCESS-gailjkziydluctyorihcyfijobfsduek ; /usr/bin/python3 /tmp/ansible-tmp-1752566685.5976856-19328-117709118176344/AnsiballZ_command.py'"'"'"'"'"'"'"'"' && sleep 0'"'"''
+2025-07-15 16:04:45,902 p=19323 u=root n=ansible INFO| Escalation succeeded
+2025-07-15 16:04:46,042 p=19323 u=root n=ansible INFO| <192.168.56.140> (0, b'\r\n{"changed": true, "stdout": "11\\n1.txt\\n2\\n3\\n6\\nanaconda-ks.cfg\\nansible\\na.yaml\\ncni-plugins-linux-amd64-v1.3.0.tgz\\ncontainerd-1.7.2-linux-amd64.tar.gz\\ndata\\ndocker\\nextundelete-0.2.4\\nextundelete-0.2.4.tar.bz2\\nfilebeat-8.15.4-linux-x86_64.tar.gz\\nfilebeat-8.4.3-linux-x86_64\\nfilebeat-8.4.3-linux-x86_64 (1).tar.gz\\niptables-0523.sh\\nloki-linux-amd64\\nloki-linux-amd64.zip\\nloki.yaml\\nnode_exporter\\nnode_exporter-1.6.1.linux-amd64\\nnode_exporter-1.6.1.linux-amd64.tar.gz\\none.sh\\npromtail-linux-amd64\\npromtail-linux-amd64.zip\\npromtail.yaml\\nPython-3.9.0\\nPython-3.9.0.tgz\\nrecover\\nredis-6.0.8\\nredis-6.0.8.tar.gz\\nredis-7.2.0\\nredis-7.2.0.tar.gz\\nresult.sh\\nrunc.amd64\\nsudo-1.9.17-2.el7.x86_64.rpm\\nsudo-logsrvd-1.9.17-2.el7.x86_64.rpm\\nsudo.sh\\ntestdisk-7.2\\ntestdisk-7.2.linux26-x86_64.tar.bz2\\ntestdisk.log\\ntest.sh\\nuseradd.sh\\nusercheck.sh\\nwal\\nxunjian.sh", "stderr": "", "rc": 0, "cmd": "ls /root", "start": "2025-07-15 16:04:46.018793", "end": "2025-07-15 16:04:46.022911", "delta": "0:00:00.004118", "msg": "", "invocation": {"module_args": {"_raw_params": "ls /root", "_uses_shell": true, "expand_argument_vars": true, "stdin_add_newline": true, "strip_empty_ends": true, "argv": null, "chdir": null, "executable": null, "creates": null, "removes": null, "stdin": null}}}\r\n', b'OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug2: mux_client_hello_exchange: master version 4\r\ndebug3: mux_client_forwards: request forwardings: 0 local, 0 remote\r\ndebug3: mux_client_request_session: entering\r\ndebug3: mux_client_request_alive: entering\r\ndebug3: mux_client_request_alive: done pid = 19313\r\ndebug3: mux_client_request_session: session request sent\r\ndebug1: mux_client_request_session: master session id: 2\r\ndebug3: mux_client_read_packet: read header failed: Broken pipe\r\ndebug2: Received exit status from master 0\r\nShared connection to 192.168.56.140 closed.\r\n')
+2025-07-15 16:04:46,043 p=19323 u=root n=ansible INFO| <192.168.56.140> ESTABLISH SSH CONNECTION FOR USER: lzh
+2025-07-15 16:04:46,043 p=19323 u=root n=ansible INFO| <192.168.56.140> SSH: EXEC ssh -vvv -C -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="lzh"' -o ConnectTimeout=10 -o 'ControlPath="/root/.ansible/cp/a7bb4eb506"' 192.168.56.140 '/bin/sh -c '"'"'rm -f -r /tmp/ansible-tmp-1752566685.5976856-19328-117709118176344/ > /dev/null 2>&1 && sleep 0'"'"''
+2025-07-15 16:04:46,066 p=19323 u=root n=ansible INFO| <192.168.56.140> (0, b'', b'OpenSSH_7.4p1, OpenSSL 1.0.2k-fips  26 Jan 2017\r\ndebug1: Reading configuration data /etc/ssh/ssh_config\r\ndebug1: /etc/ssh/ssh_config line 58: Applying options for *\r\ndebug1: auto-mux: Trying existing master\r\ndebug2: fd 3 setting O_NONBLOCK\r\ndebug2: mux_client_hello_exchange: master version 4\r\ndebug3: mux_client_forwards: request forwardings: 0 local, 0 remote\r\ndebug3: mux_client_request_session: entering\r\ndebug3: mux_client_request_alive: entering\r\ndebug3: mux_client_request_alive: done pid = 19313\r\ndebug3: mux_client_request_session: session request sent\r\ndebug1: mux_client_request_session: master session id: 2\r\ndebug3: mux_client_read_packet: read header failed: Broken pipe\r\ndebug2: Received exit status from master 0\r\n')
+2025-07-15 16:04:46,070 p=19323 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 16:04:46,070 p=19323 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 16:05:23,038 p=19341 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 16:05:23,039 p=19341 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 16:06:31,776 p=19393 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:06:38,079 p=19411 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:10:42,882 p=19523 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:10:54,527 p=19541 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:11:51,804 p=19566 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:12:13,411 p=19592 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:12:17,211 p=19604 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:13:35,616 p=19699 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:15:05,577 p=20003 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:16:31,711 p=21702 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:18:28,111 p=24074 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 16:18:28,111 p=24074 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 16:19:24,118 p=25233 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 16:19:24,118 p=25233 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 16:20:13,589 p=26270 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 16:20:13,590 p=26270 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 16:20:38,490 p=26788 u=root n=ansible INFO| 192.168.56.140 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-15 16:21:02,532 p=27312 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 16:21:02,532 p=27312 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 16:21:15,664 p=27600 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 16:21:15,664 p=27600 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 16:21:33,314 p=27988 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.140 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-15 16:21:33,314 p=27988 u=root n=ansible INFO| 192.168.56.140 | CHANGED | rc=0 >>
+11
+1.txt
+2
+3
+6
+anaconda-ks.cfg
+ansible
+a.yaml
+cni-plugins-linux-amd64-v1.3.0.tgz
+containerd-1.7.2-linux-amd64.tar.gz
+data
+docker
+extundelete-0.2.4
+extundelete-0.2.4.tar.bz2
+filebeat-8.15.4-linux-x86_64.tar.gz
+filebeat-8.4.3-linux-x86_64
+filebeat-8.4.3-linux-x86_64 (1).tar.gz
+iptables-0523.sh
+loki-linux-amd64
+loki-linux-amd64.zip
+loki.yaml
+node_exporter
+node_exporter-1.6.1.linux-amd64
+node_exporter-1.6.1.linux-amd64.tar.gz
+one.sh
+promtail-linux-amd64
+promtail-linux-amd64.zip
+promtail.yaml
+Python-3.9.0
+Python-3.9.0.tgz
+recover
+redis-6.0.8
+redis-6.0.8.tar.gz
+redis-7.2.0
+redis-7.2.0.tar.gz
+result.sh
+runc.amd64
+sudo-1.9.17-2.el7.x86_64.rpm
+sudo-logsrvd-1.9.17-2.el7.x86_64.rpm
+sudo.sh
+testdisk-7.2
+testdisk-7.2.linux26-x86_64.tar.bz2
+testdisk.log
+test.sh
+useradd.sh
+usercheck.sh
+wal
+xunjian.sh
+
+2025-07-15 16:26:26,674 p=33924 u=root n=ansible ERROR| ERROR! this task '1' has extra params, which is only allowed in the following modules: script, include_vars, add_host, meta, raw, include_tasks, win_shell, include_role, win_command, import_tasks, command, import_role, group_by, shell, set_fact
+2025-07-17 17:20:09,614 p=7796 u=root n=ansible ERROR| ERROR! this task 'user' has extra params, which is only allowed in the following modules: import_tasks, win_shell, command, add_host, include_tasks, script, set_fact, include_role, raw, include_vars, import_role, meta, group_by, shell, win_command
+2025-07-17 17:21:49,779 p=7845 u=root n=ansible ERROR| ERROR! this task 'user' has extra params, which is only allowed in the following modules: include_role, set_fact, import_tasks, shell, include_tasks, script, raw, meta, add_host, command, win_shell, import_role, group_by, include_vars, win_command
+2025-07-17 17:21:53,264 p=7852 u=root n=ansible INFO| 192.168.56.142 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Invalid/incorrect password: Permission denied, please try again.\r\nPermission denied, please try again.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-17 17:22:23,725 p=7873 u=root n=ansible INFO| 192.168.56.142 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Invalid/incorrect password: Permission denied, please try again.\r\nPermission denied, please try again.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-17 17:23:48,825 p=7910 u=root n=ansible INFO| 192.168.56.142 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Invalid/incorrect password: Permission denied, please try again.\r\nPermission denied, please try again.\r\nPermission denied (publickey,gssapi-keyex,gssapi-with-mic,password).",
+    "unreachable": true
+}
+2025-07-18 09:27:07,915 p=10039 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-18 09:27:07,915 p=10039 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+ansible_runner.tar
+bin
+boot
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+
+2025-07-18 09:27:17,825 p=10142 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-18 09:27:17,825 p=10142 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+ansible_runner.tar
+bin
+boot
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+
+2025-07-18 09:27:21,976 p=10237 u=root n=ansible WARNING| [WARNING]: Platform linux on host 192.168.56.142 is using the discovered Python
+interpreter at /usr/bin/python3, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.18/reference_appendices/interpreter_discovery.html for more information.
+
+2025-07-18 09:27:21,976 p=10237 u=root n=ansible INFO| 192.168.56.142 | CHANGED | rc=0 >>
+ansible_runner.tar
+bin
+boot
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+
