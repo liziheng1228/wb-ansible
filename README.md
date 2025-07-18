@@ -6,8 +6,13 @@ Ansible Web管理面板
 使用web操作Ansible
 
 ### 软件架构
-Django layui Celery channels
-
+- Django=5.2.4 
+- Python=3.13
+- layui 
+- Celery==5.5.3
+- channels==4.2.2
+- Redis=7.2.0
+- 
 ### 功能特性
 - 主机管理：主机增删改查
 - Playbook管理：Playbook脚本增删改查
@@ -15,17 +20,24 @@ Django layui Celery channels
 - 主机密码加密存储，提高安全性
 - 任务日志：记录任务执行结果（未完全完成）
 
-### 安装教程
+### 快速体验 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1. 安装Redis7、python3.13 
+2. 安装依赖 pip3 install --no-cache-dir -r requirements.txt 
+3. 进入项目目录 wb-ansible/ 
+4. 修改mycelery/config.py 
+       `BROKER_URL`、`CELERY_RESULT_BACKEND`的redis地址 
+5. 修改setting中ALLOWED_HOSTS地址
+6. 数据模型迁移
+    `python3 manage.py makemigrations`
+    `python3 manage.py migrate`
+7. 启动Redis
+8. 启动Celery-Work
+     `/usr/local/python3/bin/celery -A mycelery.main worker -l info -c 10`
+9. 启动Django
+    `python3 manage.py  runserver 0.0.0.0:8000`
 
-### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
 ### 预览
 ![输入图片说明](gitimages/Previewimage.png)
 ![输入图片说明](gitimages/Previewimage2.png)
