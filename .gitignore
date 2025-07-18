@@ -14,3 +14,4 @@ __pycache__/
 *.pyd
 .DS_Store
 ansible_runner
+.idea
