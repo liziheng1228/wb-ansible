@@ -7,7 +7,7 @@ Ansible Web管理面板
 
 ### 软件架构
 - Django=5.2.4 
-- Python=3.13
+- Python=3.11
 - layui 
 - Celery==5.5.3
 - channels==4.2.2
@@ -22,7 +22,7 @@ Ansible Web管理面板
 
 ### 快速体验 安装教程
 
-1. 安装Redis7、python3.13 
+1. 安装Redis7、python3.11 
 2. 安装依赖 pip3 install --no-cache-dir -r requirements.txt 
 3. 进入项目目录 wb-ansible/ 
 4. 修改mycelery/config.py 
