@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 import json
 
-from playbook.models import PlaybookCode
+from scripts.models import Script
 from host_manager.models import Host
 from .models import Job
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
@@ -14,7 +14,8 @@ from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 
 @login_required(login_url="/login")
 def go_jobs(request):
-    playbooks = PlaybookCode.objects.filter(created_by=request.user)
+    playbooks = Script.objects.filter(created_by=request.user)
+    print(playbooks.values('script_type'))
     return render(request, "create_job.html", {'playbooks': playbooks})
 
 
@@ -24,7 +25,7 @@ def get_hosts(request):
     return JsonResponse(list(hosts), safe=False)
 
 
-# 获取所有任务列表（GET）传给前端再传给ansible-task执行
+# 获取所有任务列表（GET）传给前端再由前端传给ansible-run view 执行task
 @login_required(login_url="/login")
 def job_list(request):
 
@@ -118,8 +119,8 @@ def job_create(request):
                 playbook_id = data.get('playbook')
                 if playbook_id:
                     try:
-                        playbook = PlaybookCode.objects.get(id=playbook_id, created_by=request.user)
-                    except PlaybookCode.DoesNotExist:
+                        playbook = Script.objects.get(id=playbook_id, created_by=request.user)
+                    except Script.DoesNotExist:
                         return JsonResponse({'error': '指定的 Playbook 不存在或不属于当前用户'}, status=400)
 
                 job = Job.objects.create(
@@ -136,6 +137,33 @@ def job_create(request):
                     playbook_content=playbook.content,  # 内容取出来保存
 
                 )
+            elif data.get('job_type') == 'script':
+                """
+                因为shell脚本与Playbook脚本共用数据表，所以调用的都是Playbook表
+                """
+                script_id = data.get('script')
+                if script_id:
+                    try:
+                        script = Script.objects.get(id=script_id, created_by=request.user)
+                    except Script.DoesNotExist:
+                        return JsonResponse({'error': '指定的 Playbook 不存在或不属于当前用户'}, status=400)
+                job = Job.objects.create(
+                    name=data.get('name'),
+                    job_type=data.get('job_type'),
+                    playbook_path=data.get('playbook_path', ''),
+                    module_name=data.get('module_name', ''),
+                    module_args=data.get('module_args', ''),
+                    extra_vars=data.get('extra_vars', ''),
+                    user=request.user,  # 绑定当前登录用户
+                    forks=forks,
+                    verbosity=verbosity,
+                    playbook=script,  # 绑定script,
+                    playbook_content=script.content,  # 内容取出来保存
+
+                )
+                # print(playbook)
+
+
             elif data.get('job_type') == 'ad-hoc':
                 job = Job.objects.create(
                     name=data.get('name'),
@@ -250,5 +278,5 @@ def job_detail(request, job_id):
         'job': job,
         'hosts': host_ips,
     }
-    # print(job)
+    print(job['job'])
     return render(request, 'job_detail.html', job)

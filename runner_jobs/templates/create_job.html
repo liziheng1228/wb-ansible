@@ -437,6 +437,8 @@
                         <option value="">请选择任务类型</option>
                         <option value="playbook">playbook</option>
                         <option value="ad-hoc">ad-hoc</option>
+                        <option value="script">script</option>
+
                     </select>
                 </div>
             </div>
@@ -451,13 +453,32 @@
                                 style="border-radius: 4px;">
                             <option value="">请选择 Playbook</option>
                             {% for pb in playbooks %}
-                                <option value="{{ pb.id }}">{{ pb.name }}</option>
+                                {% if pb.script_type == 'playbook' %}
+                                    <option value="{{ pb.id }}">{{ pb.name }}</option>
+                                {% endif %}
                             {% endfor %}
                         </select>
                     </div>
                 </div>
             </div>
-
+            {#   script 区域#}
+            <div id="scriptArea"
+                 style="display: none; background: #f8f9fa; border-radius: 6px; padding: 20px; margin-bottom: 25px;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="font-weight: 400;">脚本选择</label>
+                    <div class="layui-input-block">
+                        <select name="script" lay-search="" lay-creatable="" class="layui-select"
+                                style="border-radius: 4px;">
+                            <option value="">请选择shell脚本</option>
+                            {% for pb in playbooks %}
+                                {% if pb.script_type == 'shell' %}
+                                    <option value="{{ pb.id }}">{{ pb.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
             <!-- Ad-hoc区域 -->
             <div id="adhocArea"
                  style="display: none; background: #f8f9fa; border-radius: 6px; padding: 20px; margin-bottom: 25px;">
@@ -519,17 +540,20 @@
                     </div>
                     <div class="info-item" id="confirmPlaybook" style="display: none;">
                         <div class="info-label">Playbook脚本：</div>
-                        <div class="info-value"><span class="playbook-value"></span></div>
+                        <div class="info-value"><span></span></div>
                     </div>
-
+                    <div class="info-item" id="confirmScript" style="display: none;">
+                        <div class="info-label">shell脚本：</div>
+                        <div class="info-value"><span></span></div>
+                    </div>
                     <div class="info-item" id="confirmAdHocModule" style="display: none;">
                         <div class="info-label">模块名：</div>
-                        <div class="info-value"><span class="playbook-value"></span></div>
+                        <div class="info-value"><span></span></div>
                     </div>
 
                     <div class="info-item" id="confirmAdHocArgs" style="display: none;">
                         <div class="info-label">参数：</div>
-                        <div class="info-value"><span class="playbook-value"></span></div>
+                        <div class="info-value"><span></span></div>
                     </div>
                 </div>
 
@@ -684,6 +708,26 @@
                     document.getElementById('confirmPlaybook').style.display = 'flex';
                     document.getElementById('confirmAdHocModule').style.display = 'none';
                     document.getElementById('confirmAdHocArgs').style.display = 'none';
+                    document.getElementById('confirmScript').style.display = 'none';
+
+
+                } else if (taskTypeValue === 'script') {
+                    const scriptSelect = document.querySelector("select[name='script']");
+
+                    if (!scriptSelect || !scriptSelect.value) {
+
+                        layer.msg('请选择shell脚本', {icon: 0});
+
+                        return;
+                    }
+
+                    const scriptText = scriptSelect.options[scriptSelect.selectedIndex].text;
+                    document.querySelector("#confirmScript span").innerText = scriptText;
+                    document.getElementById('confirmScript').style.display = 'flex';
+                    document.getElementById('confirmAdHocModule').style.display = 'none';
+                    document.getElementById('confirmAdHocArgs').style.display = 'none';
+                    document.getElementById('confirmPlaybook').style.display = 'none';
+
 
                 } else if (taskTypeValue === 'ad-hoc') {
                     const moduleInput = document.querySelector("input[name='module']");
@@ -699,12 +743,13 @@
                         return;
                     }
 
-
                     document.querySelector("#confirmAdHocModule span").innerText = module;
                     document.querySelector("#confirmAdHocArgs span").innerText = argumentsVal;
                     document.getElementById('confirmAdHocModule').style.display = 'flex';
                     document.getElementById('confirmAdHocArgs').style.display = 'flex';
                     document.getElementById('confirmPlaybook').style.display = 'none';
+                    document.getElementById('confirmScript').style.display = 'none';
+
                 }
             }
 
@@ -740,12 +785,24 @@
             if (selected === 'playbook') { // playbook
                 $('#playbookArea').show();
                 $('#adhocArea').hide();
+                $('#scriptArea').hide();
+
             } else if (selected === 'ad-hoc') { // ad-hoc
-                $('#playbookArea').hide();
                 $('#adhocArea').show();
+
+                $('#playbookArea').hide();
+                $('#scriptArea').hide();
+
+            } else if (selected === 'script') { // script
+                $('#scriptArea').show();
+                $('#playbookArea').hide();
+                $('#adhocArea').hide();
+
             } else {
                 $('#playbookArea').hide();
                 $('#adhocArea').hide();
+                $('#scriptArea').hide();
+
             }
         });
         // 已知数据渲染
@@ -783,14 +840,6 @@
         // 触发表格复选框选择
         table.on('checkbox(hostTable)', function (obj) {
             updateHostSelection();
-            {#const checkStatus = table.checkStatus('hostTable'); // 获取当前表格选中项#}
-            {#const selectedHosts = checkStatus.data.map(item => item.id);#}
-            {##}
-            {##}
-            {#const hostListStr = checkStatus.data.map(item => item.ip).join(',');#}
-            {##}
-            {#$('#hostInput').val(hostListStr); // 显示为逗号分隔的字符串，用于页面展示#}
-            {#$('#hostInput').data('hostIds', selectedHosts); // 用 data 存储真实 ID 数组#}
 
 
         });
@@ -814,6 +863,8 @@
         const forks = document.querySelector("input[name='forks']");
         const job_type = document.querySelector("select[name='taskType']");
         const playbook = document.querySelector("select[name='playbook']");
+        const script = document.querySelector("select[name='script']");
+
         const module_name = document.querySelector("input[name='module']");
         const module_args = document.querySelector("input[name='arguments']");
 
@@ -826,6 +877,9 @@
         // 根据任务类型添加不同字段
         if (job_type && job_type.value === 'playbook') {
             formData.playbook = playbook && playbook.value ? playbook.value : '';
+        } else if (job_type && job_type.value === 'script') {
+            formData.script = script && script.value ? script.value : '';
+
         } else if (job_type && job_type.value === 'ad-hoc') {
             formData.module_name = module_name ? module_name.value : '';
             formData.module_args = module_args ? module_args.value : '';

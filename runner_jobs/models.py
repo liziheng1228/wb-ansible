@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 from django.utils import timezone
-from playbook.models import PlaybookCode
+from scripts.models import Script
 from userlogin.models import User
 
 
@@ -9,6 +9,8 @@ class Job(models.Model):
     JOB_TYPE_CHOICES = [
         ('playbook', 'Playbook'),
         ('adhoc', 'Ad-Hoc 命令'),
+        ('script', 'shell脚本'),
+
     ]
     inventory = models.ManyToManyField('host_manager.Host', verbose_name='目标主机')
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -33,7 +35,7 @@ class Job(models.Model):
     )
     # Playbook 相关
     playbook = models.ForeignKey(
-        PlaybookCode,
+        Script,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,

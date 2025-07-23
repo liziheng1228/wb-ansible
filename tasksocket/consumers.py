@@ -41,3 +41,9 @@ class TaskConsumer(AsyncWebsocketConsumer):
             'stdout': ANSI_ESCAPE.sub("",event['text']['stdout']),
             'stderr': ANSI_ESCAPE.sub("",event['text']['stderr'])
         }))
+    async def task_stop(self, event):
+        await self.send(text_data=json.dumps({
+
+            'stdout': ANSI_ESCAPE.sub("",event['text']['stdout']),
+
+        }))

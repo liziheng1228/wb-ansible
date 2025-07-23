@@ -12,7 +12,7 @@ Ansible Web管理面板
 - Celery==5.5.3
 - channels==4.2.2
 - Redis=7.2.0
-- 
+
 ### 功能特性
 - 主机管理：主机增删改查
 - Playbook管理：Playbook脚本增删改查

@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "tasksocket.apps.TasksocketConfig",
     "host_manager.apps.HostManagerConfig",
     "runner_jobs.apps.RunnerJobsConfig",
-    "playbook.apps.PlaybookConfig",
+    "scripts.apps.ScriptsConfig",
     "userlogin.apps.UserLoginConfig",
 
 ]
