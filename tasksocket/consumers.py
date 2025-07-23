@@ -36,6 +36,7 @@ class TaskConsumer(AsyncWebsocketConsumer):
 
     # 回调函数，将内容返回给前端
     async def task_update(self, event):
+        print(333)
         await self.send(text_data=json.dumps({
             'status': ANSI_ESCAPE.sub("",event['text']['status']),
             'stdout': ANSI_ESCAPE.sub("",event['text']['stdout']),

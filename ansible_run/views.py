@@ -12,17 +12,6 @@ from .models import CeleryTask
 from host_manager.models import Host
 from .tasks import run_ansible_playbook,cancel_task
 import re
-# 停止任务
-def cancel_task_view(request):
-    if request.method == 'POST':
-        body = json.loads(request.body)
-
-        task_id = body.get('taskId')
-        print(task_id)
-        cancel_task.delay(task_id)
-        return JsonResponse({'status': 'Task cancellation requested'}, status=200)
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=405)
 # 跳转页面
 @login_required(login_url="/login")
 def go_index(request):
@@ -115,6 +104,18 @@ def ansible_run(request):
 
             return JsonResponse({'error': str(e)}, status=500)
 
+# 停止任务
+@login_required(login_url="/login")
+def cancel_task_view(request):
+    if request.method == 'POST':
+        body = json.loads(request.body)
+
+        task_id = body.get('taskId')
+
+        cancel_task.delay(task_id)
+        return JsonResponse({'status': 'Task cancellation requested'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 # 获取任务列表
 @login_required(login_url="/login")
