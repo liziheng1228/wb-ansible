@@ -3,15 +3,20 @@ import json
 from celery.result import AsyncResult
 from cryptography.fernet import InvalidToken
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import ensure_csrf_cookie
+
+from runner_jobs.models import Job
 from .models import CeleryTask
 from host_manager.models import Host
-from .tasks import run_ansible_playbook,cancel_task
+from .tasks import run_ansible_playbook, cancel_task
 import re
+
+
 # 跳转页面
 @login_required(login_url="/login")
 def go_index(request):
@@ -35,12 +40,22 @@ def ansible_run(request):
         try:
 
             data = json.loads(request.body)
+            # print()
             hosts = data.get('inventory', '[]')
 
             hosts_info = Host.objects.filter(ip__in=hosts, users=request.user).values('ip', 'port', 'username',
                                                                                       'ssh_password_encrypted',
                                                                                       'become_password_encrypted')
 
+            job_id = data.get('job_id')
+            if not job_id:
+                return JsonResponse({'error': '缺少 job_id'}, status=400)
+
+                # 获取对应的 Job 对象
+
+            job = Job.objects.get(id=job_id)
+
+            print('job:',job_id)
             if not hosts_info.exists():
                 return JsonResponse({'error': '未找到对应的目标主机'}, status=400)
             # print(data['playbook_content'])
@@ -92,9 +107,11 @@ def ansible_run(request):
             # print(module_name, module_args)
             # 传参执行任务
             task_id = run_ansible_playbook.delay(**kwargs)
-            test1 = CeleryTask(task_id=task_id)
-            test1.save()
-            # print(inventory_dict)
+
+            #task任务绑定job任务
+            celery_task = CeleryTask(task_id=task_id,job=job)
+            celery_task.save()
+
             json_data = {
                 'task_id': task_id.task_id
 
@@ -103,6 +120,7 @@ def ansible_run(request):
         except Exception as e:
 
             return JsonResponse({'error': str(e)}, status=500)
+
 
 # 停止任务
 @login_required(login_url="/login")
@@ -117,13 +135,15 @@ def cancel_task_view(request):
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
+
 # 获取任务列表
 @login_required(login_url="/login")
 def get_task_list_api(request):
     page = request.GET.get('page', 1)
     limit = request.GET.get('limit', 5)
 
-    tasks = CeleryTask.objects.values().order_by('-created_at')  # 获取所有任务并按创建时间排序
+    # tasks = CeleryTask.objects.values().order_by('-created_at')  # 获取所有任务并按创建时间排序
+    tasks = CeleryTask.objects.select_related('job').filter(job__user=request.user).order_by('-created_at')
     paginator = Paginator(tasks, limit)
     try:
         page_tasks = paginator.page(page)
@@ -137,10 +157,15 @@ def get_task_list_api(request):
     # 遍历 tasks 中的每个元素
     for item in page_tasks:
         # 构造字典并添加到列表
+        job = item.job
+        print(item)
         data.append({
-            'task_id': item['task_id'],
-            'created_at': item['created_at'],
-            'is_used': item['is_used']
+            'job_name': job.name if job else None,
+            'job_type': job.job_type if job else None,
+            'job_id': str(job.id) if job else None,
+            'task_id': item.task_id,
+            'created_at': item.created_at,
+            'is_used': item.is_used
         })
 
     json_data = {

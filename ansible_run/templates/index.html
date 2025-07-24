@@ -42,7 +42,7 @@
 
             <div id="host_tables" class="layui-col-xs12">
                 <form class="layui-form  layui-col-space10 ">
-                    <div class="layui-col-md12">
+                    <div class="layui-col-md4">
                         <div class="layui-input-wrap">
 
                             <input type="text" name="host_search" value="" placeholder="任务名称"
@@ -226,7 +226,7 @@
                             return `
                            <button lay-event="run_jobs"  class="layui-btn layui-btn-xs" >执行</button>
                             <button lay-event="stop_jobs"  class="layui-btn layui-btn-xs layui-bg-red">停止</button>
-                            <button lay-event="logs"  class="layui-btn layui-btn-xs layui-bg-blue">查看实时日志</button>
+                            <button lay-event="logs"  class="layui-btn layui-btn-xs layui-bg-blue">实时日志</button>
 
                              <button class="layui-btn layui-btn-xs layui-bg-blue" lay-event="more">
                               更多
@@ -314,15 +314,22 @@
                 if (obj.event == 'logs') {
                     // 获取当前行的任务ID
                     job_id = obj.data.job_id
+                    console.log(obj.data.task_id)
                     // 为该任务创建唯一标识
                     var uniqueId = 'output-container-' + globalTaskId;
+                    task_id_data = JSON.stringify(
+                        {
+                            taskId: obj.data.task_id
+                        }
+                    )
 
                     layer.open({
                         type: 1,
                         offset: 'r',
                         anim: 'slideLeft',
+                        move: false,
                         area: ['620px', '100%'],
-                        title: '任务日志 - ' + obj.data.job_name,
+                        title: '任务日志 - ' + obj.data.job_name + ' <button class="layui-btn layui-btn-xs layui-bg-red" type="button" onclick="stopjob(task_id_data)">停止任务</button>',
                         content: '<pre class="layui-code code-demo" id="' + uniqueId + '">正在连接日志服务器...</pre>',
                         shadeClose: true,
                         success: function () {
@@ -353,22 +360,32 @@
                             'X-CSRFToken': csrftoken // 在这里使用获取到的token
                         },
                         success: function (res) {
+                            obj.update({
+                                task_id: res['task_id'],
+                            });
                             globalTaskId = res['task_id'];
                             job_id = obj.data.job_id
-                            console.log(job_id)
+                            console.log(obj)
                             // 初始化该任务的日志存储
                             taskLogs[job_id] = [];
-                            {#console.log(taskLogs)#}
+                            task_id_data = JSON.stringify(
+                                {
+                                    taskId: res['task_id']
+                                }
+                            )
+
+                            console.log(task_id_data)
                             {#wbsocket(res['task_id'], index)#}
                             // 立即打开日志窗口
                             var uniqueId = 'output-container-' + globalTaskId;
-                            createWebSocket(globalTaskId, job_id, uniqueId);
+                            {#createWebSocket(globalTaskId, job_id, uniqueId);#}
                             layer.open({
                                 type: 1,
                                 offset: 'r',
                                 anim: 'slideLeft',
                                 area: ['620px', '100%'],
-                                title: '任务执行中 - ' + obj.data.job_name,
+                                move: false,
+                                title: '任务日志 - ' + obj.data.job_name + ' <button class="layui-btn layui-btn-xs layui-bg-red" type="button" onclick="stopjob(task_id_data)">停止任务</button>',
                                 content: '<pre class="layui-code code-demo" id="' + uniqueId + '">正在启动任务...</pre>',
                                 shadeClose: true,
                                 success: function () {
@@ -390,23 +407,8 @@
                             taskId: globalTaskId
                         }
                     )
-                    $.ajax({
-                        url: '{% url 'ansible_run:cancel_task_api' %}',
-                        method: 'POST',
-                        contentType: 'application/json',
-                        data: data,
-                        headers: {
-                            'X-CSRFToken': csrftoken // 在这里使用获取到的token
-                        },
-                        success: function (res) {
+                    stopjob(data)
 
-
-                            globalTaskId = 'None'
-                        },
-                        error: function (xhr) {
-                            alert('提交失败：' + (xhr.responseJSON?.error || '请检查输入'));
-                        }
-                    });
                 } else if (obj.event === 'more') {
                     // 更多 - 下拉菜单
                     dropdown.render({
@@ -471,6 +473,25 @@
 
         })
 
+        function stopjob(data) {
+
+            $.ajax({
+                url: '{% url 'ansible_run:cancel_task_api' %}',
+                method: 'POST',
+                contentType: 'application/json',
+                data: data,
+                headers: {
+                    'X-CSRFToken': csrftoken // 在这里使用获取到的token
+                },
+                success: function (res) {
+
+                    globalTaskId = 'None'
+                },
+                error: function (xhr) {
+                    alert('提交失败：' + (xhr.responseJSON?.error || '请检查输入'));
+                }
+            });
+        }
 
     </script>
 {% endblock %}

@@ -1,7 +1,6 @@
-
 {% extends 'base.html' %}
 {% block title %}
-        <h2>任务日志</h2>
+    <h2>任务日志</h2>
 
 {% endblock %}
 {% block content %}
@@ -38,19 +37,37 @@
                 page: true, // 是否显示分页
                 limits: [5, 10, 50, 100, 200],
                 limit: 5,// 每页默认显示的数量
-
+                skin: 'line',
                 {#toolbar: true,#}
                 cols: [[
                     {
-                        field: 'task_id',
-                        title: '任务ID'
+                        field: 'job_name',
+                        title: '任务名称',
+                        maxWidth: 180,
+
+                    },
+
+                    {
+                        field: 'job_type',
+                        title: '任务类型',
+                        maxWidth: 100,
+
                     },
                     {
                         field: 'created_at',
-                        title: '创建时间'
+                        title: '创建时间',
+                        sort: true,
+                        maxWidth: 200,
+
+
+                    },
+                    {
+                        field: 'task_id',
+                        title: 'task_id'
                     },
                     {
                         title: "详情",
+                        maxWidth: 80,
                         templet: ' <button type="button" lay-event="details" class="layui-btn layui-btn-xs">详情</button>',
                     }
                 ]]
