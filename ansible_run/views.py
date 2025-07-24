@@ -136,7 +136,7 @@ def cancel_task_view(request):
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 
-# 获取任务列表
+# 获取任务日志
 @login_required(login_url="/login")
 def get_task_list_api(request):
     page = request.GET.get('page', 1)

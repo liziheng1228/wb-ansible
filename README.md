@@ -48,6 +48,8 @@ vi wb-ansible/ansible_run/templates/index.html
 # 启动服务
 cd wb-ansible/docker-compose
 docker-compose up
+# 执行数据迁移
+docker exec [wb-ansible容器] python manage.py migrate
 ```
 或手动构建启动
 ```bash
@@ -62,6 +64,8 @@ cd wb-ansible/
 docker run -d --name redis-container -p 6379:6379 redis
 docker run -d -p 8000:8000 -v .:/app --name wb-ansible wb-ansible
 docker run -d  -v .:/app --name celery-worker celery-worker
+# 执行数据迁移
+docker exec [wb-ansible容器] python manage.py migrate
 
 ```
 

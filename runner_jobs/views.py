@@ -38,15 +38,13 @@ def job_list(request):
     if not keyword:
         # 如果没有关键词，返回所有主机
         # hosts = Host.objects.all().values()
-        jobs = Job.objects.filter(user=request.user)
+        jobs = Job.objects.filter(user=request.user,is_deleted=False)
 
     else:
         # 使用Q对象实现多字段联合搜索
         query = Q(name__icontains=keyword)
 
-        # jobs = Job.objects.filter(query, user=request.user)
-
-        jobs = Job.objects.filter(query,user=request.user).prefetch_related('inventory').order_by('-created_at')
+        jobs = Job.objects.filter(query,user=request.user,is_deleted=False).prefetch_related('inventory').order_by('-created_at')
 
     paginator = Paginator(jobs, limit)
     try:
@@ -199,10 +197,12 @@ def job_create(request):
 @csrf_exempt
 @login_required(login_url="/login")
 def job_delete(request, job_id):
-    job = get_object_or_404(Job, id=job_id)
+    job = get_object_or_404(Job, id=job_id,is_deleted=False)
 
     if request.method == 'DELETE':
-        job.delete()
+        # 伪删除
+        job.is_deleted = True
+        job.save()
         return JsonResponse({'status': 'deleted'})
 
     return JsonResponse({'error': 'Invalid request method.'}, status=405)
@@ -237,6 +237,7 @@ def batch_delete(request):
         # 获取当前用户有权删除的任务
         jobs = Job.objects.filter(
             id__in=job_ids,
+            is_deleted=False,
             user=request.user  # 确保用户只能删除自己的任务
         )
 
@@ -250,8 +251,9 @@ def batch_delete(request):
                 'status': 'error',
                 'message': '没有找到符合条件的任务'
             })
-        # 执行批量删除
-        jobs.delete()
+
+        # 执行批量伪删除
+        jobs.update(is_deleted=True)
         # 返回成功响应
         return JsonResponse({
             'status': 'success',
