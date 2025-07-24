@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Ansible Playbook Runner</title>
     <!-- 引入 jQuery -->
-     <link href="{% static 'layui.css' %}" rel="stylesheet">
+    <link href="{% static 'layui.css' %}" rel="stylesheet">
     <script src="{% static 'layui.js' %}"></script>
     <script src="{% static 'jquery-3.6.0.min.js' %}"></script
 </head>
@@ -27,6 +27,8 @@
                 <pre id="stderr"></pre>
                 <h3>返回码 (RC): <span id="rc"></span></h3>
             </div>
+
+
         </div>
     </div>
 
@@ -34,61 +36,73 @@
 
 
 <script>
-    $(document).ready(function () {
-        let csrftoken = null;
-        $.get('/get_csrf_token/', function (data) {
-            csrftoken = data.csrfToken;
+
+    layui.use(function () {
+        // code
+        layui.code({
+            langMarker: true,
+            header: true,
+            lang: 'bash',
+            elem: '.code-demo',
         });
-        // 自动获取任务ID
+    });
 
-        const taskId = "{{ task_id }}";
-        console.log(taskId)
-        $('#task-id').text(taskId || '未获取到任务ID');
+    $(document).ready(function () {
+            let csrftoken = null;
+            $.get('/get_csrf_token/', function (data) {
+                csrftoken = data.csrfToken;
+            });
+// 自动获取任务ID
 
-        // 检查任务状态
-        function checkStatus() {
-            $('#loading').show();
-            {#$('#check-status').prop('disabled', true);#}
-            $('#error-message').hide();
+            const taskId = "{{ task_id }}";
+            console.log(taskId)
+            $('#task-id').text(taskId || '未获取到任务ID');
 
-            $.ajax({
-                url: `/get_result/${taskId}`,
-                method: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data.status)
-                    if (data.status === 'pending') {
-                        $('#error-message').html('任务仍在执行中...').show();
-                        return;
+// 检查任务状态
+            function checkStatus() {
+                $('#loading').show();
+                {#$('#check-status').prop('disabled', true);#}
+                $('#error-message').hide();
+
+                $.ajax({
+                    url: `/get_result/${taskId}`,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        {#console.log(data)#}
+                        if (data.status === 'pending') {
+                            $('#error-message').html('任务仍在执行中...').show();
+                            return;
+                        }
+
+// 更新输出内容
+                        rc = data.rc + "";
+                        console.log()
+                        $('#stdout').text(data.stdout || '(无输出)');
+                        $('#stderr').text(data.stderr || '(无错误)');
+                        $('#rc').text(rc || '未返回');
+
+
                     }
-
-                    // 更新输出内容
-                    $('#stdout').text(data.stdout || '(无输出)');
-                    $('#stderr').text(data.stderr || '(无错误)');
-                    $('#rc').text(data.rc || '未返回');
-
-
-                    }
-                ,
+                    ,
                     error: function (jqXHR, textStatus, errorThrown) {
                         $('#error-message').html(`请求失败: ${textStatus}`).show();
                     }
-                ,
+                    ,
                     complete: function () {
                         $('#loading').hide();
                         {#$('#check-status').prop('disabled', false);#}
                     }
                 });
-        }
+            }
 
-            // 初始检查
+// 初始检查
             checkStatus();
-            // 每5秒自动刷新
+// 每5秒自动刷新
             setInterval(checkStatus, 5000);
         }
-
     )
-        ;
+    ;
 </script>
 </body>
 </html>
