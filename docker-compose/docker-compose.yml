@@ -1,10 +1,8 @@
-version: '1.0'    #表示该 Docker-Compose 文件使用的是 Version 2 file
 services:
-
   wb-ansible:           # 指定服务名称
     build: ./django    #指定Dockerfile所在路径
     volumes:                  # 挂载目录
-      - ./wb-ansible:/app
+      - ../../wb-ansible/:/app
     environment:                     #定义环境变量
       - TZ=Asia/Shanghai             #指定时区
     
@@ -14,7 +12,7 @@ services:
   celery-worker:   # 指定服务名称
     build: ./worker    #指定 Dockerfile所在路径
     volumes:                  # 挂载目录
-      - ./wb-ansible:/app
+      - ../../wb-ansible/:/app
     environment:
       - TZ=Asia/Shanghai
   redis:

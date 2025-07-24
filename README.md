@@ -20,8 +20,30 @@ Ansible Web管理面板
 - 主机密码加密存储，提高安全性
 - 任务日志：记录任务执行结果
 
-### 快速体验 安装教程
+### docker快速体验
+```bash
+git clone https://gitee.com/hengjiui/wb-ansible.git
+cd wb-ansible/docker-compose
+docker-compose up
+```
+或
+```bash
+git clone https://gitee.com/hengjiui/wb-ansible.git
 
+cd wb-ansible/docker-compose/django
+docker build -t wb-ansible .
+
+cd wb-ansible/docker-compose/worker
+docker build -t celery-worker .
+
+cd wb-ansible/
+docker run -d --name redis-container -p 6379:6379 redis
+docker run -d -p 8000:8000 -v .:/app --name wb-ansible wb-ansible
+docker run -d  -v .:/app --name celery-worker celery-worker
+
+```
+
+### 安装流程
 1. 安装Redis7、python3.11 
 2. 安装依赖 pip3 install --no-cache-dir -r requirements.txt 
 3. 进入项目目录 wb-ansible/ 
