@@ -22,13 +22,35 @@ Ansible Web管理面板
 
 ### docker快速体验
 ```bash
+
+
 git clone https://gitee.com/hengjiui/wb-ansible.git
+# 修改Celery Redis地址 
+vi wb-ansible/mycelery/config.py 
+BROKER_URL = 'redis://ip:6379/1'
+CELERY_RESULT_BACKEND = 'redis://ip:6379/2'
+# 修改 channels通道储存地址 CHANNEL_LAYERS
+# 通道存储设置
+vi wb-ansible/project/settings.py
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('192.168.56.140', 6379)],
+        },
+    }
+}
+# 修改前端绑定socket地址
+vi wb-ansible/ansible_run/templates/index.html 
+    // 建立WebSocket连接
+    const socket = new WebSocket("ws://IP地址:8000/ws/task/" + task_id);
+
+# 启动服务
 cd wb-ansible/docker-compose
 docker-compose up
 ```
-或
+或手动构建启动
 ```bash
-git clone https://gitee.com/hengjiui/wb-ansible.git
 
 cd wb-ansible/docker-compose/django
 docker build -t wb-ansible .
